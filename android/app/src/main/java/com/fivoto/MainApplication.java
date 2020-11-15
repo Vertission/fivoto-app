@@ -1,6 +1,6 @@
-package com.fivoto;
+package com.vertission.fivoto;
 
-import com.fivoto.generated.BasePackageList; // unimodules
+import com.vertission.fivoto.generated.BasePackageList; // unimodules
 
 import android.app.Application;
 import android.content.Context;
@@ -79,7 +79,7 @@ public class MainApplication extends Application implements ReactApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("com.fivoto.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.vertission.fivoto.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);

@@ -1,4 +1,4 @@
-package com.fivoto.generated;
+package com.vertission.fivoto.generated;
 
 import java.util.Arrays;
 import java.util.List;
