@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Text} from 'react-native';
+import React, { useEffect } from 'react';
+import { Text } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 
 function App() {
@@ -9,11 +9,11 @@ function App() {
     };
 
     init().finally(async () => {
-      await RNBootSplash.hide({duration: 250});
+      await RNBootSplash.hide({ duration: 250 });
     });
   }, []);
 
-  return <Text style={{fontFamily: 'bold'}}>My awesome app</Text>;
+  return <Text style={{ fontFamily: 'bold' }}>My awesome app</Text>;
 }
 
 export default App;
