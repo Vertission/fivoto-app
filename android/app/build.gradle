@@ -1,4 +1,6 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services' // firebase
+apply plugin: 'com.google.firebase.crashlytics' // crashlytics
 
 import com.android.build.OutputFile
 

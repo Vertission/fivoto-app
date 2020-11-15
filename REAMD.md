@@ -2,6 +2,7 @@
 
 - setup react navigation
 - setup react-native-bootsplash
+- firebase
 
 ### NEXT version config
 
@@ -10,3 +11,5 @@
 #### Android inner setup
 
 - react-native-bootsplash as react-native-bootsplash
+- @react-native-firebase/app as firebase
+- @react-native-firebase/crashlytics as crashlytics
