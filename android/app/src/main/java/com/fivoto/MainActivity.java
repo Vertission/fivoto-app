@@ -1,4 +1,4 @@
-package com.fivoto;
+package com.vertission.fivoto;
 
 import android.os.Bundle; // react-native-bootsplash
 import com.facebook.react.ReactActivity;
