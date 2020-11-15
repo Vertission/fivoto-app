@@ -3,6 +3,8 @@ import { Text } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { RootSiblingParent } from 'react-native-root-siblings';
 
+import {} from '@env';
+
 function App() {
   useEffect(() => {
     const init = async () => {

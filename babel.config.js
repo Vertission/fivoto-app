@@ -1,12 +1,13 @@
 module.exports = function (api) {
+  const presets = ['module:metro-react-native-babel-preset'];
+  const plugins = [['module:react-native-dotenv']];
+
   if (api.env('production')) {
-    return {
-      presets: ['module:metro-react-native-babel-preset'],
-      plugins: ['transform-remove-console'],
-    };
+    plugins.push('module:metro-react-native-babel-preset');
   }
 
   return {
-    presets: ['module:metro-react-native-babel-preset'],
+    presets,
+    plugins,
   };
 };
