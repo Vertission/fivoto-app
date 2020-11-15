@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Text } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 function App() {
   useEffect(() => {
@@ -17,5 +18,9 @@ function App() {
 }
 
 export default function () {
-  return <App />;
+  return (
+    <RootSiblingParent>
+      <App />
+    </RootSiblingParent>
+  );
 }
