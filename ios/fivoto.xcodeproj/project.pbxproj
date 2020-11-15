@@ -20,6 +20,7 @@
 		57ECD6C1B0E0403B8B38D2DB /* boldX.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41C78F5A92034A3282423D3F /* boldX.ttf */; };
 		99E9C3456B60471FAF8B28D7 /* medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2C68AB4974A88894763DE /* medium.ttf */; };
 		4405481F53B54A158F39A023 /* thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B8A861A9D1B4B05B4AD9BAD /* thin.ttf */; };
+		0DA0FE4BE9014B1F96AC3A78 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F963F9500224CB8AE4D7F94 /* Ionicons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		41C78F5A92034A3282423D3F /* boldX.ttf */ = {isa = PBXFileReference; name = "boldX.ttf"; path = "../assets/fonts/boldX.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		9EE2C68AB4974A88894763DE /* medium.ttf */ = {isa = PBXFileReference; name = "medium.ttf"; path = "../assets/fonts/medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		8B8A861A9D1B4B05B4AD9BAD /* thin.ttf */ = {isa = PBXFileReference; name = "thin.ttf"; path = "../assets/fonts/thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2F963F9500224CB8AE4D7F94 /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				41C78F5A92034A3282423D3F /* boldX.ttf */,
 				9EE2C68AB4974A88894763DE /* medium.ttf */,
 				8B8A861A9D1B4B05B4AD9BAD /* thin.ttf */,
+				2F963F9500224CB8AE4D7F94 /* Ionicons.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				57ECD6C1B0E0403B8B38D2DB /* boldX.ttf in Resources */,
 				99E9C3456B60471FAF8B28D7 /* medium.ttf in Resources */,
 				4405481F53B54A158F39A023 /* thin.ttf in Resources */,
+				0DA0FE4BE9014B1F96AC3A78 /* Ionicons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
