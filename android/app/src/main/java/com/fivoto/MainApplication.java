@@ -1,5 +1,7 @@
 package com.fivoto;
 
+import com.fivoto.generated.BasePackageList; // unimodules
+
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -11,7 +13,14 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import java.util.Arrays;  // unimodules
+import org.unimodules.adapters.react.ModuleRegistryAdapter;  // unimodules
+import org.unimodules.adapters.react.ReactModuleRegistryProvider;  // unimodules
+import org.unimodules.core.interfaces.SingletonModule;  // unimodules
+
 public class MainApplication extends Application implements ReactApplication {
+
+  private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null); // unimodules
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -26,6 +35,14 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          
+           // unimodules
+          List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
+            new ModuleRegistryAdapter(mModuleRegistryProvider)
+          );
+          packages.addAll(unimodules);
+           // unimodules
+
           return packages;
         }
 
