@@ -15,3 +15,17 @@
 - @react-native-firebase/app as firebase
 - @react-native-firebase/crashlytics as crashlytics
 - react-native-unimodules as unimodules
+
+## DEVELOP PROCESS
+
+### Commit message
+
+#### Types
+
+- setup: setting up some thing
+- ui: user interface changes
+
+#### Tags
+
+- -and: Android related change only
+- -ios: Ios related change only
