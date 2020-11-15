@@ -6,11 +6,13 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 function App() {
   useEffect(() => {
     const init = async () => {
+      console.log('AB');
       // …do multiple sync or async tasks
     };
 
     init().finally(async () => {
-      await RNBootSplash.hide({ duration: 250 });
+      await RNBootSplash.hide({ fade: true });
+      console.log('AB');
     });
   }, []);
 

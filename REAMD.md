@@ -24,6 +24,7 @@
 
 - setup: setting up some thing
 - ui: user interface changes
+- checkFix - checking if this is a fix for the bug, if(pass) null else revert checkFix commit
 
 #### Tags
 
