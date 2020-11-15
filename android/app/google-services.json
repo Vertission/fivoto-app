@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "612231007245",
+    "firebase_url": "https://fivoto-3c5f8.firebaseio.com",
+    "project_id": "fivoto-3c5f8",
+    "storage_bucket": "fivoto-3c5f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612231007245:android:20f9be4cd97dc86cd65944",
+        "android_client_info": {
+          "package_name": "com.fivoto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612231007245-hrost9hi90a64j9vdobjniif1246lh8i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fivoto",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "612231007245-shbjib94nhmi4vncv4g43qv1eqnh2mi5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSkGK3wNloGGvy7M3T4TerI6rTdQcgpiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612231007245-shbjib94nhmi4vncv4g43qv1eqnh2mi5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
