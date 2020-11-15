@@ -12,9 +12,9 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm install
+      - name: Run tests
         run: |
           npm test
-     - name: Run tests
 
     # Second Job
   build-android:
