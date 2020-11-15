@@ -16,6 +16,10 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* fivotoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* fivotoTests.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		1668E864462048358EE77ACB /* bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9A736F5FAAD4D389E661F21 /* bold.ttf */; };
+		57ECD6C1B0E0403B8B38D2DB /* boldX.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41C78F5A92034A3282423D3F /* boldX.ttf */; };
+		99E9C3456B60471FAF8B28D7 /* medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EE2C68AB4974A88894763DE /* medium.ttf */; };
+		4405481F53B54A158F39A023 /* thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8B8A861A9D1B4B05B4AD9BAD /* thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = fivoto/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		E9A736F5FAAD4D389E661F21 /* bold.ttf */ = {isa = PBXFileReference; name = "bold.ttf"; path = "../assets/fonts/bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		41C78F5A92034A3282423D3F /* boldX.ttf */ = {isa = PBXFileReference; name = "boldX.ttf"; path = "../assets/fonts/boldX.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9EE2C68AB4974A88894763DE /* medium.ttf */ = {isa = PBXFileReference; name = "medium.ttf"; path = "../assets/fonts/medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8B8A861A9D1B4B05B4AD9BAD /* thin.ttf */ = {isa = PBXFileReference; name = "thin.ttf"; path = "../assets/fonts/thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +148,7 @@
 				00E356EF1AD99517003FC87E /* fivotoTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				36A54BB7C0444A44BB3E520B /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -156,6 +165,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		36A54BB7C0444A44BB3E520B /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				E9A736F5FAAD4D389E661F21 /* bold.ttf */,
+				41C78F5A92034A3282423D3F /* boldX.ttf */,
+				9EE2C68AB4974A88894763DE /* medium.ttf */,
+				8B8A861A9D1B4B05B4AD9BAD /* thin.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -295,6 +316,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				1668E864462048358EE77ACB /* bold.ttf in Resources */,
+				57ECD6C1B0E0403B8B38D2DB /* boldX.ttf in Resources */,
+				99E9C3456B60471FAF8B28D7 /* medium.ttf in Resources */,
+				4405481F53B54A158F39A023 /* thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

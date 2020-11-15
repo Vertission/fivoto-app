@@ -13,7 +13,7 @@ function App() {
     });
   }, []);
 
-  return <Text>My awesome app</Text>;
+  return <Text style={{fontFamily: 'bold'}}>My awesome app</Text>;
 }
 
 export default App;
