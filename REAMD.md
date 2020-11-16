@@ -5,9 +5,10 @@
 - firebase, crashlytics
 - react-native-unimodules
 
-### NEXT version config
+### NEXT version
 
 - Adding deep linking | [config react-native-bootsplash](https://github.com/zoontek/react-native-bootsplash#handle-deep-linking-on-android)
+- Add sentry bread crumps
 
 #### Android inner setup
 
@@ -21,6 +22,18 @@
 - Use your set component perf methods
 
 ## DEVELOP PROCESS
+
+### Software Environments
+
+- development
+- staging
+- production
+
+### Software Stages
+
+- Alpha: staged version
+- Beta:
+- Stable:
 
 ### Commit message
 
