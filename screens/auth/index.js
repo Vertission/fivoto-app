@@ -14,7 +14,7 @@ export default function Auth({ navigation }) {
       <Typography
         align="center"
         variant="h1"
-        family="xbold"
+        family="boldX"
         style={s.fivoto}
         color={COLOR.WHITE}>
         FIVOTO

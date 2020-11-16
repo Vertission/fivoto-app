@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import CustomDrawer from '../../components/home/module/drawer';
-import HomeScreen from '../../components/home';
-import BugReportScreen from '../../components/home/bugReport';
-import FeatureRequestScreen from '../../components/home/featureRequest';
-import ContactUsScreen from '../../components/home/contactUs';
-import FAQScreen from '../../components/home/faq';
-import ReportIssueScreen from '../../components/home/reportIssue';
+import CustomDrawer from '../../screens/home/module/drawer';
+import HomeScreen from '../../screens/home';
+import BugReportScreen from '../../screens/home/bugReport';
+import FeatureRequestScreen from '../../screens/home/featureRequest';
+import ContactUsScreen from '../../screens/home/contactUs';
+import FAQScreen from '../../screens/home/faq';
+import ReportIssueScreen from '../../screens/home/reportIssue';
 
 const Drawer = createDrawerNavigator();
 

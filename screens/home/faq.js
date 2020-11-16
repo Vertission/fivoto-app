@@ -12,8 +12,8 @@ import {
   Modal,
   Icon,
   Typography,
-} from '../../../library';
-import { SIZE } from '../../../library/Theme';
+} from '../../library';
+import { SIZE } from '../../library/Theme';
 
 export default function FeatureRequest({ navigation }) {
   const [question, setQuestion] = useState(null);

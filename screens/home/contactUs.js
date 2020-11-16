@@ -13,8 +13,8 @@ import {
   Header,
   Modal,
   Icon,
-} from '../../../library';
-import { SIZE, COLOR } from '../../../library/Theme';
+} from '../../library';
+import { SIZE, COLOR } from '../../library/Theme';
 
 export default function FeatureRequest({ navigation }) {
   const { control, handleSubmit, errors } = useForm({

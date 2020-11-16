@@ -14,8 +14,8 @@ import {
   Modal,
   Header,
   Icon,
-} from '../../../library';
-import { COLOR, SIZE } from '../../../library/Theme';
+} from '../../library';
+import { COLOR, SIZE } from '../../library/Theme';
 
 export default function ReportIssue({ navigation, route }) {
   const [loading, setLoading] = useState(false);

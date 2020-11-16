@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { enableScreens } from 'react-native-screens';
 import analytics from '@react-native-firebase/analytics';
 
-// import Home from './tabs/home';
+import Home from './tabs/home';
 // import Search from './tabs/search';
 // import Post from './tabs/post';
 import Account from './tabs/account';
@@ -44,7 +44,7 @@ export default function Navigation() {
 function TabNavigation() {
   return (
     <Tab.Navigator
-      initialRouteName="Account"
+      initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: COLOR.PRIMARY,
         showLabel: false,
@@ -55,7 +55,7 @@ function TabNavigation() {
         },
         keyboardHidesTabBar: true,
       }}>
-      {/* <Tab.Screen
+      <Tab.Screen
         name="Home"
         component={Home}
         options={{
@@ -64,7 +64,7 @@ function TabNavigation() {
           ),
         }}
       />
-      <Tab.Screen
+      {/*     <Tab.Screen
         name="Search"
         component={Search}
         options={{

@@ -1,12 +1,15 @@
 import React from 'react';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { View, StyleSheet, Linking } from 'react-native';
 
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 
-import { Icon, Drawer } from '../../../../library';
-import { SIZE } from '../../../../library/Theme';
+import { Icon, Drawer } from '../../../library';
+import { SIZE } from '../../../library/Theme';
 
 export default function DrawerComponent(props) {
+  const routeName = getFocusedRouteNameFromRoute(props.route) ?? 'Home';
+
   return (
     <View style={s.root}>
       <DrawerContentScrollView showsVerticalScrollIndicator={false} {...props}>
@@ -14,7 +17,7 @@ export default function DrawerComponent(props) {
 
         <Drawer.Item
           icon="home"
-          selected={props.state.index === 0}
+          selected={routeName === 'Home'}
           onPress={() => props.navigation.navigate('Home')}>
           Home
         </Drawer.Item>
@@ -38,13 +41,13 @@ export default function DrawerComponent(props) {
         <Drawer.Title>help & support</Drawer.Title>
         <Drawer.Item
           icon="chatboxes"
-          selected={props.state.index === 1}
+          selected={routeName === 'FAQ'}
           onPress={() => props.navigation.navigate('FAQ')}>
           FAQ
         </Drawer.Item>
         <Drawer.Item
           icon="contacts"
-          selected={props.state.index === 2}
+          selected={routeName === 'ContactUs'}
           onPress={() => props.navigation.navigate('ContactUs')}>
           Contact Us
         </Drawer.Item>
@@ -53,22 +56,17 @@ export default function DrawerComponent(props) {
         <Drawer.Title>feedback</Drawer.Title>
         <Drawer.Item
           icon="bulb"
-          selected={props.state.index === 3}
+          selected={routeName === 'FeatureRequest'}
           onPress={() => props.navigation.navigate('FeatureRequest')}>
           Feature Request
         </Drawer.Item>
         <Drawer.Item
           icon="bug"
-          selected={props.state.index === 4}
+          selected={routeName === 'BugReport'}
           onPress={() => props.navigation.navigate('BugReport')}>
           Bug Report
         </Drawer.Item>
-        <Drawer.Item
-          icon="logo-android"
-          selected={props.state.index === 5}
-          onPress={() => props.navigation.navigate('BugReport')}>
-          Rate Us On Play Store
-        </Drawer.Item>
+        <Drawer.Item icon="logo-android">Rate Us On Play Store</Drawer.Item>
 
         {/* SOCIAL MEDIA  */}
         <Drawer.Title>social medias</Drawer.Title>

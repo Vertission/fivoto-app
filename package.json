@@ -29,6 +29,8 @@
     "@sentry/react-native": "^2.0.0",
     "amazon-cognito-identity-js": "^4.5.4",
     "aws-amplify": "^3.3.8",
+    "expo-image-picker": "^9.1.1",
+    "expo-mail-composer": "^8.4.0",
     "lodash": "^4.17.20",
     "react": "16.13.1",
     "react-hook-form": "^6.11.2",

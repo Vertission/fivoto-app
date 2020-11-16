@@ -15,12 +15,12 @@ import {
   Button,
   Toast,
   Indicator,
-} from '../../../library';
-import { SIZE, COLOR } from '../../../library/Theme';
+} from '../../library';
+import { SIZE, COLOR } from '../../library/Theme';
 
-import { useQueryCategories } from '../../../api/utils/read';
+import { useQueryCategories } from '../../setup/apollo/query/utils';
 
-import ApolloError from '../../shared/apolloError';
+import ApolloErrorHandler from '../../setup/apollo/errorHandler';
 
 export default function Home({ navigation }) {
   const [categories, { loading, error, refetch }] = useQueryCategories();
@@ -57,7 +57,7 @@ export default function Home({ navigation }) {
     return (
       <React.Fragment>
         {HomeHeader}
-        <ApolloError error={error} refetch={refetch} />
+        <ApolloErrorHandler error={error} refetch={refetch} />
       </React.Fragment>
     );
   return (

@@ -1,22 +1,42 @@
 import React, { useEffect } from 'react';
-import HomeScreen from '../screens/home.screen';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+import CustomDrawer from '../../screens/home/module/drawer';
+import HomeScreen from '../../screens/home';
+import BugReportScreen from '../../screens/home/bugReport';
+import FeatureRequestScreen from '../../screens/home/featureRequest';
+import ContactUsScreen from '../../screens/home/contactUs';
+import FAQScreen from '../../screens/home/faq';
+import ReportIssueScreen from '../../screens/home/reportIssue';
 
 export default function Home({ navigation, route }) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+
   useEffect(() => {
-    if (route.state?.index) {
-      navigation.setOptions({
-        tabBarVisible: false,
-      });
-    } else {
-      navigation.setOptions({
-        tabBarVisible: true,
-      });
-    }
+    navigation.setOptions({
+      tabBarVisible: ['Home'].includes(routeName),
+    });
+  }, [navigation, routeName]);
 
-    return navigation.setOptions({});
-    // disabled this line else "TypeError: undefined is not an object (evaluating 'route.state.index')"
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigation, route.state?.index]);
+  return <HomeDrawer route={route} />;
+}
 
-  return <HomeScreen />;
+const Drawer = createDrawerNavigator();
+
+function HomeDrawer({ route }) {
+  return (
+    <Drawer.Navigator
+      headerMode="none"
+      initialRouteName="Home"
+      drawerType="slide"
+      drawerContent={(props) => <CustomDrawer {...props} route={route} />}>
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="FAQ" component={FAQScreen} />
+      <Drawer.Screen name="ContactUs" component={ContactUsScreen} />
+      <Drawer.Screen name="FeatureRequest" component={FeatureRequestScreen} />
+      <Drawer.Screen name="BugReport" component={BugReportScreen} />
+      <Drawer.Screen name="ReportIssue" component={ReportIssueScreen} />
+    </Drawer.Navigator>
+  );
 }

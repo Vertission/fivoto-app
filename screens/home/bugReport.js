@@ -18,10 +18,10 @@ import {
   Snackbar,
   Modal,
   Icon,
-} from '../../../library';
-import { SIZE, COLOR } from '../../../library/Theme';
+} from '../../library';
+import { SIZE, COLOR } from '../../library/Theme';
 
-import uploadPhotos from '../../../setup/firebase/storage/uploadPhotos';
+import uploadPhotos from '../../setup/firebase/storage/uploadPhotos';
 
 export default function BugReport({ navigation }) {
   const [loading, setLoading] = useState(false);
