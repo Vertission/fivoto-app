@@ -16,6 +16,10 @@
 - @react-native-firebase/crashlytics as crashlytics
 - react-native-unimodules as unimodules
 
+### Pre production configs
+
+- Use your set component perf methods
+
 ## DEVELOP PROCESS
 
 ### Commit message
@@ -26,7 +30,7 @@
 - ui: user interface changes
 - checkFix - checking if this is a fix for the bug, if(pass) null else revert checkFix commit
 
-#### Tags
+#### Flags
 
 - -and: Android related change only
 - -ios: Ios related change only

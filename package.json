@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "and-clean": "cd android && ./gradlew clean && cd .."
   },
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.5",
@@ -19,6 +20,7 @@
     "@react-navigation/drawer": "^5.11.2",
     "@react-navigation/native": "^5.8.9",
     "@react-navigation/stack": "^5.12.6",
+    "@sentry/react-native": "^2.0.0",
     "react": "16.13.1",
     "react-native": "0.63.3",
     "react-native-bootsplash": "^3.0.1",
