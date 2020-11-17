@@ -29,6 +29,5 @@ Sentry.init({
   environment: process.env.NODE_ENV,
   enableAutoSessionTracking: true,
   release: version,
-  dist: 5,
   debug: true,
 });
