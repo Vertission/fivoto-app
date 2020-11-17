@@ -18,7 +18,6 @@ import { Toast } from '../../library';
 
 import signOut from '../../utils/signOut';
 
-console.log(APOLLO_HOST);
 const httpLink = createHttpLink({
   uri: APOLLO_HOST,
 });

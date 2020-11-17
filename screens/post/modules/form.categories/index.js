@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react';
 import { View } from 'react-native';
 import NumberFormat from 'react-number-format';
 
-import { Input } from '../../../../../library';
+import { Input } from '../../../../library';
 
 import { SIZE } from './style';
 import { Context, dispatch } from '../context';

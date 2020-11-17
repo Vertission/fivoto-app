@@ -7,30 +7,22 @@ import {
   TouchableNativeFeedback,
   RefreshControl,
 } from 'react-native';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import { format } from 'timeago.js';
 import { Modalize } from 'react-native-modalize';
 import _ from 'lodash';
-import { Typography, Image, Carousel, Indicator } from '../../../library';
-import { SIZE, COLOR } from '../../../library/Theme';
+import { Typography, Image, Carousel, Indicator } from '../../library';
+import { SIZE, COLOR } from '../../library/Theme';
 
 import { Context, dispatch } from './modules/context';
 
 import Header from './modules/header.index';
 
-import ApolloError from '../../shared/apolloError';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Search() {
-  ////////////////////////////////////
-  const { setTabBarVisible } = useContext(
-    require('../../navigation/tabs/search').TabBarVisibleContext,
-  );
-  useFocusEffect(
-    React.useCallback(() => setTabBarVisible(true), [setTabBarVisible]),
-  );
-  ////////////////////////////////////
   const [search, setSearch] = useState(null);
 
   const { query, category, location, limit } = useContext(Context);
@@ -75,7 +67,7 @@ export default function Search() {
     return (
       <React.Fragment>
         <Header disabled={error} />
-        <ApolloError refetch={_onErrorRefetch} error={error} />
+        <ApolloScreenErrorHandler refetch={_onErrorRefetch} error={error} />
       </React.Fragment>
     );
   else if (!loading && _.isEmpty(data?.search))

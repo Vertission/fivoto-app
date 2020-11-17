@@ -6,7 +6,7 @@ import * as Sentry from '@sentry/react-native';
 
 import { Snackbar } from '../../../library';
 
-import handleApolloError from '../errorHandler';
+import ApolloModalErrorHandler from '../errorHandler/modal';
 
 const DELETE_AD = gql`
   mutation deleteAd($id: ID!) {
@@ -22,7 +22,7 @@ export function useDeleteAd(REFETCH_QUERY) {
 
   const [mutate, { loading, client }] = useMutation(DELETE_AD, {
     onError(error) {
-      handleApolloError(
+      ApolloModalErrorHandler(
         error,
         { id: deleteId },
         'deleting your ad',

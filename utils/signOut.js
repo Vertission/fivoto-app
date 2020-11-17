@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
 import SyncStorage from 'sync-storage';
-import { client } from '../setup/apollo';
+import { client } from '../service/apollo';
 
 export default function singOut() {
   Auth.signOut();

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { SIZE, COLOR } from '../../../../../library/Theme';
+import { SIZE, COLOR } from '../../../../library/Theme';
 
 const styles = StyleSheet.create({
   inputStyle: {

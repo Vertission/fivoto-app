@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { Icon, Header, Typography, Button } from '../../../../../library';
-import { SIZE } from '../../../../../library/Theme';
+import { Icon, Header, Typography, Button } from '../../../../library';
+import { SIZE } from '../../../../library/Theme';
 
 import { dispatch } from '../context';
 

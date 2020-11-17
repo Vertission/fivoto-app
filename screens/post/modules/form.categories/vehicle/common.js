@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import { Context, dispatch } from '../../context';
 
-import { Input, Picker } from '../../../../../../library';
+import { Input, Picker } from '../../../../../library';
 
 import { styles } from '../style';
 

@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { Context, dispatch } from '../../context';
 
-import { Input, Typography, Picker } from '../../../../../../library';
+import { Input, Typography, Picker } from '../../../../../library';
 
 export function Furnishing() {
   const { fields } = useContext(Context);

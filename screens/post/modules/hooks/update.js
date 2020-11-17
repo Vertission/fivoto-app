@@ -7,13 +7,13 @@ import analytics from '@react-native-firebase/analytics';
 import * as Sentry from '@sentry/react-native';
 import _ from 'lodash';
 
-import uploadPhotos from '../../../../../api/ad/uploadPhotos';
+import uploadPhotos from '../../../../service/amplify/storage/uploadAdPhotos';
 
 import { dispatch, Context } from '../context';
 
 import MutationSuccess from '../mutationSuccess';
 
-import handleApolloError from '../../../../../setup/apollo/handleError';
+import ApolloModalErrorHandler from '../../../../service/apollo/errorHandler/modal';
 
 const UPDATE_AD = gql`
   mutation updateAd($data: updateAdInput!) {
@@ -48,7 +48,7 @@ export default function useUpdateMutation(navigation) {
 
   const [mutateUpdateAd, mutationResponse] = useMutation(UPDATE_AD, {
     onError(error) {
-      handleApolloError(error, logData, 'updating your ad', navigation);
+      ApolloModalErrorHandler(error, logData, 'updating your ad', navigation);
 
       Sentry.withScope(function (scope) {
         scope.setTag('func', 'usePublishMutation:mutateUpdateAd');

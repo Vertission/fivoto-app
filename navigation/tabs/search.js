@@ -1,20 +1,37 @@
-import React, { createContext, useEffect, useState } from 'react';
-import SearchScreen from '../screens/search.screen';
+import React, { useEffect } from 'react';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export const TabBarVisibleContext = createContext(null);
+import SearchScreen from '../../screens/search';
+import CategoryScreen from '../../screens/search/category';
+import LocationScreen from '../../screens/search/location';
+import AdScreen from '../../screens/search/ad';
 
-export default function Post({ navigation }) {
-  const [tabBarVisible, setTabBarVisible] = useState(true);
+import { Provider } from '../../screens/search/modules/context';
+
+const Stack = createStackNavigator();
+
+export default function Search({ navigation, route }) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Search';
 
   useEffect(() => {
     navigation.setOptions({
-      tabBarVisible: tabBarVisible,
+      tabBarVisible: ['Search'].includes(routeName),
     });
-  }, [navigation, tabBarVisible]);
+  }, [navigation, routeName]);
 
+  return <SearchStack />;
+}
+
+function SearchStack() {
   return (
-    <TabBarVisibleContext.Provider value={{ setTabBarVisible }}>
-      <SearchScreen />
-    </TabBarVisibleContext.Provider>
+    <Provider>
+      <Stack.Navigator headerMode="none" initialRouteName="Search">
+        <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Category" component={CategoryScreen} />
+        <Stack.Screen name="Location" component={LocationScreen} />
+        <Stack.Screen name="Ad" component={AdScreen} />
+      </Stack.Navigator>
+    </Provider>
   );
 }

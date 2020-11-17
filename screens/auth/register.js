@@ -15,7 +15,7 @@ import { SIZE, COLOR } from '../../library/Theme';
 
 import rules from '../../utils/rules';
 
-import { useSignUp } from '../../setup/amplify/auth/index';
+import { useSignUp } from '../../service/amplify/auth/index';
 
 export default function ({ navigation }) {
   const [signUp, { loading }] = useSignUp();

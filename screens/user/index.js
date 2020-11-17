@@ -13,11 +13,12 @@ import {
 } from '../../library';
 import { COLOR, SIZE } from '../../library/Theme';
 
-import { useSignOut } from '../../setup/amplify/auth';
-import { useQueryMe } from '../../setup/apollo/query/user';
+import { useSignOut } from '../../service/amplify/auth';
+import { useQueryMe } from '../../service/apollo/query/user';
 
-import ApolloError from '../../shared/netWorkModal';
 import VerificationRequired from './modules/verificationRequired';
+
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function User({ navigation, route }) {
   const signOutRef = useRef(null);
@@ -78,7 +79,7 @@ export default function User({ navigation, route }) {
     return (
       <React.Fragment>
         {ComponentHeader}
-        <ApolloError refetch={refetch} error={error} />
+        <ApolloScreenErrorHandler refetch={refetch} error={error} />
         <Sheet modalizeRef={signOutRef} actions={signOutSheetAction} />
       </React.Fragment>
     );

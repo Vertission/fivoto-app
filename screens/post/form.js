@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, Linking } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import { Permissions } from 'react-native-unimodules';
 import _ from 'lodash';
 
@@ -15,10 +14,10 @@ import {
   Toast,
   Button,
   Header,
-} from '../../../library';
-import { COLOR, SIZE } from '../../../library/Theme';
+} from '../../library';
+import { COLOR, SIZE } from '../../library/Theme';
 
-import { Context, dispatch } from './modules/context';
+import { Context } from './modules/context';
 
 import SortPhotos from './modules/photos.sort';
 import FormCategory from './modules/form.categories';
@@ -28,15 +27,6 @@ import MutationLoader from './modules/mutationLoader';
 import { usePublishMutation, useUpdateMutation } from './modules/hooks';
 
 export default function Form({ navigation }) {
-  ////////////////////////////////////
-  const { setTabBarVisible } = useContext(
-    require('../../navigation/tabs/post').TabBarVisibleContext,
-  );
-  useFocusEffect(
-    React.useCallback(() => setTabBarVisible(false), [setTabBarVisible]),
-  );
-  ////////////////////////////////////
-
   const [
     publish,
     { loading: publishLoading, status: publishStatus },

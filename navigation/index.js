@@ -2,11 +2,11 @@ import React, { useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { enableScreens } from 'react-native-screens';
-import analytics from '@react-native-firebase/analytics';
+import * as Sentry from '@sentry/react-native';
 
 import Home from './tabs/home';
-// import Search from './tabs/search';
-// import Post from './tabs/post';
+import Search from './tabs/search';
+import Post from './tabs/post';
 import Account from './tabs/account';
 
 // enableScreens(); // CRASHED:https://github.com/software-mansion/react-native-screens/issues/114
@@ -28,10 +28,11 @@ export default function Navigation() {
         const currentRouteName = navigationRef.current.getCurrentRoute().name;
 
         if (previousRouteName !== currentRouteName) {
-          await analytics().logScreenView({
-            screen_name: currentRouteName,
-            screen_class: currentRouteName,
-          }); // ANALYTIC
+          Sentry.addBreadcrumb({
+            category: 'navigation',
+            screen: currentRouteName,
+            level: Sentry.Severity.Info,
+          });
         }
 
         routeNameRef.current = currentRouteName;
@@ -64,7 +65,7 @@ function TabNavigation() {
           ),
         }}
       />
-      {/*     <Tab.Screen
+      <Tab.Screen
         name="Search"
         component={Search}
         options={{
@@ -81,7 +82,7 @@ function TabNavigation() {
             <Icon name="add" color={color} size={size} />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="Account"
         component={Account}

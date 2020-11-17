@@ -1,20 +1,46 @@
-import React, { createContext, useEffect, useState } from 'react';
-import PostScreen from '../screens/post.screen';
+import React, { useEffect } from 'react';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export const TabBarVisibleContext = createContext(null);
+import PostScreen from '../../screens/post';
+import CategoryScreen from '../../screens/post/category';
+import LocationScreen from '../../screens/post/location';
+import FormScreen from '../../screens/post/form';
+import PhotosScreen from '../../screens/post/photos';
+import DescriptionScreen from '../../screens/post/description';
 
-export default function Post({ navigation }) {
-  const [tabBarVisible, setTabBarVisible] = useState(true);
+import { Provider } from '../../screens/post/modules/context';
+
+const Stack = createStackNavigator();
+
+export default function Post({ navigation, route }) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Post';
 
   useEffect(() => {
     navigation.setOptions({
-      tabBarVisible: tabBarVisible,
+      tabBarVisible: ['Post'].includes(routeName),
     });
-  }, [navigation, tabBarVisible]);
+  }, [navigation, routeName]);
 
+  return <PostStack />;
+}
+
+function PostStack() {
   return (
-    <TabBarVisibleContext.Provider value={{ setTabBarVisible }}>
-      <PostScreen />
-    </TabBarVisibleContext.Provider>
+    <Provider>
+      <Stack.Navigator headerMode="none" initialRouteName="Post">
+        <Stack.Screen name="Post" component={PostScreen} />
+        <Stack.Screen name="Category" component={CategoryScreen} />
+        <Stack.Screen name="Location" component={LocationScreen} />
+        <Stack.Screen name="Form" component={FormScreen} />
+        <Stack.Screen name="Photos" component={PhotosScreen} />
+        <Stack.Screen name="Description" component={DescriptionScreen} />
+      </Stack.Navigator>
+    </Provider>
   );
 }
+
+/**
+ * NEXT:
+ * drafting ads on post screen
+ */

@@ -5,8 +5,8 @@ import _ from 'lodash';
 
 import { dispatch, Context } from './context';
 
-import { Typography, Icon, Modal } from '../../../../library';
-import { SIZE, COLOR } from '../../../../library/Theme';
+import { Typography, Icon, Modal } from '../../../library';
+import { SIZE, COLOR } from '../../../library/Theme';
 
 export default function SortPhotos() {
   const { photos, removePhotos } = useContext(Context);

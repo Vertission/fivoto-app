@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
 import { StyleSheet, View, TouchableNativeFeedback } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import { Modalize } from 'react-native-modalize';
 import _ from 'lodash';
 
@@ -13,23 +12,14 @@ import {
   Button,
   Image,
   Indicator,
-} from '../../../library';
-import { SIZE, COLOR } from '../../../library/Theme';
+} from '../../library';
+import { SIZE, COLOR } from '../../library/Theme';
 
-import { useQueryCategories } from '../../../api/utils/read';
+import { useQueryCategories } from '../../service/apollo/query/utils';
 
-import ApolloError from '../../shared/apolloError';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Category({ navigation, route }) {
-  ////////////////////////////////////
-  const { setTabBarVisible } = useContext(
-    require('../../navigation/tabs/post').TabBarVisibleContext,
-  );
-  useFocusEffect(
-    React.useCallback(() => setTabBarVisible(false), [setTabBarVisible]),
-  );
-  ////////////////////////////////////
-
   const modalizeRef = useRef(null);
   const { category: contextCategory } = useContext(Context);
   const [categories, { loading, error, refetch }] = useQueryCategories();
@@ -68,7 +58,8 @@ export default function Category({ navigation, route }) {
   };
 
   if (loading) return <Indicator.Loading />;
-  else if (error) return <ApolloError error={error} refetch={refetch} />;
+  else if (error)
+    return <ApolloScreenErrorHandler error={error} refetch={refetch} />;
   else
     return (
       <React.Fragment>

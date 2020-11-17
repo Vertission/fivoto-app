@@ -15,9 +15,9 @@ import {
 } from '../../library';
 import { SIZE, COLOR } from '../../library/Theme';
 
-import { useChangePassword, useSignOut } from '../../setup/amplify/auth';
+import { useChangePassword, useSignOut } from '../../service/amplify/auth';
 
-import { client as apolloClient } from '../../setup/apollo';
+import { client as apolloClient } from '../../service/apollo';
 import rules from '../../utils/rules';
 
 export default function ResetPassword() {

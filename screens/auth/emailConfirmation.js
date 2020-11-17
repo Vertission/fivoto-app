@@ -17,7 +17,7 @@ import rules from '../../utils/rules';
 import {
   useConfirmSign,
   useSendConfirmationCode,
-} from '../../setup/amplify/auth';
+} from '../../service/amplify/auth';
 
 export default function EmailConfirmation({ route }) {
   const [confirmSign, { loading: confirmSignLoading }] = useConfirmSign();

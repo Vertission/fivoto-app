@@ -15,7 +15,7 @@ import {
 
 import rules from '../../utils/rules';
 
-import { useSignIn } from '../../setup/amplify/auth';
+import { useSignIn } from '../../service/amplify/auth';
 
 export default function ({ navigation, route }) {
   const [signIn, { loading }] = useSignIn();

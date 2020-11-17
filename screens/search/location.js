@@ -1,28 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { FlatList } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import _ from 'lodash';
 import analytics from '@react-native-firebase/analytics';
 
-import { Indicator, Tab, Header } from '../../../library';
-import styles from '../../../library/Theme/styles';
+import { Indicator, Tab, Header } from '../../library';
+import styles from '../../library/Theme/styles';
 
-import { useQueryLocations } from '../../../api/utils/read';
+import { useQueryLocations } from '../../service/apollo/query/utils';
 
 import { dispatch } from './modules/context';
 
-import ApolloError from '../../shared/apolloError';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Category({ navigation }) {
-  ////////////////////////////////////
-  const { setTabBarVisible } = useContext(
-    require('../../navigation/tabs/search').TabBarVisibleContext,
-  );
-  useFocusEffect(
-    React.useCallback(() => setTabBarVisible(true), [setTabBarVisible]),
-  );
-  ////////////////////////////////////
-
   const [locations, { loading, refetch, error }] = useQueryLocations();
   const [district, setDistrict] = useState(null);
 
@@ -67,7 +57,7 @@ export default function Category({ navigation }) {
     return (
       <React.Fragment>
         <Header />
-        <ApolloError refetch={refetch} error={error} />
+        <ApolloScreenErrorHandler refetch={refetch} error={error} />
       </React.Fragment>
     );
   return (

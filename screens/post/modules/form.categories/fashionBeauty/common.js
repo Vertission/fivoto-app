@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { Context, dispatch } from '../../context';
 
-import { Radio } from '../../../../../../library';
+import { Radio } from '../../../../../library';
 
 export function Gender({ radios = ['men', 'women', 'unisex'], label }) {
   const { fields } = useContext(Context);

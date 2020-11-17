@@ -9,14 +9,15 @@ import { useUpdateUser } from '../../apollo/mutation/user';
 
 import { Modal, Snackbar } from '../../../library';
 
+import SignOut from '../../../utils/signOut';
+
 export function useSignOut() {
   const navigation = useNavigation();
 
   async function signOut() {
     try {
       await Auth.signOut();
-      SyncStorage.set('@sign', false);
-      SyncStorage.remove('@user');
+      SignOut();
       Sentry.configureScope((scope) => scope.setUser(null));
       await analytics().setUserId(null); // ANALYTIC
       navigation.setParams();
@@ -390,9 +391,8 @@ export function useSignIn() {
       SyncStorage.set('@user', username);
 
       Sentry.setUser({ id: username, email: attributes.email });
-
       await analytics().logLogin({ method: 'email' }); // ANALYTIC
-      await analytics().setUserId(username);
+      await analytics().setUserId(username); // ANALYTIC
 
       setLoading(false);
       navigation.navigate('Register');
@@ -522,7 +522,10 @@ function handleError(error, action, data, navigation) {
             onPress: () =>
               navigation.navigate('Home', {
                 screen: 'ReportIssue',
-                params: { issue: JSON.stringify(error) },
+                params: {
+                  error: JSON.stringify(error),
+                  data: JSON.stringify(data),
+                },
               }),
           },
         ],
@@ -542,7 +545,10 @@ function handleError(error, action, data, navigation) {
             onPress: () =>
               navigation.navigate('Home', {
                 screen: 'ReportIssue',
-                params: { issue: JSON.stringify(error) },
+                params: {
+                  error: JSON.stringify(error),
+                  data: JSON.stringify(data),
+                },
               }),
           },
         ],
