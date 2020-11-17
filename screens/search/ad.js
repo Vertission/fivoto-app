@@ -19,7 +19,7 @@ import NotAvailable from './modules/ad/notAvailable';
 
 import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
-export default function ({ route }) {
+export default function ({ navigation, route }) {
   const { data, loading, refetch, error } = useQuery(AD, {
     variables: { id: route.params.id },
     notifyOnNetworkStatusChange: true,
@@ -29,7 +29,7 @@ export default function ({ route }) {
   else if (error)
     return (
       <React.Fragment>
-        <LibraryHeader />
+        <LibraryHeader onPress={() => navigation.navigate('Search')} />
         <ApolloScreenErrorHandler refetch={refetch} error={error} />
       </React.Fragment>
     );
@@ -58,7 +58,7 @@ export default function ({ route }) {
               onRefresh={refetch}
             />
           }>
-          <Header id={id} />
+          <Header id={id} onPress={() => navigation.navigate('Search')} />
           <Carousel photos={photos} />
           <Details
             location={location}

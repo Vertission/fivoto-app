@@ -4,7 +4,7 @@ import { Share } from 'react-native';
 import { Icon, Header } from '../../../../library';
 import { SIZE } from '../../../../library/Theme';
 
-export default function AdHeader({ id }) {
+export default function AdHeader({ id, onPress }) {
   const _onPressShare = () => {
     Share.open({ message: id });
   };
@@ -13,5 +13,5 @@ export default function AdHeader({ id }) {
     <Icon name="share" size={SIZE.icon * 1.3} touch onPress={_onPressShare} />
   );
 
-  return <Header endContent={HeaderEndContent} />;
+  return <Header endContent={HeaderEndContent} onPress={onPress} />;
 }
