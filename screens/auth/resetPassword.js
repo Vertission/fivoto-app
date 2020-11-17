@@ -13,7 +13,7 @@ import {
 } from '../../library';
 import { SIZE, COLOR } from '../../library/Theme';
 
-import { useResetPassword } from '../../setup/amplify/auth';
+import { useResetPassword } from '../../service/amplify/auth';
 
 import rules from '../../utils/rules';
 

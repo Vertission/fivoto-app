@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { Indicator, Header as LibraryHeader } from '../../library';
 import { COLOR } from '../../library/Theme';
 
-import { AD } from '../../setup/apollo/schema/query';
+import { AD } from '../../service/apollo/schema/query';
 
 import Header from './modules/ad/header';
 import Carousel from './modules/ad/carousel';
@@ -17,7 +17,7 @@ import User from './modules/ad/user';
 
 import NotAvailable from './modules/ad/notAvailable';
 
-import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function ({ route }) {
   const { data, loading, refetch, error } = useQuery(AD, {

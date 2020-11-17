@@ -6,11 +6,11 @@ import analytics from '@react-native-firebase/analytics';
 import { Indicator, Tab, Header } from '../../library';
 import styles from '../../library/Theme/styles';
 
-import { useQueryCategories } from '../../setup/apollo/query/utils';
+import { useQueryCategories } from '../../service/apollo/query/utils';
 
 import { dispatch } from './modules/context';
 
-import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Category({ navigation, route }) {
   const [categories, { loading, refetch, error }] = useQueryCategories();

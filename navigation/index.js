@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { enableScreens } from 'react-native-screens';
-import analytics from '@react-native-firebase/analytics';
+import * as Sentry from '@sentry/react-native';
 
 import Home from './tabs/home';
 import Search from './tabs/search';
@@ -28,10 +28,11 @@ export default function Navigation() {
         const currentRouteName = navigationRef.current.getCurrentRoute().name;
 
         if (previousRouteName !== currentRouteName) {
-          await analytics().logScreenView({
-            screen_name: currentRouteName,
-            screen_class: currentRouteName,
-          }); // ANALYTIC
+          Sentry.addBreadcrumb({
+            category: 'navigation',
+            screen: currentRouteName,
+            level: Sentry.Severity.Info,
+          });
         }
 
         routeNameRef.current = currentRouteName;

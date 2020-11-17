@@ -15,7 +15,7 @@ import { SIZE, COLOR } from '../../library/Theme';
 
 import rules from '../../utils/rules';
 
-import { useChangeEmail } from '../../setup/amplify/auth';
+import { useChangeEmail } from '../../service/amplify/auth';
 
 export default function EmailChange({ route }) {
   const [changeEmail, { loading }] = useChangeEmail();

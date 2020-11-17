@@ -20,7 +20,7 @@ import { Context, dispatch } from './modules/context';
 
 import Header from './modules/header.index';
 
-import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Search() {
   const [search, setSearch] = useState(null);

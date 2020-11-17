@@ -7,9 +7,9 @@ import { SIZE, COLOR } from '../../library/Theme';
 
 import { dispatch } from './modules/context';
 
-import { useQueryLocations } from '../../setup/apollo/query/utils';
+import { useQueryLocations } from '../../service/apollo/query/utils';
 
-import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Location({ navigation, route }) {
   const [locationData, { loading, error, refetch }] = useQueryLocations();

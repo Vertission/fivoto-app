@@ -7,13 +7,13 @@ import analytics from '@react-native-firebase/analytics';
 import * as Sentry from '@sentry/react-native';
 import _ from 'lodash';
 
-import uploadPhotos from '../../../../setup/amplify/storage/uploadAdPhotos';
+import uploadPhotos from '../../../../service/amplify/storage/uploadAdPhotos';
 
 import { dispatch, Context } from '../context';
 
 import MutationSuccess from '../mutationSuccess';
 
-import ApolloModalErrorHandler from '../../../../setup/apollo/errorHandler/modal';
+import ApolloModalErrorHandler from '../../../../service/apollo/errorHandler/modal';
 
 const UPDATE_AD = gql`
   mutation updateAd($data: updateAdInput!) {

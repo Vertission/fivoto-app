@@ -6,11 +6,11 @@ import analytics from '@react-native-firebase/analytics';
 import { Indicator, Tab, Header } from '../../library';
 import styles from '../../library/Theme/styles';
 
-import { useQueryLocations } from '../../setup/apollo/query/utils';
+import { useQueryLocations } from '../../service/apollo/query/utils';
 
 import { dispatch } from './modules/context';
 
-import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Category({ navigation }) {
   const [locations, { loading, refetch, error }] = useQueryLocations();

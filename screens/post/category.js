@@ -15,9 +15,9 @@ import {
 } from '../../library';
 import { SIZE, COLOR } from '../../library/Theme';
 
-import { useQueryCategories } from '../../setup/apollo/query/utils';
+import { useQueryCategories } from '../../service/apollo/query/utils';
 
-import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Category({ navigation, route }) {
   const modalizeRef = useRef(null);

@@ -12,10 +12,10 @@ import SyncStorage from 'sync-storage';
 
 import NetworkModal from './shared/netWorkModal';
 
-import ApolloProvider from './setup/apollo';
+import ApolloProvider from './service/apollo';
 import Navigation from './navigation';
-import amplifyConfig from './setup/amplify';
-import './setup/sentry';
+import amplifyConfig from './service/amplify';
+import './service/sentry';
 
 export default function App() {
   const [initialize, setInitialize] = useState(false);

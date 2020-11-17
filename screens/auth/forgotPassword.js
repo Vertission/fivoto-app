@@ -15,7 +15,7 @@ import { SIZE, COLOR } from '../../library/Theme';
 
 import rules from '../../utils/rules';
 
-import { useForgotPassword } from '../../setup/amplify/auth';
+import { useForgotPassword } from '../../service/amplify/auth';
 
 export default function ForgotPassword({ route }) {
   const [forgotPassword, { loading }] = useForgotPassword();

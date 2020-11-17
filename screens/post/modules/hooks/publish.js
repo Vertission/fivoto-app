@@ -7,13 +7,13 @@ import { Modalize } from 'react-native-modalize';
 import * as Sentry from '@sentry/react-native';
 import _ from 'lodash';
 
-import uploadAdPhotos from '../../../../setup/amplify/storage/uploadAdPhotos';
+import uploadAdPhotos from '../../../../service/amplify/storage/uploadAdPhotos';
 
 import { dispatch, Context } from '../context';
 
 import MutationSuccess from '../mutationSuccess';
 
-import ApolloModalErrorHandler from '../../../../setup/apollo/errorHandler/modal';
+import ApolloModalErrorHandler from '../../../../service/apollo/errorHandler/modal';
 
 const CREATE_AD = gql`
   mutation createAd($data: createAdInput!) {

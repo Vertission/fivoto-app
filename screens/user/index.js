@@ -13,12 +13,12 @@ import {
 } from '../../library';
 import { COLOR, SIZE } from '../../library/Theme';
 
-import { useSignOut } from '../../setup/amplify/auth';
-import { useQueryMe } from '../../setup/apollo/query/user';
+import { useSignOut } from '../../service/amplify/auth';
+import { useQueryMe } from '../../service/apollo/query/user';
 
 import VerificationRequired from './modules/verificationRequired';
 
-import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function User({ navigation, route }) {
   const signOutRef = useRef(null);

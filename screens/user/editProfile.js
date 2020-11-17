@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { Container, Input, Header, Icon, Indicator } from '../../library';
 import { SIZE } from '../../library/Theme';
 
-import { useUpdateUser } from '../../setup/apollo/mutation/user';
+import { useUpdateUser } from '../../service/apollo/mutation/user';
 
 import rules from '../../utils/rules';
 

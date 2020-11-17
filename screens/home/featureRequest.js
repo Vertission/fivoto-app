@@ -21,7 +21,7 @@ import {
 } from '../../library';
 import { SIZE, COLOR } from '../../library/Theme';
 
-import uploadPhotos from '../../setup/firebase/storage/uploadPhotos';
+import uploadPhotos from '../../service/firebase/storage/uploadPhotos';
 
 export default function FeatureRequest({ navigation }) {
   const [loading, setLoading] = useState(false);

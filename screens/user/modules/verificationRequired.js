@@ -7,7 +7,7 @@ import { COLOR, SIZE } from '../../../library/Theme';
 
 import styles from '../../../library/Theme/styles';
 
-import { useResendEmailChangeConfirmationCode } from '../../../setup/amplify/auth';
+import { useResendEmailChangeConfirmationCode } from '../../../service/amplify/auth';
 
 export default function VerificationRequired({ email }) {
   const navigation = useNavigation();

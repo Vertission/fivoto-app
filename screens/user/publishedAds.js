@@ -23,14 +23,14 @@ import {
 import { COLOR, SIZE } from '../../library/Theme';
 import styles from '../../library/Theme/styles';
 
-import { useQueryMe } from '../../setup/apollo/query/user';
-import { useDeleteAd } from '../../setup/apollo/mutation/ad';
+import { useQueryMe } from '../../service/apollo/query/user';
+import { useDeleteAd } from '../../service/apollo/mutation/ad';
 
 import { dispatch } from '../post/modules/context';
-import { client as apolloClient } from '../../setup/apollo';
-import { AD as QUERY_AD_SCHEMA } from '../../setup/apollo/schema/query';
+import { client as apolloClient } from '../../service/apollo';
+import { AD as QUERY_AD_SCHEMA } from '../../service/apollo/schema/query';
 
-import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
+import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 const QUERY_ME = gql`
   query me {
