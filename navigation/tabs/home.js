@@ -31,12 +31,36 @@ function HomeDrawer({ route }) {
       initialRouteName="Home"
       drawerType="slide"
       drawerContent={(props) => <CustomDrawer {...props} route={route} />}>
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="FAQ" component={FAQScreen} />
-      <Drawer.Screen name="ContactUs" component={ContactUsScreen} />
-      <Drawer.Screen name="FeatureRequest" component={FeatureRequestScreen} />
-      <Drawer.Screen name="BugReport" component={BugReportScreen} />
-      <Drawer.Screen name="ReportIssue" component={ReportIssueScreen} />
+      <Drawer.Screen
+        name="Home"
+        options={{ headerShown: false }}
+        component={HomeScreen}
+      />
+      <Drawer.Screen
+        name="FAQ"
+        options={{ headerShown: false }}
+        component={FAQScreen}
+      />
+      <Drawer.Screen
+        name="ContactUs"
+        options={{ headerShown: false }}
+        component={ContactUsScreen}
+      />
+      <Drawer.Screen
+        name="FeatureRequest"
+        options={{ headerShown: false }}
+        component={FeatureRequestScreen}
+      />
+      <Drawer.Screen
+        name="BugReport"
+        options={{ headerShown: false }}
+        component={BugReportScreen}
+      />
+      <Drawer.Screen
+        name="ReportIssue"
+        options={{ headerShown: false }}
+        component={ReportIssueScreen}
+      />
     </Drawer.Navigator>
   );
 }
