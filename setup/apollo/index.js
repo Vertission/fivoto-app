@@ -1,4 +1,4 @@
-import { ENVIRONMENT } from '@env';
+import { APOLLO_HOST } from '@env';
 import React from 'react';
 import {
   ApolloClient,
@@ -18,14 +18,8 @@ import { Toast } from '../../library';
 
 import signOut from '../../utils/signOut';
 
-const HOST =
-  ENVIRONMENT === 'development'
-    ? 'http://192.168.8.103:4000'
-    : 'http://65.0.81.244';
-
-console.log(HOST);
 const httpLink = createHttpLink({
-  uri: HOST,
+  uri: APOLLO_HOST,
 });
 
 const errorLink = new onError(({ graphQLErrors, networkError }) => {

@@ -25,6 +25,13 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm install
+      - name: Create env file
+        run: |
+          touch .env
+          echo ENVIRONMENT=staging >> .env
+          echo APOLLO_HOST=${{ secrets.STAGE_APOLLO_HOST }} >> .env
+          echo SENTRY_DSN=${{ secrets.SENTRY_DSN }} >> .env
+          cat .env
       - name: Make Gradlew Executable
         run: cd android && chmod +x ./gradlew
         # Build Command
