@@ -18,9 +18,8 @@ import { Toast } from '../../library';
 
 import signOut from '../../utils/signOut';
 
-console.log(APOLLO_HOST);
 const httpLink = createHttpLink({
-  uri: 'http://65.0.81.244',
+  uri: APOLLO_HOST,
 });
 
 const errorLink = new onError(({ graphQLErrors, networkError }) => {
