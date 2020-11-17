@@ -6,7 +6,9 @@ import { SIZE } from '../../../../library/Theme';
 
 export default function AdHeader({ id, onPress }) {
   const _onPressShare = () => {
-    Share.open({ message: id });
+    Share.share({
+      message: `https://lk.fivoto.com/ad/${id}`,
+    });
   };
 
   const HeaderEndContent = (

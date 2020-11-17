@@ -1,6 +1,5 @@
 import { SENTRY_DSN, ENVIRONMENT, STAGE } from '@env';
 import * as Sentry from '@sentry/react-native';
-import SyncStorage from 'sync-storage';
 import _ from 'lodash';
 
 import { version } from '../../package.json';
@@ -16,9 +15,4 @@ Sentry.init({
   enableAutoSessionTracking: true,
   debug: ENVIRONMENT === 'development',
   release: ['app', release].join('@'),
-});
-
-Sentry.setUser({
-  id: SyncStorage.get('@user_id'),
-  email: SyncStorage.get('@user_email'),
 });

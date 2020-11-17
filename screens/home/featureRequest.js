@@ -37,7 +37,8 @@ export default function FeatureRequest({ navigation }) {
   const _submit = async ({ description }) => {
     try {
       setLoading(true);
-      const uris = await uploadPhotos('featureRequest', photos)();
+      const uris = await uploadPhotos('featureRequest', photos);
+      console.log('FeatureRequest -> uris', uris);
 
       await firestore()
         .collection('featureRequest')
@@ -45,7 +46,7 @@ export default function FeatureRequest({ navigation }) {
           description,
           photos: uris,
           date: new Date(),
-          user: SyncStorage.get('@user'),
+          user: SyncStorage.get('@user_id'),
         });
 
       Modal.show({
@@ -62,6 +63,7 @@ export default function FeatureRequest({ navigation }) {
 
       setLoading(false);
     } catch (error) {
+      console.log('FeatureRequest -> error', error);
       setLoading(false);
       Sentry.withScope(function (scope) {
         scope.setTag('screen', 'featureRequest');
@@ -74,7 +76,7 @@ export default function FeatureRequest({ navigation }) {
         subject: 'Feature request',
         body: description,
         recipients: ['support@fivoto.com'],
-        attachments: 'photos',
+        attachments: photos,
       }).catch((error) => {
         Modal.show({
           title: 'Feature Request Failed',

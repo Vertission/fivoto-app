@@ -5,6 +5,7 @@ import RNBootSplash from 'react-native-bootsplash';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import Amplify from 'aws-amplify';
+import * as Sentry from '@sentry/react-native';
 import analytics from '@react-native-firebase/analytics';
 import crashlytics from '@react-native-firebase/crashlytics';
 
@@ -29,9 +30,13 @@ export default function App() {
       ENVIRONMENT === 'production',
     );
     await analytics().logAppOpen();
-    if (SyncStorage.get('@user_id'))
+    if (SyncStorage.get('@user_id')) {
       analytics().setUserId(SyncStorage.get('@user_id'));
-    else await analytics().setUserId(null);
+      Sentry.setUser({
+        id: SyncStorage.get('@user_id'),
+        email: SyncStorage.get('@user_email'),
+      });
+    } else await analytics().setUserId(null);
 
     crashlytics().log('App mounted.');
     setInitialize(true);
