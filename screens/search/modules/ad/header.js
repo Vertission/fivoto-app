@@ -1,19 +1,12 @@
 import React from 'react';
-import analytics from '@react-native-firebase/analytics';
-import Share from 'react-native-share';
+import { Share } from 'react-native';
 
 import { Icon, Header } from '../../../../library';
 import { SIZE } from '../../../../library/Theme';
 
 export default function AdHeader({ id }) {
   const _onPressShare = () => {
-    Share.open({ message: id }).then(async ({ app }) => {
-      await analytics().logShare({
-        content_type: 'ad',
-        item_id: id,
-        method: app,
-      });
-    });
+    Share.open({ message: id });
   };
 
   const HeaderEndContent = (

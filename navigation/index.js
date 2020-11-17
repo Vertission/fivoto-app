@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import analytics from '@react-native-firebase/analytics';
 
 import Home from './tabs/home';
-// import Search from './tabs/search';
+import Search from './tabs/search';
 import Post from './tabs/post';
 import Account from './tabs/account';
 
@@ -64,7 +64,6 @@ function TabNavigation() {
           ),
         }}
       />
-      {/*
       <Tab.Screen
         name="Search"
         component={Search}
@@ -73,7 +72,7 @@ function TabNavigation() {
             <Icon name="search" color={color} size={size} />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="Post"
         component={Post}

@@ -13,14 +13,14 @@ import gql from 'graphql-tag';
 import { format } from 'timeago.js';
 import { Modalize } from 'react-native-modalize';
 import _ from 'lodash';
-import { Typography, Image, Carousel, Indicator } from '../../../library';
-import { SIZE, COLOR } from '../../../library/Theme';
+import { Typography, Image, Carousel, Indicator } from '../../library';
+import { SIZE, COLOR } from '../../library/Theme';
 
 import { Context, dispatch } from './modules/context';
 
 import Header from './modules/header.index';
 
-import ApolloError from '../../shared/apolloError';
+import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
 
 export default function Search() {
   const [search, setSearch] = useState(null);
@@ -67,7 +67,7 @@ export default function Search() {
     return (
       <React.Fragment>
         <Header disabled={error} />
-        <ApolloError refetch={_onErrorRefetch} error={error} />
+        <ApolloScreenErrorHandler refetch={_onErrorRefetch} error={error} />
       </React.Fragment>
     );
   else if (!loading && _.isEmpty(data?.search))

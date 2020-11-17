@@ -1,3 +1,4 @@
+import { ENVIRONMENT } from '@env';
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
@@ -23,9 +24,17 @@ export default function App() {
   let init = async () => {
     Amplify.configure(amplifyConfig);
     await SyncStorage.init();
+
+    await analytics().setAnalyticsCollectionEnabled(
+      ENVIRONMENT === 'production',
+    );
+    await analytics().logAppOpen();
+    if (SyncStorage.get('@user_id'))
+      analytics().setUserId(SyncStorage.get('@user_id'));
+    else await analytics().setUserId(null);
+
+    crashlytics().log('App mounted.');
     setInitialize(true);
-    await analytics().logAppOpen(); // ANALYTIC
-    crashlytics().log('App mounted.'); // CRASHLYTIC
   };
 
   useEffect(() => {

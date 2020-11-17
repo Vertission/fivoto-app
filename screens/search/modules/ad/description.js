@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { Typography } from '../../../../library';
-import { COLOR } from '../../../../lbrary/Theme';
+import { COLOR } from '../../../../library/Theme';
 import styles from '../../../../library/Theme/styles';
 
 export default function AdUser({ description }) {

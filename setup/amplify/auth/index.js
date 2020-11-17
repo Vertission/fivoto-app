@@ -390,9 +390,8 @@ export function useSignIn() {
       SyncStorage.set('@user', username);
 
       Sentry.setUser({ id: username, email: attributes.email });
-
       await analytics().logLogin({ method: 'email' }); // ANALYTIC
-      await analytics().setUserId(username);
+      await analytics().setUserId(username); // ANALYTIC
 
       setLoading(false);
       navigation.navigate('Register');

@@ -60,7 +60,7 @@ buck-out/
 
 
 # env
-# .env
+.env
 
 # amplify config
 # setup/amplify/index.js

@@ -1,13 +1,12 @@
-import React, { useContext, useCallback } from 'react';
+import React from 'react';
 import { ScrollView, RefreshControl } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
 import _ from 'lodash';
 
 import { Indicator, Header as LibraryHeader } from '../../library';
 import { COLOR } from '../../library/Theme';
 
-import { AD } from '../../setup/apollo/query/ad';
+import { AD } from '../../setup/apollo/schema/query';
 
 import Header from './modules/ad/header';
 import Carousel from './modules/ad/carousel';
@@ -21,15 +20,6 @@ import NotAvailable from './modules/ad/notAvailable';
 import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
 
 export default function ({ route }) {
-  ////////////////////////////////////
-  const { setTabBarVisible } = useContext(
-    require('../../navigation/tabs/search').TabBarVisibleContext,
-  );
-  useFocusEffect(
-    useCallback(() => setTabBarVisible(false), [setTabBarVisible]),
-  );
-  ////////////////////////////////////
-
   const { data, loading, refetch, error } = useQuery(AD, {
     variables: { id: route.params.id },
     notifyOnNetworkStatusChange: true,

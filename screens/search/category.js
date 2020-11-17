@@ -3,14 +3,14 @@ import { FlatList } from 'react-native';
 import _ from 'lodash';
 import analytics from '@react-native-firebase/analytics';
 
-import { Indicator, Tab, Header } from '../../../library';
-import styles from '../../../library/Theme/styles';
+import { Indicator, Tab, Header } from '../../library';
+import styles from '../../library/Theme/styles';
 
-import { useQueryCategories } from '../../../api/utils/read';
+import { useQueryCategories } from '../../setup/apollo/query/utils';
 
 import { dispatch } from './modules/context';
 
-import ApolloError from '../../shared/apolloError';
+import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
 
 export default function Category({ navigation, route }) {
   const [categories, { loading, refetch, error }] = useQueryCategories();
@@ -57,7 +57,7 @@ export default function Category({ navigation, route }) {
     return (
       <React.Fragment>
         <Header />
-        <ApolloError refetch={refetch} error={error} />
+        <ApolloScreenErrorHandler refetch={refetch} error={error} />
       </React.Fragment>
     );
   return (
