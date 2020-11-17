@@ -20,12 +20,15 @@ import { SIZE, COLOR } from '../../library/Theme';
 
 import { useQueryCategories } from '../../service/apollo/query/utils';
 
+import { dispatch } from '../post/modules/context';
+
 import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Home({ navigation }) {
   const [categories, { loading, error, refetch }] = useQueryCategories();
 
   const _onPressSelectCategory = (category) => {
+    dispatch('RESET_CONTEXT');
     navigation.navigate('Search', { screen: 'Category', params: { category } });
   };
 

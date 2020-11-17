@@ -5,12 +5,14 @@ import { StyleSheet, View } from 'react-native';
 import { Typography, Icon, Button } from '../../../library';
 import { COLOR, SIZE } from '../../../library/Theme';
 
-export default function Error({ refetch, error }) {
+export default function Error({ refetch, error, reportNavigation }) {
   const navigation = useNavigation();
   const { message } = error;
 
   const _onPressReport = () => {
-    navigation.navigate('Home', { screen: 'ReportIssue', params: { error } });
+    if (reportNavigation) reportNavigation();
+    else
+      navigation.navigate('Home', { screen: 'ReportIssue', params: { error } });
   };
 
   return (
@@ -18,9 +20,6 @@ export default function Error({ refetch, error }) {
       <Icon name="alert" size={SIZE.icon * 4.5} color={COLOR.ERROR} />
       <Typography variant="h6" family="bold">
         SOMETHING WENT WRONG
-      </Typography>
-      <Typography variant="caption" color={COLOR.MUTED}>
-        {message}
       </Typography>
       <View style={s.buttonContainer}>
         <Button variant="contained" style={s.button} onPress={() => refetch()}>
