@@ -1,6 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { FlatList } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import _ from 'lodash';
 import analytics from '@react-native-firebase/analytics';
 
@@ -14,15 +13,6 @@ import { dispatch } from './modules/context';
 import ApolloError from '../../shared/apolloError';
 
 export default function Category({ navigation, route }) {
-  ////////////////////////////////////
-  const { setTabBarVisible } = useContext(
-    require('../../navigation/tabs/search').TabBarVisibleContext,
-  );
-  useFocusEffect(
-    React.useCallback(() => setTabBarVisible(false), [setTabBarVisible]),
-  );
-  ////////////////////////////////////
-
   const [categories, { loading, refetch, error }] = useQueryCategories();
   const [category, setCategory] = useState(route.params?.category);
 

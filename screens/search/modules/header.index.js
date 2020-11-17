@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
-import { Button, Input } from '../../../../library';
-import { SIZE, COLOR } from '../../../../library/Theme';
+import { Button, Input } from '../../../library';
+import { SIZE, COLOR } from '../../../library/Theme';
 import analytics from '@react-native-firebase/analytics';
 
 import { dispatch, Context } from './context';

@@ -1,26 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, FlatList } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import _ from 'lodash';
 
-import { Typography, Header, Indicator } from '../../../library';
-import { SIZE, COLOR } from '../../../library/Theme';
+import { Typography, Header, Indicator } from '../../library';
+import { SIZE, COLOR } from '../../library/Theme';
 
 import { dispatch } from './modules/context';
 
-import { useQueryLocations } from '../../../api/utils/read';
+import { useQueryLocations } from '../../setup/apollo/query/utils';
 
-import ApolloError from '../../shared/apolloError';
+import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
 
 export default function Location({ navigation, route }) {
-  ////////////////////////////////////
-  const { setTabBarVisible } = useContext(
-    require('../../navigation/tabs/post').TabBarVisibleContext,
-  );
-  useFocusEffect(
-    React.useCallback(() => setTabBarVisible(false), [setTabBarVisible]),
-  );
-  ////////////////////////////////////
   const [locationData, { loading, error, refetch }] = useQueryLocations();
 
   const [district, setDistrict] = useState(null);
@@ -57,7 +48,8 @@ export default function Location({ navigation, route }) {
   const districtCities = _.find(locationData, { district })?.cities;
 
   if (loading) return <Indicator.Loading />;
-  else if (error) return <ApolloError refetch={refetch} error={error} />;
+  else if (error)
+    return <ApolloScreenErrorHandler refetch={refetch} error={error} />;
   return (
     <View style={{ flex: 1 }}>
       <Header

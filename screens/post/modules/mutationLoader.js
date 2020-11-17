@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { Typography, Indicator } from '../../../../library';
-import { COLOR, SIZE } from '../../../../library/Theme';
+import { Typography, Indicator } from '../../../library';
+import { COLOR, SIZE } from '../../../library/Theme';
 
 export default function MutationLoader({ status }) {
   const navigation = useNavigation();

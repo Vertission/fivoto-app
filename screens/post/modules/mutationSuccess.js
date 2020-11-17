@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Share } from 'react-native';
 
-import { Icon, Typography, Button } from '../../../../library';
-import { SIZE, COLOR } from '../../../../library/Theme';
+import { Icon, Typography, Button } from '../../../library';
+import { SIZE, COLOR } from '../../../library/Theme';
 
 export default function Mutated({ id, action, navigation, modalizeRef }) {
   return (

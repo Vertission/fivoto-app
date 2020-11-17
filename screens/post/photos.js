@@ -12,17 +12,16 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
 import { Modalize } from 'react-native-modalize';
 import * as Sentry from '@sentry/react-native';
 import _ from 'lodash';
 
-import { Header, Icon, Typography, Button, Toast } from '../../../library';
-import { COLOR, SIZE } from '../../../library/Theme';
-import { TYPOGRAPHY } from '../../../library/Theme/library';
-import themeStyles from '../../../library/Theme/styles';
+import { Header, Icon, Typography, Button, Toast } from '../../library';
+import { COLOR, SIZE } from '../../library/Theme';
+import { TYPOGRAPHY } from '../../library/Theme/library';
+import themeStyles from '../../library/Theme/styles';
 
 const previewImageScale = SIZE.width / 4 - (SIZE.margin + SIZE.margin / 5);
 const offSet = Math.round((SIZE.height / previewImageScale) * 3);
@@ -93,15 +92,6 @@ const CameraPhoto = ({ item, seTakenPhotos, takenPhotos }) => {
 };
 
 export default function Photos() {
-  ////////////////////////////////////
-  const { setTabBarVisible } = useContext(
-    require('../../navigation/tabs/post').TabBarVisibleContext,
-  );
-  useFocusEffect(
-    React.useCallback(() => setTabBarVisible(false), [setTabBarVisible]),
-  );
-  ////////////////////////////////////
-
   const contextPhotos = useContext(Context).photos;
 
   const albumModalizeRef = useRef(null);

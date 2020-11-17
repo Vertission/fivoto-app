@@ -7,13 +7,13 @@ import { Modalize } from 'react-native-modalize';
 import * as Sentry from '@sentry/react-native';
 import _ from 'lodash';
 
-import uploadPhotos from '../../../../../api/ad/uploadPhotos';
+import uploadAdPhotos from '../../../../setup/amplify/storage/uploadAdPhotos';
 
 import { dispatch, Context } from '../context';
 
 import MutationSuccess from '../mutationSuccess';
 
-import handleApolloError from '../../../../../setup/apollo/handleError';
+import ApolloModalErrorHandler from '../../../../setup/apollo/errorHandler/modal';
 
 const CREATE_AD = gql`
   mutation createAd($data: createAdInput!) {
@@ -40,7 +40,7 @@ const UPDATE_AD = gql`
       photos
       phone
       fields
-      updatedA
+      updatedAt
       user {
         id
         # name
@@ -73,7 +73,7 @@ export default function usePublishMutation(navigation) {
 
   const [mutateCreateAd, createAdMutationResponse] = useMutation(CREATE_AD, {
     onError(error) {
-      handleApolloError(error, logData, 'publishing your ad', navigation);
+      ApolloModalErrorHandler(error, logData, 'publishing your ad', navigation);
 
       Sentry.withScope(function (scope) {
         scope.setTag('func', 'usePublishMutation:mutateCreateAd');
@@ -86,7 +86,7 @@ export default function usePublishMutation(navigation) {
 
   const [mutateUpdateAd, updateAdMutationResponse] = useMutation(UPDATE_AD, {
     onError(error) {
-      handleApolloError(
+      ApolloModalErrorHandler(
         error,
         logData,
         'updating your ad photos. But you are able to update your ad photos by editing your ad',
@@ -147,7 +147,7 @@ export default function usePublishMutation(navigation) {
         ),
       );
 
-      const uploadedPhotosKeys = await uploadPhotos(
+      const uploadedPhotosKeys = await uploadAdPhotos(
         data.photos,
         createAd,
         setStatus,

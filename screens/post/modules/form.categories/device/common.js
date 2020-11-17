@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { Context, dispatch } from '../../context';
 
-import { Input } from '../../../../../../library';
+import { Input } from '../../../../../library';
 
 export function Brand() {
   const { fields } = useContext(Context);

@@ -4,10 +4,10 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
 import _ from 'lodash';
 
-import { Indicator, Header as LibraryHeader } from '../../../library';
-import { COLOR } from '../../../library/Theme';
+import { Indicator, Header as LibraryHeader } from '../../library';
+import { COLOR } from '../../library/Theme';
 
-import { AD } from '../../../setup/apollo/schema/query';
+import { AD } from '../../setup/apollo/query/ad';
 
 import Header from './modules/ad/header';
 import Carousel from './modules/ad/carousel';
@@ -16,9 +16,9 @@ import Fields from './modules/ad/fields';
 import Description from './modules/ad/description';
 import User from './modules/ad/user';
 
-import ApolloError from '../../shared/apolloError';
-
 import NotAvailable from './modules/ad/notAvailable';
+
+import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
 
 export default function ({ route }) {
   ////////////////////////////////////
@@ -40,7 +40,7 @@ export default function ({ route }) {
     return (
       <React.Fragment>
         <LibraryHeader />
-        <ApolloError refetch={refetch} error={error} />
+        <ApolloScreenErrorHandler refetch={refetch} error={error} />
       </React.Fragment>
     );
   else {

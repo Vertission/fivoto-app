@@ -20,7 +20,7 @@ import { SIZE, COLOR } from '../../library/Theme';
 
 import { useQueryCategories } from '../../setup/apollo/query/utils';
 
-import ApolloErrorHandler from '../../setup/apollo/errorHandler';
+import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
 
 export default function Home({ navigation }) {
   const [categories, { loading, error, refetch }] = useQueryCategories();
@@ -57,7 +57,7 @@ export default function Home({ navigation }) {
     return (
       <React.Fragment>
         {HomeHeader}
-        <ApolloErrorHandler error={error} refetch={refetch} />
+        <ApolloScreenErrorHandler error={error} refetch={refetch} />
       </React.Fragment>
     );
   return (

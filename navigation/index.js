@@ -6,7 +6,7 @@ import analytics from '@react-native-firebase/analytics';
 
 import Home from './tabs/home';
 // import Search from './tabs/search';
-// import Post from './tabs/post';
+import Post from './tabs/post';
 import Account from './tabs/account';
 
 // enableScreens(); // CRASHED:https://github.com/software-mansion/react-native-screens/issues/114
@@ -64,7 +64,8 @@ function TabNavigation() {
           ),
         }}
       />
-      {/*     <Tab.Screen
+      {/*
+      <Tab.Screen
         name="Search"
         component={Search}
         options={{
@@ -72,7 +73,7 @@ function TabNavigation() {
             <Icon name="search" color={color} size={size} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Post"
         component={Post}
@@ -81,7 +82,7 @@ function TabNavigation() {
             <Icon name="add" color={color} size={size} />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="Account"
         component={Account}

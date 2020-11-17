@@ -2,9 +2,9 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import _ from 'lodash';
 
-import { Typography } from '../../../../../library';
-import { SIZE } from '../../../../../library/Theme';
-import styles from '../../../../../library/Theme/styles';
+import { Typography } from '../../../../library';
+import { SIZE } from '../../../../library/Theme';
+import styles from '../../../../library/Theme/styles';
 
 export default function AdFields({ fields }) {
   const Fields = (fields) => {

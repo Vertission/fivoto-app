@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import _ from 'lodash';
 
-import { Input, Icon, Typography } from '../../../../library';
-import { SIZE, COLOR } from '../../../../library/Theme';
+import { Input, Icon, Typography } from '../../../library';
+import { SIZE, COLOR } from '../../../library/Theme';
 
 import { dispatch, Context } from './context';
 

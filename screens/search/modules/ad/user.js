@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { Typography, Button } from '../../../../../library';
-import styles from '../../../../../library/Theme/styles';
+import { Typography, Button } from '../../../../library';
+import styles from '../../../../library/Theme/styles';
 
 export default function AdDescription({ user }) {
   return (

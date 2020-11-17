@@ -30,7 +30,7 @@ import { dispatch } from '../post/modules/context';
 import { client as apolloClient } from '../../setup/apollo';
 import { AD as QUERY_AD_SCHEMA } from '../../setup/apollo/schema/query';
 
-import HandleApolloError from '../../setup/apollo/errorHandler';
+import ApolloScreenErrorHandler from '../../setup/apollo/errorHandler/screen';
 
 const QUERY_ME = gql`
   query me {
@@ -122,7 +122,10 @@ export default function PublishedAds({ navigation }) {
     return (
       <React.Fragment>
         <Header />
-        <HandleApolloError refetch={queryMeRefetch} error={queryMeError} />
+        <ApolloScreenErrorHandler
+          refetch={queryMeRefetch}
+          error={queryMeError}
+        />
       </React.Fragment>
     );
   else if (_.isEmpty(profile.publishedAds))

@@ -1,21 +1,12 @@
 import React, { useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
 import _ from 'lodash';
 
-import { Container, Header, Typography, Input } from '../../../library';
-import { SIZE, COLOR } from '../../../library/Theme';
+import { Container, Header, Typography, Input } from '../../library';
 
 import { Context, dispatch } from './modules/context';
 
 export default function Description() {
-  ////////////////////////////////////
-  const { setTabBarVisible } = useContext(
-    require('../../navigation/tabs/post').TabBarVisibleContext,
-  );
-  useFocusEffect(React.useCallback(() => setTabBarVisible(false), []));
-  ////////////////////////////////////
-
   const { description } = useContext(Context);
 
   const _onChangeText = (description) => {

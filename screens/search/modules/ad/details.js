@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { Typography, Divider } from '../../../../../library';
-import styles from '../../../../../library/Theme/styles';
-import { COLOR } from '../../../../../library/Theme';
+import { Typography, Divider } from '../../../../library';
+import styles from '../../../../library/Theme/styles';
+import { COLOR } from '../../../../library/Theme';
 
 export default function AdDetails({
   location,

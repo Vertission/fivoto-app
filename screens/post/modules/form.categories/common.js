@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import _ from 'lodash';
 
-import { Picker as ElementPicker, CheckBox } from '../../../../../library';
-import { SIZE } from '../../../../../library/Theme';
+import { Picker as ElementPicker, CheckBox } from '../../../../library';
+import { SIZE } from '../../../../library/Theme';
 
 import { Context, dispatch } from '../context';
 
