@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { COLOR, SIZE } from '../../library/Theme';
 import { Container, Button, Typography } from '../../library';
+
+import { ENVIRONMENT, APOLLO_HOST, SENTRY_DSN, TEST_SENTRY_DSN } from '@env';
 
 export default function Auth({ navigation }) {
   return (
@@ -19,6 +21,10 @@ export default function Auth({ navigation }) {
         color={COLOR.WHITE}>
         FIVOTO
       </Typography>
+      <Text>ENVIRONMENT: {ENVIRONMENT}</Text>
+      <Text>APOLLO_HOST: {APOLLO_HOST}</Text>
+      <Text>SENTRY_DSN: {SENTRY_DSN}</Text>
+      <Text>TEST_SENTRY_DSN: {TEST_SENTRY_DSN}</Text>
       <View style={s.buttonContainer}>
         <Button
           large

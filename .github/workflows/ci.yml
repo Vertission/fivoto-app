@@ -25,13 +25,13 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm install
-      # - name: Generate env file
-      #   run: |
-      #     touch .env
-      #     echo ENVIRONMENT=staging >> .env
-      #     echo APOLLO_HOST=${{ secrets.STAGE_APOLLO_HOST }} >> .env
-      #     echo SENTRY_DSN=${{ secrets.SENTRY_DSN }} >> .env
-      #     cat .env
+      - name: Generate env file
+        run: |
+          touch .env
+          echo ENVIRONMENT="staging" >> .env
+          echo APOLLO_HOST="http://192.168.8.103:4000" >> .env
+          echo SENTRY_DSN="https://24d2cbe4b8e74cefba064f62aa3a947d@o468316.ingest.sentry.io/5519270" >> .env
+          echo TEST_SENTRY_DSN=${{ secrets.SENTRY_DSN }} >> .env
       - name: Make Gradlew Executable
         run: cd android && chmod +x ./gradlew
         # Build Command

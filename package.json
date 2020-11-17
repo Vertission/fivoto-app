@@ -8,7 +8,10 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "and-clean": "cd android && ./gradlew clean && cd .."
+    "and-clean": "cd android && ./gradlew clean && cd ..",
+    "bump:patch": "yarn version --patch",
+    "bump:minor": "yarn version --minor",
+    "bump:major": "yarn version --major"
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
