@@ -38,6 +38,7 @@ export default function ReportIssue({ navigation, route }) {
           data: route.params.data,
           action: route.params.action,
           description,
+          date: new Date(),
           user: SyncStorage.get('@user'),
         });
 

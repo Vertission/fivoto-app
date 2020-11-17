@@ -45,6 +45,7 @@ export default function BugReport({ navigation }) {
           description,
           screenshot: uris,
           user: SyncStorage.get('@user'),
+          date: new Date(),
         });
 
       Modal.show({

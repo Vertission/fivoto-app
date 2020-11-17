@@ -521,7 +521,10 @@ function handleError(error, action, data, navigation) {
             onPress: () =>
               navigation.navigate('Home', {
                 screen: 'ReportIssue',
-                params: { issue: JSON.stringify(error) },
+                params: {
+                  error: JSON.stringify(error),
+                  data: JSON.stringify(data),
+                },
               }),
           },
         ],
@@ -541,7 +544,10 @@ function handleError(error, action, data, navigation) {
             onPress: () =>
               navigation.navigate('Home', {
                 screen: 'ReportIssue',
-                params: { issue: JSON.stringify(error) },
+                params: {
+                  error: JSON.stringify(error),
+                  data: JSON.stringify(data),
+                },
               }),
           },
         ],

@@ -44,6 +44,7 @@ export default function FeatureRequest({ navigation }) {
         .add({
           description,
           photos: uris,
+          date: new Date(),
           user: SyncStorage.get('@user'),
         });
 
