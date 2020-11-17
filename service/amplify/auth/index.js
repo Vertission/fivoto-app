@@ -9,14 +9,15 @@ import { useUpdateUser } from '../../apollo/mutation/user';
 
 import { Modal, Snackbar } from '../../../library';
 
+import SignOut from '../../../utils/signOut';
+
 export function useSignOut() {
   const navigation = useNavigation();
 
   async function signOut() {
     try {
       await Auth.signOut();
-      SyncStorage.set('@sign', false);
-      SyncStorage.remove('@user');
+      SignOut();
       Sentry.configureScope((scope) => scope.setUser(null));
       await analytics().setUserId(null); // ANALYTIC
       navigation.setParams();
