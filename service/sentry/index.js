@@ -1,5 +1,7 @@
 import { SENTRY_DSN, ENVIRONMENT, STAGE } from '@env';
 import * as Sentry from '@sentry/react-native';
+import { getVersion, getBuildNumber } from 'react-native-device-info';
+console.log('getVersion, getBuildNumber', getVersion(), getBuildNumber());
 import _ from 'lodash';
 
 import { version } from '../../package.json';
