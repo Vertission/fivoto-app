@@ -117,7 +117,7 @@ export default function usePublishMutation(navigation) {
             category: data.category,
             location: data.location,
             title: data.title.trim(),
-            price: _.toNumber(_.replace(data.price, ',', '')), // 5,000 => 5000
+            price: _.toNumber(_.replace(data.price, /,/g, '')), // 5,000 => 5000
             description: data.description.trim(),
             phone: data.phone,
             fields: _.mapValues(data.fields, (value) => {

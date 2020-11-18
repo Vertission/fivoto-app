@@ -68,6 +68,8 @@ export default function FormCategory() {
         displayType={'text'}
         inputMode="numeric"
         thousandSeparator={true}
+        allowNegative={false}
+        allowLeadingZeros={false}
         renderText={(value) => {
           return (
             <Input

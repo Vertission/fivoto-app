@@ -100,7 +100,7 @@ export default function useUpdateMutation(navigation) {
             },
             title: data.title.trim(),
             price: _.toNumber(
-              _.replace(_.replace(data.price, ',', ''), 'LKR ', ''),
+              _.replace(_.replace(data.price, /,/g, ''), 'LKR ', ''),
             ), // LKR 5,000 => 5000
             description: data.description.trim(),
             phone: data.phone,

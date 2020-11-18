@@ -1,3 +1,5 @@
+![Build Android](https://github.com/Vertission/fivoto-app/workflows/Build%20Android/badge.svg?branch=stage)
+
 ### TODO
 
 - addBreadcrumb

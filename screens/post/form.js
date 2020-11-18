@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, Linking } from 'react-native';
 import { Permissions } from 'react-native-unimodules';
 import _ from 'lodash';
@@ -17,7 +17,7 @@ import {
 } from '../../library';
 import { COLOR, SIZE } from '../../library/Theme';
 
-import { Context, dispatch } from './modules/context';
+import { Context } from './modules/context';
 
 import SortPhotos from './modules/photos.sort';
 import FormCategory from './modules/form.categories';
@@ -102,30 +102,6 @@ export default function Form({ navigation }) {
       navigation.navigate('Photos');
     }
   };
-
-  useEffect(
-    () =>
-      navigation.addListener('beforeRemove', (e) => {
-        e.preventDefault();
-
-        Modal.show({
-          title: 'Discard Ad',
-          description: 'Do you want to discord this ad?',
-          actions: [
-            {
-              title: 'yes, Discard',
-              onPress: () => {
-                navigation.dispatch(e.data.action);
-                dispatch('RESET_CONTEXT');
-              },
-            },
-          ],
-          closeTitle: 'no',
-        });
-      }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [navigation],
-  );
 
   if (publishLoading || updateLoading)
     return <MutationLoader status={publishStatus || updateStatus} />;
