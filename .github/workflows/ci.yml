@@ -9,22 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install npm dependencies
+      - name: Install yarn dependencies
         run: |
-          npm install
-      # - name: Run tests
-      #   run: |
-      #     npm test
+          yarn install
+      - name: Run tests
+        run: |
+          yarn test
 
     # Second Job
   build-android:
-    needs: install-and-test
+    # needs: install-and-test // no tests yet
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install npm dependencies
+      - name: Install yarn dependencies
         run: |
-          npm install
+          yarn install
       - name: Generate env file
         run: |
           touch .env
