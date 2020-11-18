@@ -10,9 +10,7 @@ import ApolloModalErrorHandler from '../errorHandler/modal';
 
 const DELETE_AD = gql`
   mutation deleteAd($id: ID!) {
-    deleteAd(id: $id) {
-      id
-    }
+    deleteAd(id: $id)
   }
 `;
 

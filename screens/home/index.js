@@ -28,7 +28,6 @@ export default function Home({ navigation }) {
   const [categories, { loading, error, refetch }] = useQueryCategories();
 
   const _onPressSelectCategory = (category) => {
-    dispatch('RESET_CONTEXT');
     navigation.navigate('Search', { screen: 'Category', params: { category } });
   };
 
@@ -37,6 +36,7 @@ export default function Home({ navigation }) {
       Toast({ message: 'Please sign to publish your ads' });
       return navigation.navigate('Account', { screen: 'Login' });
     } else {
+      dispatch('RESET_CONTEXT');
       return navigation.navigate('Post', { screen: 'Category' });
     }
   };
@@ -60,7 +60,13 @@ export default function Home({ navigation }) {
     return (
       <React.Fragment>
         {HomeHeader}
-        <ApolloScreenErrorHandler error={error} refetch={refetch} />
+        <ApolloScreenErrorHandler
+          error={error}
+          refetch={refetch}
+          navigateReport={() =>
+            navigation.navigate('ReportIssue', { error: JSON.stringify(error) })
+          }
+        />
       </React.Fragment>
     );
   return (

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, StyleSheet, Linking } from 'react-native';
 import { Permissions } from 'react-native-unimodules';
 import _ from 'lodash';
@@ -17,7 +17,7 @@ import {
 } from '../../library';
 import { COLOR, SIZE } from '../../library/Theme';
 
-import { Context } from './modules/context';
+import { Context, dispatch } from './modules/context';
 
 import SortPhotos from './modules/photos.sort';
 import FormCategory from './modules/form.categories';
@@ -103,35 +103,36 @@ export default function Form({ navigation }) {
     }
   };
 
-  // useEffect(
-  //   () =>
-  //     navigation.addListener('beforeRemove', (e) => {
-  //       Modal.show({
-  //         title: 'Discard Ad',
-  //         description: 'Do you want to discord this ad?',
-  //         actions: [
-  //           {
-  //             title: 'yes, Discard',
-  //             onPress: () => {
-  //               dispatch('RESET_CONTEXT');
-  //               navigation.navigate('Post');
-  //             },
-  //           },
-  //         ],
-  //         closeTitle: 'no',
-  //       });
-  //       e.preventDefault();
-  //     }),
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   [navigation],
-  // );
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', (e) => {
+        e.preventDefault();
+
+        Modal.show({
+          title: 'Discard Ad',
+          description: 'Do you want to discord this ad?',
+          actions: [
+            {
+              title: 'yes, Discard',
+              onPress: () => {
+                navigation.dispatch(e.data.action);
+                dispatch('RESET_CONTEXT');
+              },
+            },
+          ],
+          closeTitle: 'no',
+        });
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [navigation],
+  );
 
   if (publishLoading || updateLoading)
     return <MutationLoader status={publishStatus || updateStatus} />;
   else
     return (
       <React.Fragment>
-        <Header />
+        <Header onPress={() => navigation.navigate('Post')} />
         <Container
           scrollProps={{
             keyboardShouldPersistTaps: 'always',

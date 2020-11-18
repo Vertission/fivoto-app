@@ -20,7 +20,7 @@ import { COLOR, SIZE } from '../../library/Theme';
 export default function ReportIssue({ navigation, route }) {
   const [loading, setLoading] = useState(false);
 
-  const { control, handleSubmit, errors } = useForm({
+  const { control, handleSubmit, errors, reset } = useForm({
     mode: 'onBlur',
     defaultValues: {
       description: null,
@@ -42,6 +42,9 @@ export default function ReportIssue({ navigation, route }) {
           user: SyncStorage.get('@user'),
         });
 
+      reset();
+      setLoading(false);
+
       navigation.navigate('Home');
 
       Modal.show({
@@ -50,8 +53,6 @@ export default function ReportIssue({ navigation, route }) {
           'Thank you for taking time to report this issue, Fivoto team will fix this soon as possible.',
         closeTitle: 'close',
       });
-
-      setLoading(false);
     } catch (error) {
       setLoading(false);
       Sentry.withScope(function (scope) {

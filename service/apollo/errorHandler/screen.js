@@ -5,14 +5,16 @@ import { StyleSheet, View } from 'react-native';
 import { Typography, Icon, Button } from '../../../library';
 import { COLOR, SIZE } from '../../../library/Theme';
 
-export default function Error({ refetch, error, reportNavigation }) {
+export default function Error({ refetch, error, navigateReport }) {
   const navigation = useNavigation();
-  const { message } = error;
 
   const _onPressReport = () => {
-    if (reportNavigation) reportNavigation();
+    if (navigateReport) return navigateReport();
     else
-      navigation.navigate('Home', { screen: 'ReportIssue', params: { error } });
+      navigation.navigate('Home', {
+        screen: 'ReportIssue',
+        params: { error: JSON.stringify(error) },
+      });
   };
 
   return (

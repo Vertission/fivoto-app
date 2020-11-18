@@ -13,7 +13,7 @@ import ResetPasswordScreen from '../../screens/auth/resetPassword';
 import UserScreen from '../../screens/user';
 import EditProfileScreen from '../../screens/user/editProfile';
 import PublishedAdsScreen from '../../screens/user/publishedAds';
-import EmailChangeScreen from '../../screens/user/emailConfirmation';
+import EmailChangeScreen from '../../screens/user/emailChange';
 import UserEmailConfirmationScreen from '../../screens/user/emailConfirmation'; // NEXT: seems duplicate @ '../../screens/auth/emailConfirmation';
 import PasswordChangeScreen from '../../screens/user/changePassword';
 

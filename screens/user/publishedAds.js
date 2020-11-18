@@ -86,7 +86,7 @@ export default function PublishedAds({ navigation }) {
           });
           dispatch('SET_CONTEXT', { ...data.ad, photos });
           setEditLoading(false);
-          navigation.navigate('Post', { screen: 'Form', params: { id } });
+          navigation.navigate('Post', { screen: 'Form' });
         })
         .catch((error) => {
           setEditLoading(false);
