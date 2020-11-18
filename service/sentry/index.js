@@ -1,15 +1,9 @@
-import { SENTRY_DSN, ENVIRONMENT, STAGE } from '@env';
+import { SENTRY_DSN, ENVIRONMENT } from '@env';
 import * as Sentry from '@sentry/react-native';
 import { getVersion, getBuildNumber } from 'react-native-device-info';
-console.log('getVersion, getBuildNumber', getVersion(), getBuildNumber());
 import _ from 'lodash';
 
-import { version } from '../../package.json';
-
-const release =
-  ENVIRONMENT === 'production'
-    ? [_.dropRight(version.split('.')).join('.'), STAGE].join('-')
-    : ENVIRONMENT;
+const release = ENVIRONMENT === 'production' ? getVersion() : ENVIRONMENT;
 
 Sentry.init({
   dsn: SENTRY_DSN,
@@ -17,4 +11,5 @@ Sentry.init({
   enableAutoSessionTracking: true,
   debug: ENVIRONMENT === 'development',
   release: ['app', release].join('@'),
+  dist: getBuildNumber(),
 });
