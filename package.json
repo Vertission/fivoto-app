@@ -1,6 +1,6 @@
 {
   "name": "fivoto",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -9,9 +9,10 @@
     "test": "jest",
     "lint": "eslint .",
     "and:clean": "cd android && ./gradlew clean && cd ..",
-    "bump:patch": "yarn version --patch",
+    "bump:patch": "yarn version --patch --no-git-tag-version",
     "bump:minor": "yarn version --minor",
-    "bump:major": "yarn version --major"
+    "bump:major": "yarn version --major",
+    "postversionss": "react-native-version --target android"
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
