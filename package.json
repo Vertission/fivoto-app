@@ -12,7 +12,7 @@
     "bump:patch": "yarn version --patch --no-git-tag-version",
     "bump:minor": "yarn version --minor",
     "bump:major": "yarn version --major",
-    "postversionss": "react-native-version --target android"
+    "postversion": "react-native-version --target android"
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
