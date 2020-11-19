@@ -1,4 +1,4 @@
-import { APOLLO_HOST } from '@env';
+import { APOLLO_HOST, ENVIRONMENT } from '@env';
 import React from 'react';
 import {
   ApolloClient,
@@ -22,26 +22,39 @@ const httpLink = createHttpLink({
   uri: APOLLO_HOST,
 });
 
-const errorLink = new onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    graphQLErrors.map(({ message, locations, path, code }) => {
-      if (message === 'NotAuthorizedException') {
-        signOut();
-      } else {
-        Sentry.captureException(graphQLErrors);
-
+const errorLink = new onError(({ graphQLErrors, networkError, message }) => {
+  console.log('message', message);
+  if (ENVIRONMENT === 'development') {
+    if (graphQLErrors) {
+      graphQLErrors.map(({ message, locations, path, code }) => {
         console.error(
           `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(
             locations,
           )}, Path: ${path}, code: ${code}`,
         );
+
+        if (message === 'NotAuthorizedException') {
+          console.error('User not authorized');
+        }
+      });
+    }
+
+    if (networkError) {
+      console.error(networkError);
+    }
+  }
+
+  if (graphQLErrors) {
+    graphQLErrors.map(({ message }) => {
+      if (message === 'NotAuthorizedException') {
+        signOut();
+      } else {
+        Sentry.captureException(graphQLErrors);
       }
     });
   }
 
   if (networkError) {
-    console.error(JSON.stringify(networkError, null, 2));
-
     NetInfo.fetch().then((state) => {
       if (state.isConnected) {
         Sentry.captureException(networkError);
