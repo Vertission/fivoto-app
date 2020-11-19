@@ -22,8 +22,7 @@ const httpLink = createHttpLink({
   uri: APOLLO_HOST,
 });
 
-const errorLink = new onError(({ graphQLErrors, networkError, message }) => {
-  console.log('message', message);
+const errorLink = new onError(({ graphQLErrors, networkError }) => {
   if (ENVIRONMENT === 'development') {
     if (graphQLErrors) {
       graphQLErrors.map(({ message, locations, path, code }) => {
@@ -48,17 +47,14 @@ const errorLink = new onError(({ graphQLErrors, networkError, message }) => {
     graphQLErrors.map(({ message }) => {
       if (message === 'NotAuthorizedException') {
         signOut();
-      } else {
-        Sentry.captureException(graphQLErrors);
       }
     });
   }
 
   if (networkError) {
     NetInfo.fetch().then((state) => {
-      if (state.isConnected) {
-        Sentry.captureException(networkError);
-      } else return Toast({ message: 'no internet connection' });
+      if (!state.isConnected)
+        return Toast({ message: 'no internet connection' });
     });
   }
 });
@@ -78,7 +74,7 @@ const authLink = setContext(async (_, { headers }) => {
     };
   } catch (error) {
     if (error === 'No current user') return null;
-    console.error('authLink -> error', error);
+    Sentry.captureException(error);
   }
 });
 

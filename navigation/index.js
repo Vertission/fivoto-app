@@ -30,6 +30,7 @@ export default function Navigation() {
         if (previousRouteName !== currentRouteName) {
           Sentry.addBreadcrumb({
             category: 'navigation',
+            data: currentRouteName,
             screen: currentRouteName,
             level: Sentry.Severity.Info,
           });

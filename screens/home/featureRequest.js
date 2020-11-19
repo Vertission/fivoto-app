@@ -38,7 +38,6 @@ export default function FeatureRequest({ navigation }) {
     try {
       setLoading(true);
       const uris = await uploadPhotos('featureRequest', photos);
-      console.log('FeatureRequest -> uris', uris);
 
       await firestore()
         .collection('featureRequest')
@@ -63,7 +62,6 @@ export default function FeatureRequest({ navigation }) {
 
       setLoading(false);
     } catch (error) {
-      console.log('FeatureRequest -> error', error);
       setLoading(false);
       Sentry.withScope(function (scope) {
         scope.setTag('screen', 'featureRequest');

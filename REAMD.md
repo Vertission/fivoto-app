@@ -1,8 +1,9 @@
 ![Build Android](https://github.com/Vertission/fivoto-app/workflows/Build%20Android/badge.svg?branch=stage)
 
-### TODO
+### NEXT UPDATES
 
-- addBreadcrumb
+- Sentry Breadcrumb
+- CodePush
 
 ### ISO SETUP
 

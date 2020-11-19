@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { useQuery } from '@apollo/client';
 import { Modalize } from 'react-native-modalize';
+import * as Sentry from '@sentry/react-native';
 import _ from 'lodash';
 
 import {
@@ -37,6 +38,12 @@ export default function ({ navigation, route }) {
   const { data, loading, refetch, error } = useQuery(AD, {
     variables: { id: route.params.id },
     notifyOnNetworkStatusChange: true,
+    onError(error) {
+      Sentry.withScope(function (scope) {
+        scope.setTag('func', 'ad:AD');
+        Sentry.captureException(error);
+      });
+    },
   });
 
   if (loading) return <Indicator.Loading />;
@@ -48,9 +55,10 @@ export default function ({ navigation, route }) {
       </React.Fragment>
     );
   else {
+    if (!data?.ad?.photos) return <NotAvailable />;
+
     const {
       id,
-      type,
       photos,
       location,
       createdAt,
@@ -61,7 +69,6 @@ export default function ({ navigation, route }) {
       description,
       user,
     } = data.ad;
-    if (!type) return <NotAvailable />;
     return (
       <React.Fragment>
         <ScrollView

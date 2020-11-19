@@ -41,7 +41,7 @@ const QUERY_ME = gql`
         title
         photos
         price
-        createdAt
+        expireAt
       }
     }
   }
@@ -159,7 +159,6 @@ export default function PublishedAds({ navigation }) {
             )}
             maxSwipeDistance={160}
             renderQuickActions={({ index, item }) => QuickActions(index, item)}
-            // contentContainerStyle={s.contentContainerStyle}
             shouldBounceOnMount={true}
           />
         </View>
@@ -168,7 +167,7 @@ export default function PublishedAds({ navigation }) {
     );
 }
 
-function Card({ id, photos, title, createdAt, navigation }) {
+function Card({ id, photos, title, expireAt, navigation }) {
   return (
     <TouchableNativeFeedback
       onPress={() =>
@@ -190,7 +189,7 @@ function Card({ id, photos, title, createdAt, navigation }) {
             align="right"
             color={COLOR.MUTED}
             style={s.date}>
-            {format(createdAt)}
+            Expires {format(expireAt)}
           </Typography>
         </View>
       </View>

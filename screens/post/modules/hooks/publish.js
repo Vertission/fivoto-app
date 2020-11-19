@@ -78,7 +78,7 @@ export default function usePublishMutation(navigation) {
       Sentry.withScope(function (scope) {
         scope.setTag('func', 'usePublishMutation:mutateCreateAd');
         scope.setLevel(Sentry.Severity.Fatal);
-        scope.setContext('data', { data: JSON.stringify(logData) });
+        scope.setContext('data', { data: logData });
         Sentry.captureException(error);
       });
     },
@@ -96,7 +96,7 @@ export default function usePublishMutation(navigation) {
       Sentry.withScope(function (scope) {
         scope.setTag('func', 'usePublishMutation:mutateUpdateAd');
         scope.setLevel(Sentry.Severity.Fatal);
-        scope.setContext('data', { data: JSON.stringify(logData) });
+        scope.setContext('data', { data: logData });
         Sentry.captureException(error);
       });
     },
@@ -186,7 +186,7 @@ export default function usePublishMutation(navigation) {
       Sentry.withScope(function (scope) {
         scope.setTag('func', 'usePublishMutation');
         scope.setLevel(Sentry.Severity.Fatal);
-        scope.setContext('data', { data: JSON.stringify(data) });
+        scope.setContext('data', { data });
         Sentry.captureException(error);
       });
     }

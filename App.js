@@ -30,6 +30,7 @@ export default function App() {
       ENVIRONMENT === 'production',
     );
     await analytics().logAppOpen();
+
     if (SyncStorage.get('@user_id')) {
       analytics().setUserId(SyncStorage.get('@user_id'));
       Sentry.setUser({

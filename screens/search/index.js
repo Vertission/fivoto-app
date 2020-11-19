@@ -12,7 +12,9 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import { format } from 'timeago.js';
 import { Modalize } from 'react-native-modalize';
+import * as Sentry from '@sentry/react-native';
 import _ from 'lodash';
+
 import { Typography, Image, Carousel, Indicator } from '../../library';
 import { SIZE, COLOR } from '../../library/Theme';
 
@@ -33,6 +35,13 @@ export default function Search() {
   const { data, loading, refetch, error, fetchMore } = useQuery(SEARCH_QUERY, {
     variables: { offset: 0, limit, query, category, location },
     notifyOnNetworkStatusChange: true,
+    onError(error) {
+      Sentry.withScope(function (scope) {
+        scope.setTag('func', 'search:SEARCH_QUERY');
+        scope.setLevel(Sentry.Severity.Fatal);
+        Sentry.captureException(error);
+      });
+    },
   });
 
   const _onEndReached = () => {
