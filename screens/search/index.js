@@ -45,20 +45,23 @@ export default function Search() {
   });
 
   const _onEndReached = () => {
-    setFetchMoreLoading(true);
-    fetchMore({
-      query: SEARCH_QUERY,
-      variables: {
-        offset: data.search.length,
-        limit,
-        query,
-        category,
-        location,
-      },
-    }).then(({ loading }) => {
-      // NEXT: show ads finished message
-      setFetchMoreLoading(loading);
-    });
+    if (data.search.ads.length === data.search.total) return null;
+    else {
+      setFetchMoreLoading(true);
+      fetchMore({
+        query: SEARCH_QUERY,
+        variables: {
+          offset: data.search.length,
+          limit,
+          query,
+          category,
+          location,
+        },
+      }).then(({ loading }) => {
+        // NEXT: show ads finished message
+        setFetchMoreLoading(loading);
+      });
+    }
   };
 
   const _onRefresh = () => {
@@ -79,7 +82,42 @@ export default function Search() {
         <ApolloScreenErrorHandler refetch={_onErrorRefetch} error={error} />
       </React.Fragment>
     );
-  else if (!loading && _.isEmpty(data?.search))
+  else if (data?.search.ads.length)
+    return (
+      <React.Fragment>
+        <Header search={search} setSearch={setSearch} />
+        <View>
+          <Indicator.Progress
+            indeterminate={fetchMoreLoading}
+            width={SIZE.width}
+          />
+        </View>
+        <FlatList
+          data={data.search.ads}
+          renderItem={({ item }) => (
+            <Card {...item} modalizeRef={modalizeRef} setPhotos={setPhotos} />
+          )}
+          keyExtractor={(item) => item.id}
+          onEndReached={_onEndReached}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              colors={[COLOR.PRIMARY]}
+              onRefresh={_onRefresh}
+            />
+          }
+          style={{ marginVertical: SIZE.margin / 2 }}
+        />
+        {/* PHOTOS PREVIEW  */}
+        <Modalize
+          modalStyle={s.modalizeModalStyle}
+          ref={modalizeRef}
+          adjustToContentHeight>
+          <Carousel data={photos} />
+        </Modalize>
+      </React.Fragment>
+    );
+  else
     return (
       // NEXT: IMPROVE NO ADS UI
       <View>
@@ -92,40 +130,6 @@ export default function Search() {
         </Typography>
       </View>
     );
-  return (
-    <React.Fragment>
-      <Header search={search} setSearch={setSearch} />
-      <View>
-        <Indicator.Progress
-          indeterminate={fetchMoreLoading}
-          width={SIZE.width}
-        />
-      </View>
-      <FlatList
-        data={data?.search}
-        renderItem={({ item }) => (
-          <Card {...item} modalizeRef={modalizeRef} setPhotos={setPhotos} />
-        )}
-        keyExtractor={(item) => item.id}
-        onEndReached={_onEndReached}
-        refreshControl={
-          <RefreshControl
-            refreshing={loading}
-            colors={[COLOR.PRIMARY]}
-            onRefresh={_onRefresh}
-          />
-        }
-        style={{ marginVertical: SIZE.margin / 2 }}
-      />
-      {/* PHOTOS PREVIEW  */}
-      <Modalize
-        modalStyle={s.modalizeModalStyle}
-        ref={modalizeRef}
-        adjustToContentHeight>
-        <Carousel data={photos} />
-      </Modalize>
-    </React.Fragment>
-  );
 }
 
 function Card({
@@ -226,14 +230,17 @@ const SEARCH_QUERY = gql`
       category: $category
       location: $location
     ) {
-      id
-      title
-      price
-      photos
-      location {
-        city
+      ads {
+        id
+        title
+        price
+        photos
+        location {
+          city
+        }
+        createdAt
       }
-      createdAt
+      total
     }
   }
 `;

@@ -19,7 +19,7 @@ import { Toast } from '../../library';
 import signOut from '../../utils/signOut';
 
 const httpLink = createHttpLink({
-  uri: APOLLO_HOST,
+  uri: 'http://192.168.8.101:4000',
 });
 
 const errorLink = new onError(({ graphQLErrors, networkError }) => {
@@ -83,9 +83,7 @@ export const client = new ApolloClient({
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
-        fields: {
-          search: offsetLimitPagination(['query', 'category', 'location']),
-        },
+        fields: {},
       },
     },
   }),

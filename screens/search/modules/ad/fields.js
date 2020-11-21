@@ -9,7 +9,6 @@ import styles from '../../../../library/Theme/styles';
 export default function AdFields({ fields }) {
   const Fields = (fields) => {
     return Object.keys(fields)
-      .sort()
       .filter((k) => typeof fields[k] !== 'boolean')
       .map((field) => (
         <View style={s.spec} key={field}>

@@ -1,6 +1,7 @@
 import { ENVIRONMENT } from '@env';
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
+import { StatusBar } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { RootSiblingParent } from 'react-native-root-siblings';
@@ -17,6 +18,8 @@ import ApolloProvider from './service/apollo';
 import Navigation from './navigation';
 import amplifyConfig from './service/amplify';
 import './service/sentry';
+
+import { COLOR } from './library/Theme';
 
 export default function App() {
   const [initialize, setInitialize] = useState(false);
@@ -52,6 +55,7 @@ export default function App() {
   if (initialize)
     return (
       <React.Fragment>
+        <StatusBar backgroundColor={COLOR.PRIMARY}  />
         <RootSiblingParent>
           <ApolloProvider>
             <Navigation />
