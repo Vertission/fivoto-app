@@ -28,14 +28,15 @@ export default function AdFields({ fields }) {
               ))}
             </View>
           );
-        return (
-          <View style={s.spec} key={field}>
-            <Typography transform="capitalize" family="bold">
-              {field}:
-            </Typography>
-            <Typography style={s.value}>{fields[field]}</Typography>
-          </View>
-        );
+        else
+          return (
+            <View style={s.spec} key={field}>
+              <Typography transform="capitalize" family="bold">
+                {field}:
+              </Typography>
+              <Typography style={s.value}>{fields[field]}</Typography>
+            </View>
+          );
       });
   };
 

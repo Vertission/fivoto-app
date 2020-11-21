@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
 import { Context, dispatch } from '../../context';
@@ -105,24 +104,15 @@ export function Engine() {
   const { fields } = useContext(Context);
 
   return (
-    <NumberFormat
+    <Input
+      underlineColorAndroid="transparent"
       value={fields.engine}
-      displayType={'text'}
-      thousandSeparator={true}
-      renderText={(value) => {
-        return (
-          <Input
-            underlineColorAndroid="transparent"
-            value={value}
-            keyboardType="numeric"
-            label="Engine"
-            maxLength={20}
-            onChangeText={(value) =>
-              dispatch('SET_FIELDS', { field: 'engine', value })
-            }
-          />
-        );
-      }}
+      keyboardType="numeric"
+      label="Engine"
+      maxLength={20}
+      onChangeText={(value) =>
+        dispatch('SET_FIELDS', { field: 'engine', value })
+      }
     />
   );
 }
@@ -150,23 +140,14 @@ export function Mileage() {
   const { fields } = useContext(Context);
 
   return (
-    <NumberFormat
-      displayType={'text'}
-      thousandSeparator={true}
+    <Input
+      underlineColorAndroid="transparent"
       value={fields.mileage}
-      renderText={(value) => {
-        return (
-          <Input
-            underlineColorAndroid="transparent"
-            value={value}
-            keyboardType="numeric"
-            label="Mileage"
-            onChangeText={(value) =>
-              dispatch('SET_FIELDS', { field: 'mileage', value })
-            }
-          />
-        );
-      }}
+      keyboardType="numeric"
+      label="Mileage"
+      onChangeText={(value) =>
+        dispatch('SET_FIELDS', { field: 'mileage', value })
+      }
     />
   );
 }

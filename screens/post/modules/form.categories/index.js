@@ -1,6 +1,5 @@
 import React, { useContext, useRef } from 'react';
 import { View } from 'react-native';
-import NumberFormat from 'react-number-format';
 
 import { Input } from '../../../../library';
 
@@ -63,30 +62,18 @@ export default function FormCategory() {
       />
 
       {/* PRICE FILED */}
-      <NumberFormat
+      <Input
+        setRef={priceRef}
+        underlineColorAndroid="transparent"
+        onChangeText={(price) => dispatch('SET_PRICE', price)}
         value={price}
-        displayType={'text'}
-        inputMode="numeric"
-        thousandSeparator={true}
-        allowNegative={false}
-        allowLeadingZeros={false}
-        renderText={(value) => {
-          return (
-            <Input
-              setRef={priceRef}
-              underlineColorAndroid="transparent"
-              onChangeText={(value) => dispatch('SET_PRICE', value)}
-              value={value}
-              keyboardType="numeric"
-              maxLength={21}
-              label="Price"
-              helper="required*"
-              placeholder="YOUR AD PRICE"
-              inputContainerStyle={{
-                marginTop: SIZE.margin,
-              }}
-            />
-          );
+        keyboardType="numeric"
+        maxLength={21}
+        label="Price"
+        helper="required*"
+        placeholder="YOUR AD PRICE"
+        inputContainerStyle={{
+          marginTop: SIZE.margin,
         }}
       />
 

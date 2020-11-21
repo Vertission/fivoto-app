@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
-import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 
 import { Context, dispatch } from '../../context';
@@ -40,27 +39,18 @@ export function LandSize() {
     <>
       <Typography style={styles.label}>Area</Typography>
       <View style={styles.landSize}>
-        <NumberFormat
+        <Input
+          underlineColorAndroid="transparent"
+          onChangeText={(area) =>
+            dispatch('SET_FIELDS', {
+              field: 'land size',
+              value: { area, unit: fields['land size'].unit },
+            })
+          }
           value={fields['land size']?.area}
-          displayType={'text'}
-          thousandSeparator={true}
-          renderText={(value) => {
-            return (
-              <Input
-                underlineColorAndroid="transparent"
-                onChangeText={(value) =>
-                  dispatch('SET_FIELDS', {
-                    field: 'land size',
-                    value: { area: value, unit: fields['land size'].unit },
-                  })
-                }
-                value={value}
-                keyboardType="numeric"
-                inputContainerStyle={styles.landSizeInput}
-                style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
-              />
-            );
-          }}
+          keyboardType="numeric"
+          inputContainerStyle={styles.landSizeInput}
+          style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
         />
         <Picker
           pickers={['perches', 'arches', 'square feet']}
