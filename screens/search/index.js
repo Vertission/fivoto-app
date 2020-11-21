@@ -45,20 +45,28 @@ export default function Search() {
   });
 
   const _onEndReached = () => {
+    console.log('load more');
     if (data.search.ads.length === data.search.total) return null;
     else {
       setFetchMoreLoading(true);
       fetchMore({
         query: SEARCH_QUERY,
         variables: {
-          offset: data.search.length,
+          offset: data.search.ads.length,
           limit,
           query,
           category,
           location,
         },
+        updateQuery: (prevResult, { fetchMoreResult }) => {
+          fetchMoreResult.search.ads = [
+            ...prevResult.search.ads,
+            ...fetchMoreResult.search.ads,
+          ];
+
+          return fetchMoreResult;
+        },
       }).then(({ loading }) => {
-        // NEXT: show ads finished message
         setFetchMoreLoading(loading);
       });
     }
@@ -178,6 +186,7 @@ function Card({
 const s = StyleSheet.create({
   bottom: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginTop: 'auto',
   },
