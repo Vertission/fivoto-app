@@ -82,7 +82,20 @@ export default function Search() {
         <ApolloScreenErrorHandler refetch={_onErrorRefetch} error={error} />
       </React.Fragment>
     );
-  else if (data?.search.ads.length)
+  else if (!loading && !data?.search.total)
+    return (
+      // NEXT: IMPROVE NO ADS UI
+      <View>
+        <Header search={search} setSearch={setSearch} />
+        <Typography
+          align="center"
+          color={COLOR.MUTED}
+          style={{ marginTop: SIZE.margin * 2 }}>
+          No ads found
+        </Typography>
+      </View>
+    );
+  else
     return (
       <React.Fragment>
         <Header search={search} setSearch={setSearch} />
@@ -93,7 +106,7 @@ export default function Search() {
           />
         </View>
         <FlatList
-          data={data.search.ads}
+          data={data?.search.ads}
           renderItem={({ item }) => (
             <Card {...item} modalizeRef={modalizeRef} setPhotos={setPhotos} />
           )}
@@ -116,19 +129,6 @@ export default function Search() {
           <Carousel data={photos} />
         </Modalize>
       </React.Fragment>
-    );
-  else
-    return (
-      // NEXT: IMPROVE NO ADS UI
-      <View>
-        <Header search={search} setSearch={setSearch} />
-        <Typography
-          align="center"
-          color={COLOR.MUTED}
-          style={{ marginTop: SIZE.margin * 2 }}>
-          No ads found
-        </Typography>
-      </View>
     );
 }
 

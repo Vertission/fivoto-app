@@ -29,9 +29,9 @@ export function Furnishing() {
 export function LandSize() {
   const { fields } = useContext(Context);
 
-  if (_.isEmpty(fields.landSize)) {
+  if (_.isEmpty(fields['land size'])) {
     dispatch('SET_FIELDS', {
-      field: 'landSize',
+      field: 'land size',
       value: { unit: 'perches', area: null },
     });
   }
@@ -41,7 +41,7 @@ export function LandSize() {
       <Typography style={styles.label}>Area</Typography>
       <View style={styles.landSize}>
         <NumberFormat
-          value={fields.landSize?.area}
+          value={fields['land size']?.area}
           displayType={'text'}
           thousandSeparator={true}
           renderText={(value) => {
@@ -50,8 +50,8 @@ export function LandSize() {
                 underlineColorAndroid="transparent"
                 onChangeText={(value) =>
                   dispatch('SET_FIELDS', {
-                    field: 'landSize',
-                    value: { area: value, unit: fields.landSize.unit },
+                    field: 'land size',
+                    value: { area: value, unit: fields['land size'].unit },
                   })
                 }
                 value={value}
@@ -65,11 +65,11 @@ export function LandSize() {
         <Picker
           pickers={['perches', 'arches', 'square feet']}
           style={styles.landSizePicker}
-          selectedValue={fields.landSize?.unit}
+          selectedValue={fields['land size']?.unit}
           onValueChange={(value) =>
             dispatch('SET_FIELDS', {
-              field: 'landSize',
-              value: { area: fields.landSize.area, unit: value },
+              field: 'land size',
+              value: { area: fields['land size'].area, unit: value },
             })
           }
         />

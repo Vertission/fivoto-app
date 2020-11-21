@@ -7,7 +7,7 @@ import { SIZE } from '../../../../library/Theme';
 export default function AdHeader({ id, onPress }) {
   const _onPressShare = () => {
     Share.share({
-      message: `https://lk.fivoto.com/ad/${id}`,
+      message: ['http://e70d16b27c19.ngrok.io', 'ad', id].join('/'),
     });
   };
 
