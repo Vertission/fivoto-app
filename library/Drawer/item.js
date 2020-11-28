@@ -5,14 +5,21 @@ import Typography from '../Typography';
 import Icon from '../Icon';
 import { SIZE, COLOR } from '../Theme';
 
-export default function Item({ children, icon, selected, iconProps, ...rest }) {
+export default function Item({
+  children,
+  icon,
+  iconColor = COLOR.ICON,
+  selected,
+  iconProps,
+  ...rest
+}) {
   return (
     <TouchableOpacity style={[s.root, selected && s.rootSelected]} {...rest}>
       <Icon
         name={icon}
         size={SIZE.icon}
         style={s.icon}
-        color={selected ? COLOR.WHITE : COLOR.ICON}
+        color={selected ? COLOR.WHITE : iconColor}
         {...iconProps}
       />
       <Typography

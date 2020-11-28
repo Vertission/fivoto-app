@@ -21,22 +21,21 @@ export default function DrawerComponent(props) {
           onPress={() => props.navigation.navigate('Home')}>
           Home
         </Drawer.Item>
-        <Drawer.Item
+        {/* <Drawer.Item
           icon="information-circle"
           onPress={() => props.navigation.navigate('AboutUs')}>
           About Us
-        </Drawer.Item>
-        <Drawer.Item
+        </Drawer.Item> */}
+        {/* <Drawer.Item
           icon="document"
           onPress={() => props.navigation.navigate('AboutUs')}>
           Terms & Conditions
-        </Drawer.Item>
-        <Drawer.Item
+        </Drawer.Item> */}
+        {/* <Drawer.Item
           icon="lock"
           onPress={() => props.navigation.navigate('AboutUs')}>
           Stay Safe
-        </Drawer.Item>
-
+        </Drawer.Item> */}
         {/* HELP AND SUPPORT  */}
         <Drawer.Title>help & support</Drawer.Title>
         <Drawer.Item
@@ -56,12 +55,14 @@ export default function DrawerComponent(props) {
         <Drawer.Title>feedback</Drawer.Title>
         <Drawer.Item
           icon="bulb"
+          iconColor="#0be881"
           selected={routeName === 'FeatureRequest'}
           onPress={() => props.navigation.navigate('FeatureRequest')}>
           Feature Request
         </Drawer.Item>
         <Drawer.Item
           icon="bug"
+          iconColor="#ff3f34"
           selected={routeName === 'BugReport'}
           onPress={() => props.navigation.navigate('BugReport')}>
           Bug Report
@@ -83,18 +84,21 @@ export default function DrawerComponent(props) {
             name="logo-instagram"
             touch
             size={SIZE.icon * 1.5}
+            color="#fe4164"
             onPress={() => Linking.openURL('http://instagram.com/_u/fivoto')}
           />
           <Icon
             name="logo-facebook"
             touch
             size={SIZE.icon * 1.5}
+            color="#3b5998"
             onPress={() => Linking.openURL('https://www.facebook.com/fivoto')}
           />
           <Icon
             name="logo-twitter"
             touch
             size={SIZE.icon * 1.5}
+            color="#00acee"
             onPress={() => Linking.openURL('https://twitter.com/fivoto')}
           />
         </Drawer.Content>

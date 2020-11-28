@@ -30,6 +30,7 @@ function HomeDrawer({ route }) {
       headerMode="none"
       initialRouteName="Home"
       drawerType="slide"
+      openByDefault
       drawerContent={(props) => <CustomDrawer {...props} route={route} />}>
       <Drawer.Screen
         name="Home"

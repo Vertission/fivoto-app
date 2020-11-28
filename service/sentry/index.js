@@ -13,7 +13,7 @@ Sentry.init({
   dist: getBuildNumber(),
   beforeSend(e) {
     if (e.environment === 'development') {
-      // console.error(JSON.stringify(e, null, 2));
+      console.error(JSON.stringify(e, null, 2));
       return null;
     } else return e;
   },
