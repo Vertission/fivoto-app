@@ -66,7 +66,7 @@ export default function DrawerComponent(props) {
           onPress={() => props.navigation.navigate('BugReport')}>
           Bug Report
         </Drawer.Item>
-        <Drawer.Item
+        {/* <Drawer.Item
           icon="logo-android"
           onPress={() =>
             Linking.openURL(
@@ -74,7 +74,7 @@ export default function DrawerComponent(props) {
             )
           }>
           Rate Us On Play Store
-        </Drawer.Item>
+        </Drawer.Item> */}
 
         {/* SOCIAL MEDIA  */}
         <Drawer.Title>social medias</Drawer.Title>

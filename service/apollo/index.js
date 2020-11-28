@@ -10,7 +10,6 @@ import {
 import { Auth } from 'aws-amplify';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
-import { offsetLimitPagination } from '@apollo/client/utilities';
 import NetInfo from '@react-native-community/netinfo';
 import * as Sentry from '@sentry/react-native';
 
@@ -19,7 +18,7 @@ import { Toast } from '../../library';
 import signOut from '../../utils/signOut';
 
 const httpLink = createHttpLink({
-  uri: 'http://192.168.8.101:4000',
+  uri: APOLLO_HOST,
 });
 
 const errorLink = new onError(({ graphQLErrors, networkError }) => {

@@ -45,7 +45,6 @@ export default function Search() {
   });
 
   const _onEndReached = () => {
-    console.log('load more');
     if (data.search.ads.length === data.search.total) return null;
     else {
       setFetchMoreLoading(true);

@@ -128,6 +128,11 @@ export default function useUpdateMutation(navigation) {
       if (mutationResponse.error) {
       } else modalizeRef.current?.open();
 
+      // await fetch(['http://192.168.8.101:3000/ad', data.id].join('/'))
+      //   .then((response) => response.json())
+      //   .then((data) => console.log(data))
+      //   .catch((error) => console.log(error));
+
       return navigation.navigate('Post');
     } catch (error) {
       setLoading(false);
