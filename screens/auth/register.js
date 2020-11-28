@@ -62,14 +62,24 @@ export default function ({ navigation }) {
         </Button>
 
         {/* TERM & CONDITION  */}
-        <Typography
-          align="center"
-          variant="caption"
-          color={COLOR.MUTED}
-          onPress={() => Linking.openURL('https://google.com')}>
+        <Typography align="center" variant="caption" color={COLOR.MUTED}>
           By signing you agree to{' '}
-          <Typography variant="caption" family="bold" color={COLOR.PRIMARY}>
+          <Typography
+            variant="caption"
+            family="bold"
+            color={COLOR.PRIMARY}
+            onPress={() => Linking.openURL('https://www.fivoto.com/terms')}>
             Terms & Conditions
+          </Typography>{' '}
+          <Typography align="center" variant="caption" color={COLOR.MUTED}>
+            &{' '}
+          </Typography>
+          <Typography
+            variant="caption"
+            family="bold"
+            color={COLOR.PRIMARY}
+            onPress={() => Linking.openURL('https://www.fivoto.com/privacy')}>
+            Privacy Policy
           </Typography>
         </Typography>
 
