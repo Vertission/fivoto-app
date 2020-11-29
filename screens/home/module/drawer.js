@@ -81,21 +81,21 @@ export default function DrawerComponent(props) {
           <Icon
             name="logo-instagram"
             touch
-            size={SIZE.icon * 1.8}
+            size={SIZE.icon * 1.6}
             color="#fe4164"
             onPress={() => Linking.openURL('http://instagram.com/_u/fivoto')}
           />
           <Icon
             name="logo-facebook"
             touch
-            size={SIZE.icon * 1.8}
+            size={SIZE.icon * 1.6}
             color="#3b5998"
             onPress={() => Linking.openURL('https://www.facebook.com/fivoto')}
           />
           <Icon
             name="logo-twitter"
             touch
-            size={SIZE.icon * 1.8}
+            size={SIZE.icon * 1.6}
             color="#00acee"
             onPress={() => Linking.openURL('https://twitter.com/fivoto')}
           />
