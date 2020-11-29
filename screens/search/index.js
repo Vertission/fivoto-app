@@ -15,7 +15,7 @@ import { Modalize } from 'react-native-modalize';
 import * as Sentry from '@sentry/react-native';
 import _ from 'lodash';
 
-import { Typography, Image, Carousel, Indicator } from '../../library';
+import { Typography, Image, Carousel, Indicator, Button } from '../../library';
 import { SIZE, COLOR } from '../../library/Theme';
 
 import { Context, dispatch } from './modules/context';
@@ -100,6 +100,7 @@ export default function Search() {
           style={{ marginTop: SIZE.margin * 2 }}>
           No ads found
         </Typography>
+        <Button>show latest ads</Button>
       </View>
     );
   else

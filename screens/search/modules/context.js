@@ -1,7 +1,7 @@
 import createContext from 'react-recontext';
 import _ from 'lodash';
 
-const initState = {
+export const initState = {
   query: '',
   category: {
     field: null,

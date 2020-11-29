@@ -5,18 +5,18 @@ on:
     branches: [stage]
 
 jobs:
-  install-and-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install yarn dependencies
-        run: |
-          yarn install
-      - name: Run tests
-        run: |
-          yarn test
+  # install-and-test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Install yarn dependencies
+  #       run: |
+  #         yarn install
+  #     - name: Run tests
+  #       run: |
+  #         yarn test
 
-    # Second Job
+  # Second Job
   build-android:
     # needs: install-and-test // no tests yet
     runs-on: ubuntu-latest
