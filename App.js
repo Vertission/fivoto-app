@@ -1,6 +1,7 @@
 import { ENVIRONMENT } from '@env';
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
+import codePush from 'react-native-code-push';
 import { StatusBar } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { useNetInfo } from '@react-native-community/netinfo';
@@ -21,7 +22,7 @@ import './service/sentry';
 
 import { COLOR } from './library/Theme';
 
-export default function App() {
+function App() {
   const [initialize, setInitialize] = useState(false);
   const { isConnected } = useNetInfo();
 
@@ -55,7 +56,7 @@ export default function App() {
   if (initialize)
     return (
       <React.Fragment>
-        <StatusBar backgroundColor={COLOR.PRIMARY}  />
+        <StatusBar backgroundColor={COLOR.PRIMARY} />
         <RootSiblingParent>
           <ApolloProvider>
             <Navigation />
@@ -66,3 +67,5 @@ export default function App() {
     );
   else return null;
 }
+
+export default codePush(App);

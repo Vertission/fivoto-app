@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Fivoto</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">2M9tTlXiDa6h-FXgJHLTZIW6so_JfGXHQep8W</string>
 </resources>

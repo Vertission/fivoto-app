@@ -11,6 +11,7 @@
 - react-native-bootsplash
 - firebase, crashlytics
 - react-native-unimodules
+- react native code push
 
 ### NEXT version
 
@@ -23,6 +24,7 @@
 - @react-native-firebase/app as firebase
 - @react-native-firebase/crashlytics as crashlytics
 - react-native-unimodules as unimodules
+- react-native-code-push as codepush
 
 ### Pre production configs
 

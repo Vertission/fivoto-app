@@ -1,5 +1,6 @@
 package com.vertission.fivoto;
 
+import com.microsoft.codepush.react.CodePush; // codepush
 import com.vertission.fivoto.generated.BasePackageList; // unimodules
 
 import android.app.Application;
@@ -50,6 +51,11 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+
+        @Override
+        protected String getJSBundleFile() {
+            return CodePush.getJSBundleFile();
+        } // codepush
       };
 
   @Override
