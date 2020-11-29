@@ -38,12 +38,12 @@ export default function DrawerComponent(props) {
         </Drawer.Item> */}
         {/* HELP AND SUPPORT  */}
         <Drawer.Title>help & support</Drawer.Title>
-        <Drawer.Item
+        {/* <Drawer.Item
           icon="chatboxes"
           selected={routeName === 'FAQ'}
           onPress={() => props.navigation.navigate('FAQ')}>
           FAQ
-        </Drawer.Item>
+        </Drawer.Item> */}
         <Drawer.Item
           icon="contacts"
           selected={routeName === 'ContactUs'}
@@ -55,14 +55,12 @@ export default function DrawerComponent(props) {
         <Drawer.Title>feedback</Drawer.Title>
         <Drawer.Item
           icon="bulb"
-          iconColor="#0be881"
           selected={routeName === 'FeatureRequest'}
           onPress={() => props.navigation.navigate('FeatureRequest')}>
           Feature Request
         </Drawer.Item>
         <Drawer.Item
           icon="bug"
-          iconColor="#ff3f34"
           selected={routeName === 'BugReport'}
           onPress={() => props.navigation.navigate('BugReport')}>
           Bug Report
@@ -83,21 +81,21 @@ export default function DrawerComponent(props) {
           <Icon
             name="logo-instagram"
             touch
-            size={SIZE.icon * 1.5}
+            size={SIZE.icon * 1.8}
             color="#fe4164"
             onPress={() => Linking.openURL('http://instagram.com/_u/fivoto')}
           />
           <Icon
             name="logo-facebook"
             touch
-            size={SIZE.icon * 1.5}
+            size={SIZE.icon * 1.8}
             color="#3b5998"
             onPress={() => Linking.openURL('https://www.facebook.com/fivoto')}
           />
           <Icon
             name="logo-twitter"
             touch
-            size={SIZE.icon * 1.5}
+            size={SIZE.icon * 1.8}
             color="#00acee"
             onPress={() => Linking.openURL('https://twitter.com/fivoto')}
           />
