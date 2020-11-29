@@ -80,6 +80,7 @@ export default function Search() {
   const _onErrorRefetch = () => {
     dispatch('SET_RESET');
     refetch();
+    setSearch(null);
   };
 
   if (error)
@@ -100,7 +101,9 @@ export default function Search() {
           style={{ marginTop: SIZE.margin * 2 }}>
           No ads found
         </Typography>
-        <Button>show latest ads</Button>
+        <Button small variant="transparent" onPress={_onErrorRefetch}>
+          show latest ads
+        </Button>
       </View>
     );
   else
