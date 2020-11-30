@@ -7,7 +7,6 @@ import { SIZE, COLOR } from '../../../../library/Theme';
 import styles from '../../../../library/Theme/styles';
 
 export default function AdFields({ fields }) {
-  console.log('AdFields -> fields', fields);
   const Fields = (fields) => {
     return Object.keys(fields)
       .filter((k) => typeof fields[k] !== 'boolean')
