@@ -19,15 +19,15 @@ export default function () {
         return null;
       case 'kids&babiesclothing':
         return <KidsBabiesClothing />;
-      case 'clothing&fashionaccessories':
+      case 'fashionaccessories':
         return <ClothingFashionAccessories />;
       case 'footwears':
         return <Footwears />;
-      case 'bags&Luggages':
+      case 'bags&Luggage':
         return <BagsLuggages />;
       case 'cosmetics&beautyproducts':
         return <CosmeticsBeautyProducts />;
-      case 'otherfashion&garments':
+      case 'otherfashion&beauty':
         return <OtherFashionGarment />;
     }
   }

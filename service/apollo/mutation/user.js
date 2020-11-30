@@ -14,7 +14,7 @@ const UPDATE_USER = gql`
       name
       email
       createdAt
-      updatedA
+      updatedAt
     }
   }
 `;

@@ -12,10 +12,10 @@ export default function () {
 
   function RenderVehicles(category) {
     switch (category) {
-      case 'machineries&supplies':
+      case 'machinery&supplies':
         return <MachineriesSupplies />;
-      case 'tools&accessories':
-        return <ToolsAccessories />;
+      case 'tools&equipments':
+        return <ToolsEquipments />;
       case 'rawmaterials&wholesales':
         return null;
       case 'buildingmaterials':
@@ -37,6 +37,6 @@ const MachineriesSupplies = () => {
   return <Condition />;
 };
 
-const ToolsAccessories = () => {
+const ToolsEquipments = () => {
   return <Condition />;
 };

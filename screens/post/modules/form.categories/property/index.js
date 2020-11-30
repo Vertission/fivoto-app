@@ -22,7 +22,7 @@ export default function () {
         return <Lands />;
       case 'newdevelopments':
         return <NewDevelopments />;
-      case 'otherproperty':
+      case 'otherproperties':
         return <Other />;
     }
   }

@@ -3,7 +3,7 @@
 ### NEXT UPDATES
 
 - Sentry Breadcrumb
-- CodePush
+- Fix navigating from home screen to search screen, FIX: open a bottom sheet on home screen to select category in Home screen.
 
 ### ISO SETUP
 

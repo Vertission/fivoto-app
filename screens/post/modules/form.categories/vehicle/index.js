@@ -26,13 +26,13 @@ export default function () {
     switch (category) {
       case 'cars&vans':
         return <CarsVans />;
-      case 'bikes&scooters':
+      case 'motorbikes&scooters':
         return <BikesScooters />;
       case 'three-wheelers':
         return <ThreeWheelers />;
       case 'lorries&heavyvehicles':
         return <LorriesHeavyVehicles />;
-      case 'boats&watertransports':
+      case 'boats&watertransport':
         return <BoatsWaterTransports />;
       case 'autoparts&Accessories':
         return <AutoPartsAccessories />;

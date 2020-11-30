@@ -151,6 +151,9 @@ export default function PublishedAds({ navigation }) {
       <React.Fragment>
         <Header />
         <View style={s.contentContainerStyle}>
+          <Typography variant="caption" color={COLOR.MUTED}>
+            {`<<<`} slide card left to Ad options {`<<<`}
+          </Typography>
           <SwipeableFlatList
             keyExtractor={({ id }) => id}
             data={profile.publishedAds}
