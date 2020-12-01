@@ -11,10 +11,10 @@ Sentry.init({
   debug: ENVIRONMENT === 'development',
   release: ['app', release].join('@'),
   dist: getBuildNumber(),
-  beforeSend(event) {
-    if (event.environment === 'development') {
-      console.error(JSON.stringify(event, null, 2));
-      return null;
-    } else return event;
-  },
+  // beforeSend(event) {
+  //   if (event.environment === 'development') {
+  //     console.error(JSON.stringify(event, null, 2));
+  //     return null;
+  //   } else return event;
+  // },
 });
