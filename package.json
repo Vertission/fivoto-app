@@ -1,6 +1,6 @@
 {
   "name": "fivoto",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -9,6 +9,7 @@
     "test": "jest",
     "lint": "eslint .",
     "and:clean": "cd android && ./gradlew clean && cd ..",
+    "and:test:release": "react-native run-android --variant=release",
     "bump:patch": "yarn version --patch --no-git-tag-version",
     "bump:minor": "yarn version --minor --no-git-tag-version",
     "bump:major": "yarn version --major",

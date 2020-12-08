@@ -54,10 +54,10 @@ export default function DrawerComponent(props) {
         {/* FEEDBACK SECTION  */}
         <Drawer.Title>feedback</Drawer.Title>
         <Drawer.Item
-          icon="bulb"
-          selected={routeName === 'FeatureRequest'}
-          onPress={() => props.navigation.navigate('FeatureRequest')}>
-          Feature Request
+          icon="chatbubbles"
+          selected={routeName === 'Feedback'}
+          onPress={() => props.navigation.navigate('Feedback')}>
+          Feedback
         </Drawer.Item>
         <Drawer.Item
           icon="bug"

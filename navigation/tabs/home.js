@@ -5,7 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import CustomDrawer from '../../screens/home/module/drawer';
 import HomeScreen from '../../screens/home';
 import BugReportScreen from '../../screens/home/bugReport';
-import FeatureRequestScreen from '../../screens/home/featureRequest';
+import FeedbackScreen from '../../screens/home/feedback';
 import ContactUsScreen from '../../screens/home/contactUs';
 import FAQScreen from '../../screens/home/faq';
 import ReportIssueScreen from '../../screens/home/reportIssue';
@@ -48,9 +48,9 @@ function HomeDrawer({ route }) {
         component={ContactUsScreen}
       />
       <Drawer.Screen
-        name="FeatureRequest"
+        name="Feedback"
         options={{ headerShown: false }}
-        component={FeatureRequestScreen}
+        component={FeedbackScreen}
       />
       <Drawer.Screen
         name="BugReport"

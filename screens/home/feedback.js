@@ -23,7 +23,7 @@ import { SIZE, COLOR } from '../../library/Theme';
 
 import uploadPhotos from '../../service/firebase/storage/uploadPhotos';
 
-export default function FeatureRequest({ navigation }) {
+export default function Feedback({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
 
@@ -37,10 +37,10 @@ export default function FeatureRequest({ navigation }) {
   const _submit = async ({ description }) => {
     try {
       setLoading(true);
-      const uris = await uploadPhotos('featureRequest', photos);
+      const uris = await uploadPhotos('feedback', photos);
 
       await firestore()
-        .collection('featureRequest')
+        .collection('feedback')
         .add({
           description,
           photos: uris,
@@ -49,12 +49,11 @@ export default function FeatureRequest({ navigation }) {
         });
 
       Modal.show({
-        title: 'Feature Requested Successfully',
-        description: 'Thank you for requesting feature.',
+        title: 'feedback send Successfully',
+        description: 'Thank you for sending feedback.',
         actions: [
           { title: 'take me home', onPress: () => navigation.navigate('Home') },
         ],
-        closeTitle: 'request another feature :)',
       });
 
       setPhotos([]);
@@ -64,27 +63,27 @@ export default function FeatureRequest({ navigation }) {
     } catch (error) {
       setLoading(false);
       Sentry.withScope(function (scope) {
-        scope.setTag('screen', 'featureRequest');
+        scope.setTag('screen', 'feedback');
         scope.setLevel(Sentry.Severity.Error);
         scope.setContext('data', { description });
         Sentry.captureException(error);
       });
 
       MailComposer.composeAsync({
-        subject: 'Feature request',
+        subject: 'Feedback',
         body: description,
-        recipients: ['support@fivoto.com'],
+        recipients: ['feedback@fivoto.com'],
         attachments: photos,
       }).catch((error) => {
         Modal.show({
-          title: 'Feature Request Failed',
+          title: 'Feedback Sending Failed',
           description:
-            'Oops! Feature requesting is temporarily closed, Please request feature through support@fivoto.com.',
+            'Oops! Feedback receiving temporarily closed, Please send your feedback at feedback@fivoto.com.',
           closeTitle: 'ok',
         });
 
         Sentry.withScope(function (scope) {
-          scope.setTag('screen', 'featureRequest:mail');
+          scope.setTag('screen', 'feedback:mail');
           scope.setLevel(Sentry.Severity.Error);
           scope.setContext('data', { description });
           Sentry.captureException(error);
@@ -153,18 +152,16 @@ export default function FeatureRequest({ navigation }) {
           showsVerticalScrollIndicator: false,
         }}>
         <Typography variant="h1" family="bold">
-          Feature Request
+          Feedback
         </Typography>
-        <Typography color={COLOR.MUTED}>
-          Have a new idea? or need to improve any existing feature?
-        </Typography>
+        <Typography color={COLOR.MUTED}>Have a feedback?</Typography>
 
         {/*  DESCRIPTION  */}
         <Controller
           control={control}
           render={({ onChange, onBlur, value }) => (
             <Input
-              placeholder="DESCRIBE YOUR FEATURE..."
+              placeholder="DESCRIBE YOUR FEEDBACK..."
               multiline
               numberOfLines={5}
               label="Description"
@@ -176,7 +173,7 @@ export default function FeatureRequest({ navigation }) {
             />
           )}
           rules={{
-            required: 'please describe your feature',
+            required: 'please describe your feedback',
           }}
           name="description"
           defaultValue=""
@@ -212,7 +209,7 @@ export default function FeatureRequest({ navigation }) {
           style={s.submitButton}
           loading={loading}
           onPress={handleSubmit(_submit)}>
-          request
+          send
         </Button>
       </Container>
     </React.Fragment>

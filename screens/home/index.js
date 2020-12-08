@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -6,6 +6,7 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 import SyncStorage from 'sync-storage';
+import { Modalize } from 'react-native-modalize';
 
 import {
   Header,
@@ -21,14 +22,21 @@ import { SIZE, COLOR } from '../../library/Theme';
 import { useQueryCategories } from '../../service/apollo/query/utils';
 
 import { dispatch } from '../post/modules/context';
+import { dispatch as searchDispatch } from '../search/modules/context';
 
 import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function Home({ navigation }) {
+  const modalizeRef = useRef(null);
+  const [categoryField, setCategoryField] = useState(null);
+  const [categoryItems, setCategoryItems] = useState([]);
+
   const [categories, { loading, error, refetch }] = useQueryCategories();
 
-  const _onPressSelectCategory = (category) => {
-    navigation.navigate('Search', { screen: 'Category', params: { category } });
+  const _onSelectCategory = ({ items, category }) => {
+    setCategoryField(category);
+    setCategoryItems(items);
+    modalizeRef.current?.open();
   };
 
   const _onPressPostAd = () => {
@@ -39,6 +47,20 @@ export default function Home({ navigation }) {
       dispatch('RESET_CONTEXT');
       return navigation.navigate('Post', { screen: 'Category' });
     }
+  };
+
+  const RenderItem = ({ item }) => {
+    const onPress = async () => {
+      modalizeRef.current?.close();
+      searchDispatch('SET_CATEGORY', { field: categoryField, item });
+      navigation.navigate('Search', { screen: 'Search' });
+    };
+
+    return (
+      <Button onPress={onPress} textProps={{ transform: 'capitalize' }}>
+        {item}
+      </Button>
+    );
   };
 
   const HomeHeader = (
@@ -76,11 +98,11 @@ export default function Home({ navigation }) {
       <ScrollView style={s.scrollView} showsVerticalScrollIndicator={false}>
         {/* CATEGORY LIST  */}
         <View style={s.categories}>
-          {categories.map(({ category, image }) => (
+          {categories.map(({ category, items, image }) => (
             <TouchableNativeFeedback
               key={category}
               activeOpacity={0.5}
-              onPress={() => _onPressSelectCategory(category)}>
+              onPress={() => _onSelectCategory({ category, items })}>
               <View style={s.category}>
                 <View>
                   <Image url={image} style={s.image} />
@@ -110,6 +132,21 @@ export default function Home({ navigation }) {
           </Button>
         </View>
       </ScrollView>
+
+      <Modalize
+        ref={modalizeRef}
+        adjustToContentHeight
+        modalStyle={s.modalize}
+        closeAnimationConfig={{ timing: { duration: 500 } }}
+        flatListProps={{
+          data: categoryItems,
+          renderItem: RenderItem,
+          keyExtractor: (item) => item,
+          contentContainerStyle: {
+            padding: SIZE.padding,
+          },
+        }}
+      />
     </React.Fragment>
   );
 }
@@ -142,5 +179,9 @@ const s = StyleSheet.create({
   },
   scrollView: {
     margin: SIZE.margin,
+  },
+  modalize: {
+    borderTopEndRadius: 0,
+    borderTopStartRadius: 0,
   },
 });

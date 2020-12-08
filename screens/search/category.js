@@ -12,9 +12,9 @@ import { dispatch } from './modules/context';
 
 import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
-export default function Category({ navigation, route }) {
+export default function Category({ navigation }) {
   const [categories, { loading, refetch, error }] = useQueryCategories();
-  const [category, setCategory] = useState(route.params?.category);
+  const [category, setCategory] = useState(null);
 
   const RenderCategory = ({ item }) => {
     const _onPress = () => {

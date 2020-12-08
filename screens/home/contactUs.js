@@ -16,7 +16,7 @@ import {
 } from '../../library';
 import { SIZE, COLOR } from '../../library/Theme';
 
-export default function FeatureRequest({ navigation }) {
+export default function ContactUs({ navigation }) {
   const { control, handleSubmit, errors } = useForm({
     mode: 'onBlur',
     defaultValues: {

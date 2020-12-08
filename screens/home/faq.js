@@ -15,7 +15,7 @@ import {
 } from '../../library';
 import { SIZE } from '../../library/Theme';
 
-export default function FeatureRequest({ navigation }) {
+export default function Faq({ navigation }) {
   const [question, setQuestion] = useState(null);
 
   const faqs = [
