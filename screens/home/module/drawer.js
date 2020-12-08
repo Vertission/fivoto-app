@@ -1,11 +1,12 @@
 import React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { View, StyleSheet, Linking } from 'react-native';
+import { getVersion } from 'react-native-device-info';
 
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 
-import { Icon, Drawer } from '../../../library';
-import { SIZE } from '../../../library/Theme';
+import { Icon, Drawer, Typography } from '../../../library';
+import { SIZE, COLOR } from '../../../library/Theme';
 
 export default function DrawerComponent(props) {
   const routeName = getFocusedRouteNameFromRoute(props.route) ?? 'Home';
@@ -101,6 +102,9 @@ export default function DrawerComponent(props) {
           />
         </Drawer.Content>
       </DrawerContentScrollView>
+      <Typography variant="caption" color={COLOR.MUTED}>
+        {getVersion()}
+      </Typography>
     </View>
   );
 }
