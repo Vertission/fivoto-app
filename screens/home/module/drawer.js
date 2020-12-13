@@ -2,6 +2,7 @@ import React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { View, StyleSheet, Linking } from 'react-native';
 import { getVersion } from 'react-native-device-info';
+import { version } from '../../../package.json';
 
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 
@@ -102,8 +103,20 @@ export default function DrawerComponent(props) {
           />
         </Drawer.Content>
       </DrawerContentScrollView>
-      <Typography variant="caption" color={COLOR.MUTED}>
-        {getVersion()}
+      <Typography variant="caption" family="bold" color={COLOR.MUTED}>
+        {getVersion()}{' '}
+        {getVersion() !== version && (
+          <Typography
+            color={COLOR.PRIMARY}
+            family="boldX"
+            onPress={() =>
+              Linking.openURL(
+                'https://play.google.com/store/apps/details?id=com.vertission.fivoto',
+              )
+            }>
+            Update Available
+          </Typography>
+        )}
       </Typography>
     </View>
   );
