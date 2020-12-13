@@ -230,11 +230,36 @@ export default function Photos() {
 
   // open camera and take a cute picture and push to takenPhotos
   const _launchCamera = () => {
+    if (totalSelectedLength === 5) return null;
+
     ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
     })
       .then((res) => {
-        if (totalSelectedLength === 5) return null;
+        if (res.cancelled) return null;
+        seTakenPhotos([
+          ...takenPhotos,
+          {
+            uri: res.uri,
+            width: res.width,
+            height: res.height,
+            source: 'CAMERA',
+          },
+        ]);
+      })
+      .catch((error) => {
+        Sentry.captureException(error);
+      });
+  };
+
+  const _launchLibrary = () => {
+    if (totalSelectedLength === 5) return null;
+
+    ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    })
+      .then((res) => {
+        if (res.cancelled) return null;
         seTakenPhotos([
           ...takenPhotos,
           {
@@ -283,13 +308,23 @@ export default function Photos() {
             : `${totalSelectedLength} selected`
         }
         endContent={
-          <Icon
-            name="camera"
-            size={SIZE.icon * 1.5}
-            touch
-            disabled={totalSelectedLength === 5}
-            onPress={_launchCamera} // onPress this to launch camera
-          />
+          <View style={styles.headerEndContent}>
+            <Icon
+              name="images"
+              size={SIZE.icon * 1.5}
+              touch
+              disabled={totalSelectedLength === 5}
+              onPress={_launchLibrary} // onPress this to launch camera
+            />
+            <Icon
+              name="camera"
+              size={SIZE.icon * 1.5}
+              touch
+              style={styles.headerEndContentIcon}
+              disabled={totalSelectedLength === 5}
+              onPress={_launchCamera} // onPress this to launch camera
+            />
+          </View>
         }
       />
 
@@ -369,6 +404,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     ...themeStyles.container,
+  },
+  headerEndContent: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  headerEndContentIcon: {
+    marginLeft: SIZE.margin * 2,
   },
   listLibraryCount: {
     alignItems: 'center',
