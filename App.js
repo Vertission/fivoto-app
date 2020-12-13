@@ -1,114 +1,75 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import { ENVIRONMENT } from '@env';
+import 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react';
+import codePush from 'react-native-code-push';
+import { StatusBar } from 'react-native';
+import RNBootSplash from 'react-native-bootsplash';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { RootSiblingParent } from 'react-native-root-siblings';
+import Amplify from 'aws-amplify';
+import * as Sentry from '@sentry/react-native';
+import analytics from '@react-native-firebase/analytics';
+import crashlytics from '@react-native-firebase/crashlytics';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import SyncStorage from 'sync-storage';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import NetworkModal from './shared/netWorkModal';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+import ApolloProvider from './service/apollo';
+import Navigation from './navigation';
+import amplifyConfig from './service/amplify';
+import './service/sentry';
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+import { COLOR } from './library/Theme';
 
-export default App;
+function App() {
+  const [initialize, setInitialize] = useState(false);
+  const { isConnected } = useNetInfo();
+
+  let init = async () => {
+    Amplify.configure(amplifyConfig);
+    await SyncStorage.init();
+
+    await analytics().setAnalyticsCollectionEnabled(
+      ENVIRONMENT === 'production',
+    );
+    await analytics().logAppOpen();
+
+    if (SyncStorage.get('@user_id')) {
+      analytics().setUserId(SyncStorage.get('@user_id'));
+      Sentry.setUser({
+        id: SyncStorage.get('@user_id'),
+        email: SyncStorage.get('@user_email'),
+      });
+    } else await analytics().setUserId(null);
+
+    crashlytics().setCrashlyticsCollectionEnabled(
+      ENVIRONMENT !== 'development',
+    );
+
+    crashlytics().log('App mounted.');
+    setInitialize(true);
+  };
+
+  useEffect(() => {
+    init().finally(() => {
+      RNBootSplash.hide({ duration: 250 });
+    });
+  }, []);
+
+  if (initialize)
+    return (
+      <React.Fragment>
+        <StatusBar backgroundColor={COLOR.PRIMARY} />
+        <RootSiblingParent>
+          <ApolloProvider>
+            <Navigation />
+          </ApolloProvider>
+        </RootSiblingParent>
+        <NetworkModal isConnected={isConnected} />
+      </React.Fragment>
+    );
+  else return null;
+}
+
+export default codePush(App);
