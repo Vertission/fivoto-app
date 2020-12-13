@@ -12,7 +12,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import * as MediaLibrary from 'expo-media-library';
+import CameraRoll from '@react-native-community/cameraroll';
 import * as ImagePicker from 'expo-image-picker';
 import { Modalize } from 'react-native-modalize';
 import * as Sentry from '@sentry/react-native';
@@ -33,7 +33,11 @@ const LibraryImage = React.memo(
     const _onPressPhoto = () => {
       if (isSelected === null) return;
       selectPhoto({
-        item: { uri: item.uri, width: item.width, height: item.height },
+        item: {
+          uri: item.node.image.uri,
+          height: item.node.image.height,
+          width: item.node.image.width,
+        },
         photosLength,
       });
     };
@@ -49,12 +53,12 @@ const LibraryImage = React.memo(
         />
         <Image
           source={{
-            uri: item.uri,
+            uri: item.node.image.uri,
           }}
           style={styles.photo}
         />
         <Typography style={styles.previewImageScale}>
-          {item.width}x{item.height}
+          {item.node.image.width}x{item.node.image.height}
         </Typography>
         {isSelected && <View style={styles.previewImageOverlay} />}
       </TouchableOpacity>
@@ -97,13 +101,12 @@ export default function Photos() {
   const albumModalizeRef = useRef(null);
   // all get assets[photos]
   const [assets, setAssets] = useState([]);
-  const [totalAssets, setTotalAssets] = useState(0);
   const [endCursor, setEndCursor] = useState(0);
 
   // user albums list
   const [albums, setAlbums] = useState([]);
   // selected album
-  const [selectedAlbum, setSelectedAlbum] = useState({});
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
   // assets selected photo
   const [selectedPhotos, setSelectPhotos] = useState({});
   // taken photo
@@ -143,7 +146,10 @@ export default function Photos() {
     seTakenPhotos(contextTakenPhotos);
     setCloudPhotos(contextCloudPhotos);
 
-    MediaLibrary.getAlbumsAsync().then((res) => {
+    CameraRoll.getAlbums({
+      first: 20,
+      assetType: 'Photos',
+    }).then((res) => {
       setAlbums(res);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -154,15 +160,14 @@ export default function Photos() {
    * @param {number} first assets offset
    */
   const _getAssetsAsync = (first) => {
-    MediaLibrary.getAssetsAsync({
+    CameraRoll.getPhotos({
       first,
-      sortBy: [MediaLibrary.SortBy.creationTime],
-      mediaType: [MediaLibrary.MediaType.photo],
-      album: selectedAlbum.id,
-    }).then(({ assets, hasNextPage, endCursor, totalCount }) => {
-      setAssets(assets);
-      setTotalAssets(totalCount);
-      if (hasNextPage) setEndCursor(Number(endCursor));
+      assetType: 'Photos',
+      groupName: selectedAlbum,
+      include: ['imageSize'],
+    }).then(({ edges, page_info }) => {
+      setAssets(edges);
+      if (page_info.has_next_page) setEndCursor(Number(page_info.end_cursor));
     });
   };
 
@@ -175,7 +180,6 @@ export default function Photos() {
   }, [selectedAlbum]);
 
   const _onEndReached = () => {
-    if (assets.length === totalAssets) return null;
     _getAssetsAsync(endCursor + offSet);
   };
 
@@ -186,6 +190,7 @@ export default function Photos() {
     ({ item, photosLength }) => {
       setSelectPhotos((photos) => {
         const sel = { ...photos };
+        // unselect
         if (sel.hasOwnProperty(item.uri)) {
           delete sel[item.uri];
         } else {
@@ -207,14 +212,13 @@ export default function Photos() {
   );
 
   /**
-   * select a album & clear assets, totalAssets and endCursor
+   * select a album & clear assets and endCursor
    * @param {object} album [title, id]
    */
   const _onPressSelectAlbum = async (album) => {
-    if (album.id === selectedAlbum.id) return albumModalizeRef.current?.close();
+    if (album === selectedAlbum) return albumModalizeRef.current?.close();
     setSelectedAlbum(album);
     setAssets([]);
-    setTotalAssets(0);
     setEndCursor(0);
     albumModalizeRef.current?.close();
   };
@@ -311,7 +315,7 @@ export default function Photos() {
           small
           variant="contained"
           onPress={albumModalizeRef.current?.open}>
-          {selectedAlbum.id ? selectedAlbum.title : 'all albums'}
+          {selectedAlbum || 'all albums'}
         </Button>
         <FlatList
           data={assets}
@@ -320,11 +324,11 @@ export default function Photos() {
               key={item.uri}
               item={item}
               selectPhoto={selectPhoto}
-              isSelected={selectedPhotos.hasOwnProperty(item.uri)}
+              isSelected={selectedPhotos.hasOwnProperty(item.node.image.uri)}
               photosLength={totalSelectedLength}
             />
           )}
-          keyExtractor={({ uri }) => uri}
+          keyExtractor={({ node }) => node.image.uri}
           numColumns={4}
           onEndReached={_onEndReached}
         />
@@ -336,7 +340,7 @@ export default function Photos() {
           color={COLOR.WHITE}
           variant="caption"
           style={styles.listLibraryCountText}>
-          {assets.length} / {totalAssets}
+          {assets.length}
         </Typography>
       </View>
 
@@ -346,14 +350,12 @@ export default function Photos() {
         childrenStyle={{ margin: SIZE.margin }}
         ref={albumModalizeRef}
         modalHeight={450}>
-        {albums.map(({ title, id }) => (
-          <Button key={id} onPress={() => _onPressSelectAlbum({ id, title })}>
+        {albums.map(({ title }) => (
+          <Button key={title} onPress={() => _onPressSelectAlbum(title)}>
             {title}
           </Button>
         ))}
-        <Button onPress={() => _onPressSelectAlbum({ id: null })}>
-          all albums
-        </Button>
+        <Button onPress={() => _onPressSelectAlbum(null)}>all albums</Button>
       </Modalize>
     </React.Fragment>
   );

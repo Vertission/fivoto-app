@@ -13,7 +13,6 @@ public class BasePackageList {
         new expo.modules.imagemanipulator.ImageManipulatorPackage(),
         new expo.modules.imagepicker.ImagePickerPackage(),
         new expo.modules.mailcomposer.MailComposerPackage(),
-        new expo.modules.medialibrary.MediaLibraryPackage(),
         new expo.modules.permissions.PermissionsPackage()
     );
   }
