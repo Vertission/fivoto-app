@@ -43,6 +43,10 @@ function App() {
       });
     } else await analytics().setUserId(null);
 
+    crashlytics().setCrashlyticsCollectionEnabled(
+      ENVIRONMENT !== 'development',
+    );
+
     crashlytics().log('App mounted.');
     setInitialize(true);
   };
