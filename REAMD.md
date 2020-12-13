@@ -12,6 +12,7 @@
 - firebase, crashlytics
 - react-native-unimodules
 - react native code push
+- react native cameraroll(permission)
 
 ### NEXT version
 
