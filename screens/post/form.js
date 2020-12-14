@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Linking, PermissionsAndroid } from 'react-native';
+import { View, StyleSheet, Linking } from 'react-native';
+import { Permissions } from 'react-native-unimodules';
 import _ from 'lodash';
 
 import {
@@ -64,26 +65,41 @@ export default function Form({ navigation }) {
    * library and camera requesting logic
    */
   const _onPressPhotos = async () => {
-    const READ_EXTERNAL_STORAGE =
-      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
+    const CAM_ROLL = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+    const CAM = await Permissions.askAsync(Permissions.CAMERA);
 
-    const hasPermission = await PermissionsAndroid.check(READ_EXTERNAL_STORAGE);
+    if (!CAM_ROLL.granted) Snackbar.show('Please Allow permission for library');
+    if (!CAM.granted) Snackbar.show('Please Allow permission for camera');
 
-    if (hasPermission) navigation.navigate('Photos');
-    else {
-      const status = await PermissionsAndroid.request(READ_EXTERNAL_STORAGE);
-      if (status === 'granted') {
-        navigation.navigate('Photos');
-      } else if (status === 'never_ask_again') {
-        Modal.show({
-          title: 'Storage Permission Required',
-          description:
-            'Fivoto requires permission to access your storage in order to add photos to the ad, You can allow storage permission by opening the app settings.',
-          actions: [
-            { title: 'open settings', onPress: () => Linking.openSettings() },
-          ],
-        });
-      } else Snackbar.show('Please Allow permission for library');
+    const CAMERA_ROLL_PERMISSION = await Permissions.getAsync(
+      Permissions.MEDIA_LIBRARY,
+    );
+
+    if (!CAMERA_ROLL_PERMISSION.canAskAgain) {
+      Modal.show({
+        title: 'Storage Permission Required',
+        description:
+          'Fivoto requires permission to access your storage in order to add photos to the ad, You could allow storage permission by opening the app settings.',
+        actions: [
+          { title: 'open settings', onPress: () => Linking.openSettings() },
+        ],
+      });
+    }
+
+    const CAMERA_PERMISSION = await Permissions.getAsync(Permissions.CAMERA);
+    if (!CAMERA_PERMISSION.canAskAgain) {
+      Modal.show({
+        title: 'Camera Permission Required',
+        description:
+          'Fivoto requires permission to access your camera in order to add photos to the ad, You could allow camera permission by opening the app settings.',
+        actions: [
+          { title: 'open settings', onPress: () => Linking.openSettings() },
+        ],
+      });
+    }
+
+    if (CAMERA_ROLL_PERMISSION.granted && CAMERA_PERMISSION.granted) {
+      navigation.navigate('Photos');
     }
   };
 
