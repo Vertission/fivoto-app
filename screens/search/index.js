@@ -24,56 +24,60 @@ import Header from './modules/header.index';
 
 import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
+import schema from '../../service/apollo/schema';
+
 export default function Search() {
   const [search, setSearch] = useState(null);
 
-  const { query, category, location, limit } = useContext(Context);
+  const { query, category, location, first } = useContext(Context);
   const modalizeRef = useRef(null);
   const [fetchMoreLoading, setFetchMoreLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
 
-  const { data, loading, refetch, error, fetchMore } = useQuery(SEARCH_QUERY, {
-    variables: { offset: 0, limit, query, category, location },
-    notifyOnNetworkStatusChange: true,
-    onError(error) {
-      Sentry.withScope(function (scope) {
-        scope.setTag('func', 'search:SEARCH_QUERY');
-        scope.setLevel(Sentry.Severity.Fatal);
-        Sentry.captureException(error);
-      });
-    },
-  });
-
-  const _onEndReached = () => {
-    if (data.search.ads.length === data.search.total) return null;
-    else {
-      setFetchMoreLoading(true);
-      fetchMore({
-        query: SEARCH_QUERY,
-        variables: {
-          offset: data.search.ads.length,
-          limit,
+  const { data, loading, refetch, error, fetchMore } = useQuery(
+    schema.query.ADS,
+    {
+      variables: {
+        first,
+        filter: {
           query,
-          category,
-          location,
+          location: {
+            district: location.district,
+            city: location.city,
+          },
+          category: {
+            field: category.field,
+            item: category.item,
+          },
         },
-        updateQuery: (prevResult, { fetchMoreResult }) => {
-          fetchMoreResult.search.ads = [
-            ...prevResult.search.ads,
-            ...fetchMoreResult.search.ads,
-          ];
-
-          return fetchMoreResult;
-        },
-      }).then(({ loading }) => {
-        setFetchMoreLoading(loading);
-      });
-    }
-  };
+      },
+      notifyOnNetworkStatusChange: true,
+      onError(error) {
+        Sentry.withScope(function (scope) {
+          scope.setTag('func', 'search:SEARCH_QUERY');
+          scope.setLevel(Sentry.Severity.Fatal);
+          Sentry.captureException(error);
+        });
+      },
+    },
+  );
 
   const _onRefresh = () => {
     refetch({
-      variables: { offset: 0, limit, query, category, location },
+      variables: {
+        first,
+        filter: {
+          query,
+          location: {
+            district: location.district,
+            city: location.city,
+          },
+          category: {
+            field: category.field,
+            item: category.item,
+          },
+        },
+      },
     });
   };
 
@@ -90,7 +94,7 @@ export default function Search() {
         <ApolloScreenErrorHandler refetch={_onErrorRefetch} error={error} />
       </React.Fragment>
     );
-  else if (!loading && !data?.search.total)
+  else if (!loading && !data?.ads?.edges.length)
     return (
       // NEXT: IMPROVE NO ADS UI
       <View>
@@ -106,7 +110,10 @@ export default function Search() {
         </Button>
       </View>
     );
-  else
+  else {
+    const nodes = data?.ads?.edges.map((edge) => edge.node);
+    const pageInfo = data?.ads?.pageInfo;
+
     return (
       <React.Fragment>
         <Header search={search} setSearch={setSearch} />
@@ -117,12 +124,18 @@ export default function Search() {
           />
         </View>
         <FlatList
-          data={data?.search.ads}
+          data={nodes}
           renderItem={({ item }) => (
             <Card {...item} modalizeRef={modalizeRef} setPhotos={setPhotos} />
           )}
           keyExtractor={(item) => item.id}
-          onEndReached={_onEndReached}
+          onEndReached={async () => {
+            if (pageInfo.hasNextPage) {
+              setFetchMoreLoading(true);
+              await fetchMore({ variables: { cursor: pageInfo.endCursor } });
+              setFetchMoreLoading(false);
+            }
+          }}
           refreshControl={
             <RefreshControl
               refreshing={loading}
@@ -141,6 +154,7 @@ export default function Search() {
         </Modalize>
       </React.Fragment>
     );
+  }
 }
 
 function Card({
@@ -226,33 +240,3 @@ const s = StyleSheet.create({
     fontWeight: '700',
   },
 });
-
-const SEARCH_QUERY = gql`
-  query search(
-    $offset: Int
-    $limit: Int
-    $query: String
-    $category: categoryInput
-    $location: locationInput
-  ) {
-    search(
-      offset: $offset
-      limit: $limit
-      query: $query
-      category: $category
-      location: $location
-    ) {
-      ads {
-        id
-        title
-        price
-        photos
-        location {
-          city
-        }
-        createdAt
-      }
-      total
-    }
-  }
-`;

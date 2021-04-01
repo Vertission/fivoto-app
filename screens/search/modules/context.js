@@ -11,7 +11,7 @@ export const initState = {
     district: null,
     city: null,
   },
-  limit: 20,
+  first: 20,
 };
 
 export const { dispatch, Context, Provider } = createContext({
