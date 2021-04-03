@@ -1,19 +1,21 @@
 import { useQuery, gql } from '@apollo/client';
 import * as Sentry from '@sentry/react-native';
 
-const QUERY_ME = gql`
+export const ME = gql`
   query me {
     me {
       id
       name
       email
+      email_verified
+      profile
       createdAt
       updatedAt
     }
   }
 `;
 
-export function useQueryMe(schema = QUERY_ME) {
+export function useQueryMe(schema = ME) {
   const { data, loading, refetch, client, error } = useQuery(schema, {
     notifyOnNetworkStatusChange: true,
     onError(error) {

@@ -46,7 +46,7 @@ export default function Navigation() {
 function TabNavigation() {
   return (
     <Tab.Navigator
-      initialRouteName="Search"
+      initialRouteName="Account"
       tabBarOptions={{
         activeTintColor: COLOR.PRIMARY,
         showLabel: false,

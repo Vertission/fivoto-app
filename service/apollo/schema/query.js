@@ -58,3 +58,17 @@ export const ADS = gql`
     }
   }
 `;
+
+export const ME = gql`
+  query me {
+    me {
+      id
+      name
+      email
+      email_verified
+      profile
+      createdAt
+      updatedAt
+    }
+  }
+`;
