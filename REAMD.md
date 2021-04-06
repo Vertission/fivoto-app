@@ -2,8 +2,13 @@
 
 ### NEXT UPDATES
 
-- Sentry Breadcrumb
-- Fix navigating from home screen to search screen, FIX: open a bottom sheet on home screen to select category in Home screen.
+- Remove firebase
+- Remove sentry
+- property facilities(water, electricity)
+
+### Fix
+
+- Show loading indicator on search ad photo preview bottom sheet
 
 ### ISO SETUP
 

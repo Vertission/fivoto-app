@@ -6,9 +6,9 @@ import Typography from '../Typography';
 
 import { COLOR } from '../Theme';
 
-export default function ({ label, disabled, ...rest }) {
+export default function ({ label, disabled, style, ...rest }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style.container]}>
       <View style={styles.checkbox}>
         <CheckBox
           tintColors={{ true: COLOR.PRIMARY, false: COLOR.MUTED }}

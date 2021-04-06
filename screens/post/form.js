@@ -19,8 +19,8 @@ import { COLOR, SIZE } from '../../library/Theme';
 
 import { Context } from './modules/context';
 
+import Fields from './modules/fields';
 import SortPhotos from './modules/photos.sort';
-import FormCategory from './modules/form.categories';
 import Phone from './modules/phone';
 import MutationLoader from './modules/mutationLoader';
 
@@ -133,29 +133,9 @@ export default function Form({ navigation }) {
             {location.city}
           </Tab>
           <Divider />
-          {/* PHOTOS FIELD */}
-          <View style={styles.selection}>
-            <Icon name="photos" style={{ width: SIZE.BASE * 2 }} />
-            <Typography color={COLOR.MUTED}>Photos</Typography>
-          </View>
-          <Tab onPress={_onPressPhotos}>select photos</Tab>
-          <SortPhotos />
-          <Divider />
-          {/* CATEGORY FIELDS */}
-          <FormCategory />
-          <Divider />
-          {/* DESCRIPTION FIELD  */}
-          <View style={styles.selection}>
-            <Icon name="document" style={{ width: SIZE.BASE * 2 }} />
-            <Typography color={COLOR.MUTED}>Description</Typography>
-          </View>
-          <Tab onPress={() => navigation.navigate('Description')}>
-            {description
-              ? _.truncate(description.replace(/\n/g, ' '), 10)
-              : 'description'}
-          </Tab>
-          {/* PHONE NUMBERS  */}
-          <Phone />
+
+          <Fields />
+
           {/* PUBLISH BUTTON  */}
           <Button large variant="contained" onPress={_onPressPublishAd}>
             {id ? 'save' : 'publish'}
