@@ -3,7 +3,6 @@
 ### NEXT UPDATES
 
 - Remove firebase
-- Remove sentry
 - property facilities(water, electricity)
 
 ### Fix
