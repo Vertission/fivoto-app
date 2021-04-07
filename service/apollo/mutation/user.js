@@ -7,26 +7,11 @@ import { Toast } from '../../../library';
 
 import ApolloModalErrorHandler from '../errorHandler/modal';
 
+import schema from '../../apollo/schema';
+
 const UPDATE_USER = gql`
   mutation updateUser($data: updateUserInput!) {
-    updateUser(data: $data) {
-      id
-      name
-      email
-      createdAt
-      updatedAt
-    }
-  }
-`;
-
-const REFETCH_ME = gql`
-  query me {
-    me {
-      id
-      name
-      email
-      updatedAt
-    }
+    updateUser(data: $data)
   }
 `;
 
@@ -55,7 +40,21 @@ export function useUpdateUser() {
       variables: {
         data,
       },
-      refetchQueries: () => [{ query: REFETCH_ME }],
+      update(cache) {
+        const { me } = cache.readQuery({
+          query: schema.query.ME,
+        });
+
+        cache.writeQuery({
+          query: schema.query.ME,
+          data: {
+            me: {
+              ...me,
+              ...data,
+            },
+          },
+        });
+      },
     });
   };
 

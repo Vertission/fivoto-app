@@ -41,7 +41,7 @@ const SIZE = {
   elevation: 3,
   width,
   height,
-  statusBarHeight,
+  statusBarHeight: statusBarHeight,
   bottomTabHeight: height * 0.075,
   headerHeight: 80,
   borderWidth: 1.5,

@@ -1,4 +1,4 @@
-import { COLOR, SIZE, SCALE } from './index';
+import { COLOR, SIZE } from './index';
 import normalize from '../helpers/normalize';
 
 const TYPOGRAPHY = {

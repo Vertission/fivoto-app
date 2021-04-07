@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Linking, PermissionsAndroid } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import _ from 'lodash';
 
 import {
@@ -8,8 +8,6 @@ import {
   Tab,
   Icon,
   Divider,
-  Snackbar,
-  Modal,
   Toast,
   Button,
   Header,
@@ -18,9 +16,8 @@ import { COLOR, SIZE } from '../../library/Theme';
 
 import { Context } from './modules/context';
 
-import SortPhotos from './modules/photos.sort';
-import FormCategory from './modules/form.categories';
-import Phone from './modules/phone';
+import Fields from './modules/fields';
+
 import MutationLoader from './modules/mutationLoader';
 
 import { usePublishMutation, useUpdateMutation } from './modules/hooks';
@@ -60,33 +57,6 @@ export default function Form({ navigation }) {
     else publish(adContext);
   };
 
-  /**
-   * library and camera requesting logic
-   */
-  const _onPressPhotos = async () => {
-    const READ_EXTERNAL_STORAGE =
-      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
-
-    const hasPermission = await PermissionsAndroid.check(READ_EXTERNAL_STORAGE);
-
-    if (hasPermission) navigation.navigate('Photos');
-    else {
-      const status = await PermissionsAndroid.request(READ_EXTERNAL_STORAGE);
-      if (status === 'granted') {
-        navigation.navigate('Photos');
-      } else if (status === 'never_ask_again') {
-        Modal.show({
-          title: 'Storage Permission Required',
-          description:
-            'Fivoto requires permission to access your storage in order to add photos to the ad, You can allow storage permission by opening the app settings.',
-          actions: [
-            { title: 'open settings', onPress: () => Linking.openSettings() },
-          ],
-        });
-      } else Snackbar.show('Please Allow permission for library');
-    }
-  };
-
   if (publishLoading || updateLoading)
     return <MutationLoader status={publishStatus || updateStatus} />;
   else
@@ -117,29 +87,9 @@ export default function Form({ navigation }) {
             {location.city}
           </Tab>
           <Divider />
-          {/* PHOTOS FIELD */}
-          <View style={styles.selection}>
-            <Icon name="photos" style={{ width: SIZE.BASE * 2 }} />
-            <Typography color={COLOR.MUTED}>Photos</Typography>
-          </View>
-          <Tab onPress={_onPressPhotos}>select photos</Tab>
-          <SortPhotos />
-          <Divider />
-          {/* CATEGORY FIELDS */}
-          <FormCategory />
-          <Divider />
-          {/* DESCRIPTION FIELD  */}
-          <View style={styles.selection}>
-            <Icon name="document" style={{ width: SIZE.BASE * 2 }} />
-            <Typography color={COLOR.MUTED}>Description</Typography>
-          </View>
-          <Tab onPress={() => navigation.navigate('Description')}>
-            {description
-              ? _.truncate(description.replace(/\n/g, ' '), 10)
-              : 'description'}
-          </Tab>
-          {/* PHONE NUMBERS  */}
-          <Phone />
+
+          <Fields />
+
           {/* PUBLISH BUTTON  */}
           <Button large variant="contained" onPress={_onPressPublishAd}>
             {id ? 'save' : 'publish'}

@@ -12,6 +12,7 @@ function Input({
   style,
   inputContainerStyle,
   inputStyle,
+  labelStyle,
   type,
   placeholderTextColor = COLOR.MUTED,
   color,
@@ -65,7 +66,11 @@ function Input({
   );
 
   const errorText = error && <Text style={styles.error}>{error}</Text>;
-  const labelText = label && <Text style={{ marginLeft: 1 }}>{label}</Text>;
+  const labelText = label && (
+    <Text style={[labelStyle, { marginLeft: 1, marginBottom: 5 }]}>
+      {label}
+    </Text>
+  );
 
   return (
     <View

@@ -1,6 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Auth } from 'aws-amplify';
-import * as Sentry from '@sentry/react-native';
 
 import {
   Container,
@@ -22,8 +20,6 @@ import ApolloScreenErrorHandler from '../../service/apollo/errorHandler/screen';
 
 export default function User({ navigation, route }) {
   const signOutRef = useRef(null);
-  const [isEmailVerified, setIsEmailVerified] = useState(true);
-  const [currentEmail, setCurrentEmail] = useState(null);
 
   const [signOut] = useSignOut();
   const [profile, { loading, client, error, refetch }] = useQueryMe();
@@ -32,30 +28,6 @@ export default function User({ navigation, route }) {
     await signOut();
     client.resetStore();
   };
-
-  useEffect(() => {
-    const callCurrentUser = () =>
-      Auth.currentUserInfo()
-        .then((res) => {
-          if (res?.attributes) {
-            setCurrentEmail(res?.attributes.email);
-            setIsEmailVerified(res?.attributes.email_verified);
-          }
-        })
-        .catch((error) => {
-          Sentry.withScope(function (scope) {
-            scope.setTag('func', 'callCurrentUser');
-            Sentry.captureException(error);
-          });
-        });
-
-    callCurrentUser();
-
-    return () => {
-      setCurrentEmail(null);
-      setIsEmailVerified(null);
-    };
-  }, [route.params]);
 
   const signOutSheetAction = [{ title: 'sign out', onPress: _onPressLogout }];
 
@@ -86,7 +58,9 @@ export default function User({ navigation, route }) {
   return (
     <React.Fragment>
       {ComponentHeader}
-      {!isEmailVerified && <VerificationRequired email={currentEmail} />}
+      {!profile.email_verified && (
+        <VerificationRequired email={profile.email} />
+      )}
       <Container>
         {/* AD  */}
         <Typography variant="caption" family="bold" color={COLOR.MUTED}>
@@ -104,7 +78,7 @@ export default function User({ navigation, route }) {
         </Tab>
         <Tab
           onPress={() =>
-            navigation.navigate('EmailChange', { email: currentEmail })
+            navigation.navigate('EmailChange', { email: profile.email })
           }>
           change email address
         </Tab>

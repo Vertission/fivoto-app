@@ -84,7 +84,7 @@ export default function PublishedAds({ navigation }) {
           const photos = data.ad.photos.map((photo) => {
             return { [photo]: { source: 'CLOUD' } };
           });
-          dispatch('SET_CONTEXT', { ...data.ad, photos });
+          dispatch('SET_CONTEXT', { ...data.ad, photos, removePhotos: [] });
           setEditLoading(false);
           navigation.navigate('Post', { screen: 'Form' });
         })

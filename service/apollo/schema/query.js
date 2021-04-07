@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client';
 
 export const AD = gql`
-  query ad($id: ID!) {
+  query($id: ID!) {
     ad(id: $id) {
       id
-      type
+      status
       category {
         field
         item
@@ -25,6 +25,50 @@ export const AD = gql`
         id
         name
       }
+    }
+  }
+`;
+
+export const ADS = gql`
+  query($first: Int, $cursor: String, $filter: searchFilterInput) {
+    ads(first: $first, after: $cursor, filter: $filter) {
+      edges {
+        cursor
+        node {
+          id
+          status
+          title
+          price
+          photos
+          location {
+            city
+            district
+          }
+          category {
+            item
+            field
+          }
+          createdAt
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+`;
+
+export const ME = gql`
+  query me {
+    me {
+      id
+      name
+      email
+      email_verified
+      profile
+      createdAt
+      updatedAt
     }
   }
 `;

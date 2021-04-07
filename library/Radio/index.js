@@ -82,7 +82,9 @@ export default class Radio extends React.Component {
 
     return (
       <View style={[s.root, style]}>
-        <Typography variant="h5">{label}</Typography>
+        <Typography variant="h5" transform="capitalize">
+          {label}
+        </Typography>
         {data.map((item, index) => {
           return (
             <TouchableOpacity
@@ -170,7 +172,7 @@ const s = StyleSheet.create({
   productBoxLess: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 5,
   },
   root: {
     marginVertical: SIZE.margin,

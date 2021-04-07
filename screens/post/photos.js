@@ -12,7 +12,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import CameraRoll from '@react-native-community/cameraroll';
+import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
 import { Modalize } from 'react-native-modalize';
 import * as Sentry from '@sentry/react-native';
@@ -33,11 +33,7 @@ const LibraryImage = React.memo(
     const _onPressPhoto = () => {
       if (isSelected === null) return;
       selectPhoto({
-        item: {
-          uri: item.node.image.uri,
-          height: item.node.image.height,
-          width: item.node.image.width,
-        },
+        item: { uri: item.uri, width: item.width, height: item.height },
         photosLength,
       });
     };
@@ -53,12 +49,12 @@ const LibraryImage = React.memo(
         />
         <Image
           source={{
-            uri: item.node.image.uri,
+            uri: item.uri,
           }}
           style={styles.photo}
         />
         <Typography style={styles.previewImageScale}>
-          {item.node.image.width}x{item.node.image.height}
+          {item.width}x{item.height}
         </Typography>
         {isSelected && <View style={styles.previewImageOverlay} />}
       </TouchableOpacity>
@@ -101,12 +97,13 @@ export default function Photos() {
   const albumModalizeRef = useRef(null);
   // all get assets[photos]
   const [assets, setAssets] = useState([]);
+  const [totalAssets, setTotalAssets] = useState(0);
   const [endCursor, setEndCursor] = useState(0);
 
   // user albums list
   const [albums, setAlbums] = useState([]);
   // selected album
-  const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [selectedAlbum, setSelectedAlbum] = useState({});
   // assets selected photo
   const [selectedPhotos, setSelectPhotos] = useState({});
   // taken photo
@@ -146,10 +143,7 @@ export default function Photos() {
     seTakenPhotos(contextTakenPhotos);
     setCloudPhotos(contextCloudPhotos);
 
-    CameraRoll.getAlbums({
-      first: 20,
-      assetType: 'Photos',
-    }).then((res) => {
+    MediaLibrary.getAlbumsAsync().then((res) => {
       setAlbums(res);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -160,14 +154,15 @@ export default function Photos() {
    * @param {number} first assets offset
    */
   const _getAssetsAsync = (first) => {
-    CameraRoll.getPhotos({
+    MediaLibrary.getAssetsAsync({
       first,
-      assetType: 'Photos',
-      groupName: selectedAlbum,
-      include: ['imageSize'],
-    }).then(({ edges, page_info }) => {
-      setAssets(edges);
-      if (page_info.has_next_page) setEndCursor(Number(page_info.end_cursor));
+      sortBy: [MediaLibrary.SortBy.creationTime],
+      mediaType: [MediaLibrary.MediaType.photo],
+      album: selectedAlbum.id,
+    }).then(({ assets, hasNextPage, endCursor, totalCount }) => {
+      setAssets(assets);
+      setTotalAssets(totalCount);
+      if (hasNextPage) setEndCursor(Number(endCursor));
     });
   };
 
@@ -180,6 +175,7 @@ export default function Photos() {
   }, [selectedAlbum]);
 
   const _onEndReached = () => {
+    if (assets.length === totalAssets) return null;
     _getAssetsAsync(endCursor + offSet);
   };
 
@@ -190,7 +186,6 @@ export default function Photos() {
     ({ item, photosLength }) => {
       setSelectPhotos((photos) => {
         const sel = { ...photos };
-        // unselect
         if (sel.hasOwnProperty(item.uri)) {
           delete sel[item.uri];
         } else {
@@ -212,13 +207,14 @@ export default function Photos() {
   );
 
   /**
-   * select a album & clear assets and endCursor
+   * select a album & clear assets, totalAssets and endCursor
    * @param {object} album [title, id]
    */
   const _onPressSelectAlbum = async (album) => {
-    if (album === selectedAlbum) return albumModalizeRef.current?.close();
+    if (album.id === selectedAlbum.id) return albumModalizeRef.current?.close();
     setSelectedAlbum(album);
     setAssets([]);
+    setTotalAssets(0);
     setEndCursor(0);
     albumModalizeRef.current?.close();
   };
@@ -230,36 +226,11 @@ export default function Photos() {
 
   // open camera and take a cute picture and push to takenPhotos
   const _launchCamera = () => {
-    if (totalSelectedLength === 5) return null;
-
     ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
     })
       .then((res) => {
-        if (res.cancelled) return null;
-        seTakenPhotos([
-          ...takenPhotos,
-          {
-            uri: res.uri,
-            width: res.width,
-            height: res.height,
-            source: 'CAMERA',
-          },
-        ]);
-      })
-      .catch((error) => {
-        Sentry.captureException(error);
-      });
-  };
-
-  const _launchLibrary = () => {
-    if (totalSelectedLength === 5) return null;
-
-    ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    })
-      .then((res) => {
-        if (res.cancelled) return null;
+        if (totalSelectedLength === 5) return null;
         seTakenPhotos([
           ...takenPhotos,
           {
@@ -308,23 +279,13 @@ export default function Photos() {
             : `${totalSelectedLength} selected`
         }
         endContent={
-          <View style={styles.headerEndContent}>
-            <Icon
-              name="images"
-              size={SIZE.icon * 1.5}
-              touch
-              disabled={totalSelectedLength === 5}
-              onPress={_launchLibrary} // onPress this to launch camera
-            />
-            <Icon
-              name="camera"
-              size={SIZE.icon * 1.5}
-              touch
-              style={styles.headerEndContentIcon}
-              disabled={totalSelectedLength === 5}
-              onPress={_launchCamera} // onPress this to launch camera
-            />
-          </View>
+          <Icon
+            name="camera"
+            size={SIZE.icon * 1.5}
+            touch
+            disabled={totalSelectedLength === 5}
+            onPress={_launchCamera} // onPress this to launch camera
+          />
         }
       />
 
@@ -350,7 +311,7 @@ export default function Photos() {
           small
           variant="contained"
           onPress={albumModalizeRef.current?.open}>
-          {selectedAlbum || 'all albums'}
+          {selectedAlbum.id ? selectedAlbum.title : 'all albums'}
         </Button>
         <FlatList
           data={assets}
@@ -359,11 +320,11 @@ export default function Photos() {
               key={item.uri}
               item={item}
               selectPhoto={selectPhoto}
-              isSelected={selectedPhotos.hasOwnProperty(item.node.image.uri)}
+              isSelected={selectedPhotos.hasOwnProperty(item.uri)}
               photosLength={totalSelectedLength}
             />
           )}
-          keyExtractor={({ node }) => node.image.uri}
+          keyExtractor={({ uri }) => uri}
           numColumns={4}
           onEndReached={_onEndReached}
         />
@@ -375,7 +336,7 @@ export default function Photos() {
           color={COLOR.WHITE}
           variant="caption"
           style={styles.listLibraryCountText}>
-          {assets.length}
+          {assets.length} / {totalAssets}
         </Typography>
       </View>
 
@@ -385,12 +346,14 @@ export default function Photos() {
         childrenStyle={{ margin: SIZE.margin }}
         ref={albumModalizeRef}
         modalHeight={450}>
-        {albums.map(({ title }) => (
-          <Button key={title} onPress={() => _onPressSelectAlbum(title)}>
+        {albums.map(({ title, id }) => (
+          <Button key={id} onPress={() => _onPressSelectAlbum({ id, title })}>
             {title}
           </Button>
         ))}
-        <Button onPress={() => _onPressSelectAlbum(null)}>all albums</Button>
+        <Button onPress={() => _onPressSelectAlbum({ id: null })}>
+          all albums
+        </Button>
       </Modalize>
     </React.Fragment>
   );
@@ -404,13 +367,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     ...themeStyles.container,
-  },
-  headerEndContent: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  headerEndContentIcon: {
-    marginLeft: SIZE.margin * 2,
   },
   listLibraryCount: {
     alignItems: 'center',

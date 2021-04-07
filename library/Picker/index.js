@@ -7,10 +7,12 @@ import Typography from '../Typography';
 import { SIZE, COLOR } from '../Theme';
 import { INPUT } from '../Theme/library';
 
-export default function ({ label, pickers, style, ...rest }) {
+export default function ({ label, pickers, style, labelStyle, ...rest }) {
   return (
     <>
-      {label && <Typography style={styles.label}>{label}</Typography>}
+      {label && (
+        <Typography style={[styles.label, labelStyle]}>{label}</Typography>
+      )}
       <View style={[styles.inputStyle, style]}>
         <Picker style={{ width: '100%' }} {...rest}>
           {pickers.map((value) => (
@@ -39,5 +41,6 @@ const styles = StyleSheet.create({
   label: {
     marginLeft: 1,
     marginTop: SIZE.margin * 0.5,
+    marginBottom: 5,
   },
 });

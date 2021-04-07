@@ -1,6 +1,5 @@
 import React, { useState, useRef, useContext } from 'react';
 import { StyleSheet } from 'react-native';
-import analytics from '@react-native-firebase/analytics';
 import { useMutation, gql } from '@apollo/client';
 import RootSiblings from 'react-native-root-siblings';
 import { Modalize } from 'react-native-modalize';
@@ -23,29 +22,7 @@ const CREATE_AD = gql`
 
 const UPDATE_AD = gql`
   mutation updateAd($data: updateAdInput!) {
-    updateAd(data: $data) {
-      id
-      type
-      category {
-        field
-        item
-      }
-      location {
-        district
-        city
-      }
-      title
-      price
-      description
-      photos
-      phone
-      fields
-      updatedAt
-      user {
-        id
-        # name
-      }
-    }
+    updateAd(data: $data)
   }
 `;
 
@@ -113,7 +90,6 @@ export default function usePublishMutation(navigation) {
       } = await mutateCreateAd({
         variables: {
           data: {
-            type: 'SELL',
             category: data.category,
             location: data.location,
             title: data.title.trim(),
@@ -164,11 +140,6 @@ export default function usePublishMutation(navigation) {
         },
         refetchQueries: [{ query: QUERY_ME_UPDATE_ADS }],
       });
-
-      await analytics().logEvent('post_ad', {
-        category: data.category,
-        location: data.location,
-      }); // ANALYTIC
 
       setLoading(false);
       setStatus(null);

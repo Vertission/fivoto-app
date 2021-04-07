@@ -7,6 +7,7 @@ import {
   InMemoryCache,
   createHttpLink,
 } from '@apollo/client';
+import { relayStylePagination } from '@apollo/client/utilities';
 import { Auth } from 'aws-amplify';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
@@ -18,7 +19,7 @@ import { Toast } from '../../library';
 import signOut from '../../utils/signOut';
 
 const httpLink = createHttpLink({
-  uri: APOLLO_HOST,
+  uri: 'http://192.168.8.103:4000', // FIXME: APOLLO_HOST replace this
 });
 
 const errorLink = new onError(({ graphQLErrors, networkError }) => {
@@ -82,7 +83,7 @@ export const client = new ApolloClient({
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
-        fields: {},
+        fields: { ads: relayStylePagination(['filter']) },
       },
     },
   }),
