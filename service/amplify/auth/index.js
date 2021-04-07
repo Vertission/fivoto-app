@@ -76,7 +76,6 @@ export function useChangePassword() {
 
 export function useChangeEmail() {
   const navigation = useNavigation();
-  const [updateUser] = useUpdateUser();
 
   const [loading, setLoading] = useState(false);
 
@@ -86,9 +85,6 @@ export function useChangeEmail() {
       const currentUser = await Auth.currentAuthenticatedUser();
       await Auth.updateUserAttributes(currentUser, { email });
 
-      updateUser({
-        email,
-      });
       setLoading(false);
       navigation.navigate('EmailConfirmation', { email });
     } catch (error) {
