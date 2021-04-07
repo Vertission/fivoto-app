@@ -10,6 +10,10 @@
 
 - Show loading indicator on search ad photo preview bottom sheet
 
+### Fix in web
+
+- default value for dropdown if not selected in field mapper
+
 ### ISO SETUP
 
 - react navigation

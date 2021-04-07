@@ -1,28 +1,43 @@
 import React, { useContext } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View, Linking } from 'react-native';
+import { Permissions } from 'react-native-unimodules';
+import { useNavigation } from '@react-navigation/native';
 import { gql, useQuery } from '@apollo/client';
+import _ from 'lodash';
 
 import {
   Container,
   Header,
   Button,
+  Divider,
   Image,
+  Tab,
   Indicator,
   CheckBox,
   Typography,
   Input,
   Picker,
   Radio,
+  Modal,
+  Icon,
+  Snackbar,
+  Toast,
 } from '../../../library';
 
 import { SIZE, COLOR } from '../../../library/Theme';
 import { TYPOGRAPHY } from '../../../library/Theme/library';
+
+import Phone from './phone';
+import SortPhotos from './photos.sort';
+
+import dash from '../../../utils/dash';
 
 import ApolloScreenErrorHandler from '../../../service/apollo/errorHandler/screen';
 
 import { Context, dispatch } from './context';
 
 export default function PostModuleField() {
+  const navigation = useNavigation();
   const context = useContext(Context);
 
   const { data: dataField, loading, error } = useQuery(gql`
@@ -47,7 +62,13 @@ export default function PostModuleField() {
       else return 'default';
     };
 
-    Object.keys(data.field).map((field) => {
+    const fieldKeys = Object.keys(data.field);
+    dash.array_swap(fieldKeys, 2, 5);
+    dash.array_swap(fieldKeys, 4, 5);
+    dash.array_swap(fieldKeys, 2, 0);
+    dash.array_swap(fieldKeys, 2, 1);
+
+    fieldKeys.map((field) => {
       const Field = (field) => {
         const fieldProps = data.field[field];
         switch (field) {
@@ -57,6 +78,7 @@ export default function PostModuleField() {
              */
             return fields.push(
               <Input
+                key={'title'}
                 label="Title"
                 maxLength={50}
                 value={context.title}
@@ -71,7 +93,7 @@ export default function PostModuleField() {
              * map price field with negotiable true and false
              */
             return fields.push(
-              <React.Fragment>
+              <React.Fragment key={'price'}>
                 <Input
                   underlineColorAndroid="transparent"
                   onChangeText={(price) => dispatch('SET_PRICE', price)}
@@ -98,6 +120,20 @@ export default function PostModuleField() {
               </React.Fragment>,
             );
 
+          case 'description':
+            /**
+             * map description field
+             */
+            return fields.push(
+              <React.Fragment key={'description'}>
+                <Tab onPress={() => navigation.navigate('Description')}>
+                  {context.description
+                    ? _.truncate(context.description.replace(/\n/g, ' '), 10)
+                    : 'Description'}
+                </Tab>
+              </React.Fragment>,
+            );
+
           case 'subFields':
             /**
              * map sbu field
@@ -108,8 +144,17 @@ export default function PostModuleField() {
                   /**
                    * map sub field select
                    */
+
+                  if (!context.fields[field.name]) {
+                    dispatch('SET_FIELDS', {
+                      field: field.name,
+                      value: field.items[0],
+                    });
+                  }
+
                   return fields.push(
                     <Picker
+                      key={field.name}
                       label={field.name}
                       pickers={field.items}
                       selectedValue={context.fields[field.name]}
@@ -132,6 +177,7 @@ export default function PostModuleField() {
                 case 'input':
                   return fields.push(
                     <Input
+                      key={field.name}
                       label={field.name}
                       value={context.fields[field.name]}
                       underlineColorAndroid="transparent"
@@ -153,12 +199,15 @@ export default function PostModuleField() {
                  */
                 case 'inputSelect':
                   return fields.push(
-                    <React.Fragment>
-                      <Typography style={styles.label}>{field.name}</Typography>
+                    <React.Fragment key={field.name}>
+                      <Typography variant="h5" transform="capitalize">
+                        {field.name}
+                      </Typography>
                       <View
                         style={{
                           flexDirection: 'row',
                           width: '100%',
+                          marginTop: SIZE.margin * 0.5,
                         }}>
                         <Input
                           underlineColorAndroid="transparent"
@@ -174,7 +223,7 @@ export default function PostModuleField() {
                             })
                           }
                           value={context.fields[field.name]?.value}
-                          keyboardType={field.type}
+                          keyboardType={inputTypeMapper(field.type)}
                           inputContainerStyle={{
                             marginBottom: 0,
                             marginTop: 0,
@@ -206,48 +255,90 @@ export default function PostModuleField() {
                       </View>
                     </React.Fragment>,
                   );
-                /**
-                 * map sub field inputSelect
-                 */
-                case 'radio':
-                  const data = field.options.map((ele) => ({
-                    label: ele,
-                  }));
-
-                  return fields.push(
-                    <Radio
-                      data={data}
-                      label={field.name}
-                      initial={
-                        field.options.indexOf(context.fields[field.name]) + 1
-                      }
-                      selectedItem={(item) =>
-                        dispatch('SET_FIELDS', {
-                          field: field.name,
-                          value: item.label,
-                        })
-                      }
-                    />,
-                  );
                 default:
                   return null;
               }
             });
-          // /**
-          //  * display phone
-          //  */
-          // case 'phone':
-          //   return fields.push(
-          //     <Phone
-          //       maxLength={fieldProps.maxLength}
-          //       maxPhone={fieldProps.maxPhone}
-          //     />,
-          //   );
-          // /**
-          //  * display image drop zone
-          //  */
-          // case 'photo':
-          //   return fields.push(<Photos maxFiles={fieldProps.max} />);
+          /**
+           * display phone
+           */
+          case 'phone':
+            return fields.push(
+              <Phone
+                key={'phone'}
+                maxLength={fieldProps.maxLength}
+                maxPhone={fieldProps.maxPhone}
+              />,
+            );
+          /**
+           * display image drop zone
+           */
+          case 'photo':
+            /**
+             * library and camera requesting logic
+             */
+            const _onPressPhotos = async () => {
+              const CAM_ROLL = await Permissions.askAsync(
+                Permissions.MEDIA_LIBRARY,
+              );
+              const CAM = await Permissions.askAsync(Permissions.CAMERA);
+
+              if (!CAM_ROLL.granted)
+                Snackbar.show('Please Allow permission for library');
+              if (!CAM.granted)
+                Snackbar.show('Please Allow permission for camera');
+
+              const CAMERA_ROLL_PERMISSION = await Permissions.getAsync(
+                Permissions.MEDIA_LIBRARY,
+              );
+
+              if (!CAMERA_ROLL_PERMISSION.canAskAgain) {
+                Modal.show({
+                  title: 'Storage Permission Required',
+                  description:
+                    'Fivoto requires permission to access your storage in order to add photos to the ad, You could allow storage permission by opening the app settings.',
+                  actions: [
+                    {
+                      title: 'open settings',
+                      onPress: () => Linking.openSettings(),
+                    },
+                  ],
+                });
+              }
+
+              const CAMERA_PERMISSION = await Permissions.getAsync(
+                Permissions.CAMERA,
+              );
+              if (!CAMERA_PERMISSION.canAskAgain) {
+                Modal.show({
+                  title: 'Camera Permission Required',
+                  description:
+                    'Fivoto requires permission to access your camera in order to add photos to the ad, You could allow camera permission by opening the app settings.',
+                  actions: [
+                    {
+                      title: 'open settings',
+                      onPress: () => Linking.openSettings(),
+                    },
+                  ],
+                });
+              }
+
+              if (CAMERA_ROLL_PERMISSION.granted && CAMERA_PERMISSION.granted) {
+                navigation.navigate('Photos');
+              }
+            };
+
+            return fields.push(
+              <React.Fragment key={'photos'}>
+                <View style={styles.selection}>
+                  <Icon name="photos" style={{ width: SIZE.BASE * 2 }} />
+                  <Typography color={COLOR.MUTED}>Photos</Typography>
+                </View>
+                <Tab onPress={_onPressPhotos}>select photos</Tab>
+                <SortPhotos />
+                <Divider />
+              </React.Fragment>,
+            );
         }
       };
 
@@ -257,3 +348,10 @@ export default function PostModuleField() {
     return <View>{fields}</View>;
   }
 }
+
+const styles = StyleSheet.create({
+  selection: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+});

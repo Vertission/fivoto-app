@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 import { useMutation, gql } from '@apollo/client';
 import RootSiblings from 'react-native-root-siblings';
 import { Modalize } from 'react-native-modalize';
-import analytics from '@react-native-firebase/analytics';
 import * as Sentry from '@sentry/react-native';
 import _ from 'lodash';
 
@@ -17,25 +16,7 @@ import ApolloModalErrorHandler from '../../../../service/apollo/errorHandler/mod
 
 const UPDATE_AD = gql`
   mutation updateAd($data: updateAdInput!) {
-    updateAd(data: $data) {
-      id
-      type
-      category {
-        field
-        item
-      }
-      location {
-        district
-        city
-      }
-      title
-      price
-      description
-      photos
-      phone
-      fields
-      updatedAt
-    }
+    updateAd(data: $data)
   }
 `;
 
@@ -114,11 +95,6 @@ export default function useUpdateMutation(navigation) {
           },
         },
       });
-
-      await analytics().logEvent('update_ad', {
-        category: data.category,
-        location: data.location,
-      }); // ANALYTIC
 
       setLoading(false);
       setStatus(null);
