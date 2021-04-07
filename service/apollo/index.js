@@ -19,7 +19,7 @@ import { Toast } from '../../library';
 import signOut from '../../utils/signOut';
 
 const httpLink = createHttpLink({
-  uri: 'http://192.168.8.103:4000', // FIXME: APOLLO_HOST replace this
+  uri: APOLLO_HOST,
 });
 
 const errorLink = new onError(({ graphQLErrors, networkError }) => {
