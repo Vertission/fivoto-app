@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Linking } from 'react-native';
-import { Permissions } from 'react-native-unimodules';
+import { View, StyleSheet } from 'react-native';
 import _ from 'lodash';
 
 import {
@@ -9,8 +8,6 @@ import {
   Tab,
   Icon,
   Divider,
-  Snackbar,
-  Modal,
   Toast,
   Button,
   Header,
@@ -20,8 +17,7 @@ import { COLOR, SIZE } from '../../library/Theme';
 import { Context } from './modules/context';
 
 import Fields from './modules/fields';
-import SortPhotos from './modules/photos.sort';
-import Phone from './modules/phone';
+
 import MutationLoader from './modules/mutationLoader';
 
 import { usePublishMutation, useUpdateMutation } from './modules/hooks';
@@ -59,48 +55,6 @@ export default function Form({ navigation }) {
 
     if (id) update(adContext);
     else publish(adContext);
-  };
-
-  /**
-   * library and camera requesting logic
-   */
-  const _onPressPhotos = async () => {
-    const CAM_ROLL = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-    const CAM = await Permissions.askAsync(Permissions.CAMERA);
-
-    if (!CAM_ROLL.granted) Snackbar.show('Please Allow permission for library');
-    if (!CAM.granted) Snackbar.show('Please Allow permission for camera');
-
-    const CAMERA_ROLL_PERMISSION = await Permissions.getAsync(
-      Permissions.MEDIA_LIBRARY,
-    );
-
-    if (!CAMERA_ROLL_PERMISSION.canAskAgain) {
-      Modal.show({
-        title: 'Storage Permission Required',
-        description:
-          'Fivoto requires permission to access your storage in order to add photos to the ad, You could allow storage permission by opening the app settings.',
-        actions: [
-          { title: 'open settings', onPress: () => Linking.openSettings() },
-        ],
-      });
-    }
-
-    const CAMERA_PERMISSION = await Permissions.getAsync(Permissions.CAMERA);
-    if (!CAMERA_PERMISSION.canAskAgain) {
-      Modal.show({
-        title: 'Camera Permission Required',
-        description:
-          'Fivoto requires permission to access your camera in order to add photos to the ad, You could allow camera permission by opening the app settings.',
-        actions: [
-          { title: 'open settings', onPress: () => Linking.openSettings() },
-        ],
-      });
-    }
-
-    if (CAMERA_ROLL_PERMISSION.granted && CAMERA_PERMISSION.granted) {
-      navigation.navigate('Photos');
-    }
   };
 
   if (publishLoading || updateLoading)

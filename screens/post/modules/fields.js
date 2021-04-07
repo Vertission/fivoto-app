@@ -3,7 +3,7 @@ import { StyleSheet, View, Linking } from 'react-native';
 import { Permissions } from 'react-native-unimodules';
 import { useNavigation } from '@react-navigation/native';
 import { gql, useQuery } from '@apollo/client';
-import _ from 'lodash';
+import _, { findKey } from 'lodash';
 
 import {
   Container,
@@ -63,10 +63,6 @@ export default function PostModuleField() {
     };
 
     const fieldKeys = Object.keys(data.field);
-    dash.array_swap(fieldKeys, 2, 5);
-    dash.array_swap(fieldKeys, 4, 5);
-    dash.array_swap(fieldKeys, 2, 0);
-    dash.array_swap(fieldKeys, 2, 1);
 
     fieldKeys.map((field) => {
       const Field = (field) => {
