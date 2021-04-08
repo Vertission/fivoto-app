@@ -137,8 +137,8 @@ android {
         applicationId "com.vertission.fivoto"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 7
-        versionName "0.1.0"
+        versionCode 8
+        versionName "0.1.1"
     }
     splits {
         abi {
