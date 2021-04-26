@@ -20,6 +20,8 @@ const UPDATE_AD = gql`
   }
 `;
 
+import schema from '../../../../service/apollo/schema';
+
 export default function useUpdateMutation(navigation) {
   const modalizeRef = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -94,6 +96,9 @@ export default function useUpdateMutation(navigation) {
             updatedAt: new Date().toISOString(),
           },
         },
+        refetchQueries: [
+          { query: schema.query.AD, variables: { id: data.id } },
+        ],
       });
 
       setLoading(false);

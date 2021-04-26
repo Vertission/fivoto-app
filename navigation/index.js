@@ -46,7 +46,7 @@ export default function Navigation() {
 function TabNavigation() {
   return (
     <Tab.Navigator
-      initialRouteName="Post"
+      initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: COLOR.PRIMARY,
         showLabel: false,

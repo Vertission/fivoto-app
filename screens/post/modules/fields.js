@@ -3,25 +3,19 @@ import { StyleSheet, View, Linking } from 'react-native';
 import { Permissions } from 'react-native-unimodules';
 import { useNavigation } from '@react-navigation/native';
 import { gql, useQuery } from '@apollo/client';
-import _, { findKey } from 'lodash';
+import _ from 'lodash';
 
 import {
-  Container,
-  Header,
-  Button,
   Divider,
-  Image,
   Tab,
   Indicator,
   CheckBox,
   Typography,
   Input,
   Picker,
-  Radio,
   Modal,
   Icon,
   Snackbar,
-  Toast,
 } from '../../../library';
 
 import { SIZE, COLOR } from '../../../library/Theme';
@@ -29,8 +23,6 @@ import { TYPOGRAPHY } from '../../../library/Theme/library';
 
 import Phone from './phone';
 import SortPhotos from './photos.sort';
-
-import dash from '../../../utils/dash';
 
 import ApolloScreenErrorHandler from '../../../service/apollo/errorHandler/screen';
 
