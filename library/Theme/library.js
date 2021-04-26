@@ -1,17 +1,16 @@
 import { COLOR, SIZE } from './index';
-import normalize from '../helpers/normalize';
 
 const TYPOGRAPHY = {
   color: COLOR.TYPOGRAPHY,
   variant: {
-    default: normalize(SIZE.FONT),
-    h1: normalize(SIZE.FONT * 2),
-    h2: normalize(SIZE.FONT * 1.8),
-    h3: normalize(SIZE.FONT * 1.6),
-    h4: normalize(SIZE.FONT * 1.4),
-    h5: normalize(SIZE.FONT * 1.2),
-    h5: normalize(SIZE.FONT * 1.1),
-    caption: normalize(SIZE.FONT * 0.8),
+    default: SIZE.FONT,
+    h1: SIZE.FONT * 2,
+    h2: SIZE.FONT * 1.8,
+    h3: SIZE.FONT * 1.6,
+    h4: SIZE.FONT * 1.4,
+    h5: SIZE.FONT * 1.2,
+    h5: SIZE.FONT * 1.1,
+    caption: SIZE.FONT * 0.8,
   },
   letterSpacing: 0.9,
 };
@@ -22,7 +21,7 @@ const BUTTON = {
 
 const INPUT = {
   FONT: {
-    caption: normalize(SIZE.FONT * 0.8),
+    caption: SIZE.FONT * 0.8,
   },
   height: 40,
 };

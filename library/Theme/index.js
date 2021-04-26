@@ -7,7 +7,7 @@ import {
 
 const statusBarHeight = StatusBar.currentHeight;
 
-import normalize from '../helpers/normalize';
+import scaler from '../helpers/scaler';
 
 const COLOR = {
   PRIMARY: '#5bd592', // 5bd592
@@ -31,13 +31,13 @@ const COLOR = {
 
 const SIZE = {
   // global SIZE
-  FONT: 14,
+  FONT: scaler.scale(14),
   BASE: 16,
   //
-  padding: normalize(12),
-  margin: normalize(10),
+  padding: scaler.scale(12),
+  margin: scaler.scale(10),
   radius: 3,
-  icon: normalize(20),
+  icon: scaler.scale(20),
   elevation: 3,
   width,
   height,
